@@ -15,6 +15,17 @@ export default [
         ],
       },
       {
+        path: '/backstage',
+        component: '../layouts/UserLayout',
+        routes: [
+          {
+            name: 'login',
+            path: '/backstage/login',
+            component: './Backstage/User/login',
+          },
+        ],
+      },
+      {
         path: '/',
         component: '../layouts/SecurityLayout',
         routes: [

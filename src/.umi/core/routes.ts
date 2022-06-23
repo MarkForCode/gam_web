@@ -24,6 +24,18 @@ export function getRoutes() {
         ]
       },
       {
+        "path": "/backstage",
+        "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__UserLayout' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/layouts/UserLayout'), loading: LoadingComponent}),
+        "routes": [
+          {
+            "name": "login",
+            "path": "/backstage/login",
+            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Backstage__User__login' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/Backstage/User/login'), loading: LoadingComponent}),
+            "exact": true
+          }
+        ]
+      },
+      {
         "path": "/",
         "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__SecurityLayout' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/layouts/SecurityLayout'), loading: LoadingComponent}),
         "routes": [
