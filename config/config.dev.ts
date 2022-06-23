@@ -13,4 +13,9 @@ export default defineConfig({
     babelOptions: {},
   },
   webpack5: {},
+
+  define: {
+    API_URL: 'http://localhost:8833', // API address
+    API_SECRET_KEY: 'XXXXXXXXXXXXXXXX', // API call key
+  },
 });

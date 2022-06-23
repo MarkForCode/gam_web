@@ -2,7 +2,7 @@ import {
   LockOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Alert, Space, message, Tabs } from 'antd';
+import { Alert, Space, message, Tabs, Form } from 'antd';
 import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, connect, FormattedMessage } from 'umi';
@@ -12,6 +12,7 @@ import type { LoginParamsType } from '@/services/login';
 import type { ConnectState } from '@/models/connect';
 
 import styles from './index.less';
+import CaptchaInput from '@/components/Authorized/CaptchaInput';
 
 export type LoginProps = {
   dispatch: Dispatch;
@@ -41,7 +42,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     dispatch({
-      type: 'login/login',
+      type: 'backstage/login',
       payload: { ...values, type },
     });
   };
@@ -137,6 +138,17 @@ const Login: React.FC<LoginProps> = (props) => {
                 },
               ]}
             />
+
+            <Form.Item name="captchaComp" rules={[{
+              validateTrigger: 'onBlur',
+              validator: async (rule, value) => {
+                if (value.code == '') {
+                  throw new Error('请输入验证码!');
+                }
+              }
+            },]}>
+              <CaptchaInput />
+            </Form.Item>
           </>
         )}
 

@@ -43,4 +43,9 @@ export default defineConfig({
   // 快速刷新功能 https://umijs.org/config#fastrefresh
   fastRefresh: {},
   esbuild: {},
+
+  define: {
+    API_URL: 'http://localhost:8833', // API address
+    API_SECRET_KEY: 'XXXXXXXXXXXXXXXX', // API call key
+  },
 });
