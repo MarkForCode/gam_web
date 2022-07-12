@@ -1,7 +1,11 @@
 import request from '@/utils/request';
 
 export type LoginParamsType = {
-  userName: string;
+  guild: {
+    guild: string;
+    platform: string;
+  }
+  username: string;
   password: string;
   captchaComp: {
     code: string;
@@ -9,14 +13,18 @@ export type LoginParamsType = {
   }
 };
 
+const host = API_URL + '/api/v1/guild/login';
+
 export async function fakeAccountLogin(params: LoginParamsType) {
   console.log(123, params);
-  return request('/api/login/account', {
+  const data = await fetch(host, {
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(params),
     method: 'POST',
-    data: params,
-  });
-}
-
-export async function getFakeCaptcha(mobile: string) {
-  return request(`/api/login/captcha?mobile=${mobile}`);
+  })
+  const res = JSON.parse(await data.text());
+  console.log(res);
+  return res;
 }

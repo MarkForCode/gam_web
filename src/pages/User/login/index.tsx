@@ -12,9 +12,8 @@ import type { LoginParamsType } from '@/services/login';
 import type { ConnectState } from '@/models/connect';
 
 import styles from './index.less';
-import CaptchaInput from '@/components/Authorized/CaptchaInput';
+import CaptchaInput from '@/components/Authorized/GuildCaptchaInput';
 import GuildSelectInput from '@/components/Authorized/GuildSelectInput';
-import PlatformSelectInput from '@/components/Authorized/PlatformSelectInput';
 
 export type LoginProps = {
   dispatch: Dispatch;
@@ -44,7 +43,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     dispatch({
-      type: 'backstage/login',
+      type: 'login/login',
       payload: { ...values, type },
     });
   };
@@ -96,22 +95,14 @@ const Login: React.FC<LoginProps> = (props) => {
         )}
         {type === 'account' && (
           <>
-            <Form.Item name="platform" rules={[{
-              validateTrigger: 'onBlur',
-              validator: async (rule, value) => {
-                console.log(rule, value);
-                if (!value || value.value1 == '') {
-                  throw new Error('请输入guild!');
-                }
-              }
-            },]}>
-              <PlatformSelectInput />
-            </Form.Item>
             <Form.Item name="guild" rules={[{
               validateTrigger: 'onBlur',
               validator: async (rule, value) => {
                 console.log(rule, value);
-                if (!value || value.value1 == '') {
+                if (!value || !value.platform) {
+                  throw new Error('请输入platform!');
+                }
+                if (!value || !value.guild) {
                   throw new Error('请输入guild!');
                 }
               }
@@ -119,7 +110,7 @@ const Login: React.FC<LoginProps> = (props) => {
               <GuildSelectInput />
             </Form.Item>
             <ProFormText
-              name="userName"
+              name="username"
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,

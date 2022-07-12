@@ -12,7 +12,7 @@ import type { LoginParamsType } from '@/services/login';
 import type { ConnectState } from '@/models/connect';
 
 import styles from './index.less';
-import CaptchaInput from '@/components/Authorized/CaptchaInput';
+import CaptchaInput from '@/components/Authorized/BackstageCaptchaInput';
 
 export type LoginProps = {
   dispatch: Dispatch;
