@@ -6,6 +6,7 @@ import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
+import jwt_decode from "jwt-decode";
 
 export type StateType = {
   status?: 'ok' | 'error';
@@ -43,6 +44,15 @@ const Model: LoginModelType = {
       if (response.status === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
+        // console.log(response);
+        const ss:any = jwt_decode(response.data.access_token);
+        window.localStorage.setItem('token', response.data.access_token);
+        if(ss !== null) {
+          console.log(ss);
+          window.localStorage.setItem('exp', (ss['exp'] * 1000).toString() || '0');
+          window.localStorage.setItem('username', ss['user']['name'] ||  'test')
+          window.localStorage.setItem('role', ss['user']['role'] ||  'user')
+        }
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params as { redirect: string };
         if (redirect) {

@@ -5,11 +5,10 @@ import dva from 'dva';
 // @ts-ignore
 import createLoading from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
-import ModelBackstage0 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/backstage.ts';
-import ModelGlobal1 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
-import ModelLogin2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
-import ModelSetting3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
-import ModelUser4 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
+import ModelGlobal0 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
+import ModelLogin1 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
+import ModelSetting2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
+import ModelUser3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
 
 let app:any = null;
 
@@ -32,11 +31,10 @@ export function _onCreate(options = {}) {
   (runtimeDva.plugins || []).forEach((plugin:any) => {
     app.use(plugin);
   });
-  app.model({ namespace: 'backstage', ...ModelBackstage0 });
-app.model({ namespace: 'global', ...ModelGlobal1 });
-app.model({ namespace: 'login', ...ModelLogin2 });
-app.model({ namespace: 'setting', ...ModelSetting3 });
-app.model({ namespace: 'user', ...ModelUser4 });
+  app.model({ namespace: 'global', ...ModelGlobal0 });
+app.model({ namespace: 'login', ...ModelLogin1 });
+app.model({ namespace: 'setting', ...ModelSetting2 });
+app.model({ namespace: 'user', ...ModelUser3 });
   return app;
 }
 
