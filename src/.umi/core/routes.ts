@@ -51,35 +51,71 @@ export function getRoutes() {
                 "path": "/admin",
                 "name": "admin",
                 "icon": "crown",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Admin' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/Admin'), loading: LoadingComponent}),
                 "authority": [
-                  "ADMIN"
+                  "ADMIN",
+                  "NORMAL"
                 ],
                 "routes": [
                   {
-                    "path": "/admin/sub-page",
-                    "name": "sub-page",
+                    "name": "帳號管理",
                     "icon": "smile",
-                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Welcome' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/Welcome'), loading: LoadingComponent}),
-                    "authority": [
-                      "ADMIN"
-                    ],
+                    "path": "/admin/account",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAccount' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAccount'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "建立公告",
+                    "icon": "smile",
+                    "path": "/admin/announcemnetform",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementForm'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]
               },
               {
-                "name": "list.table-list",
-                "icon": "table",
-                "path": "/list",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__TableList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/TableList'), loading: LoadingComponent}),
+                "path": "/commodity",
+                "name": "商品",
+                "icon": "crown",
+                "authority": [
+                  "ADMIN",
+                  "NORMAL"
+                ],
+                "routes": [
+                  {
+                    "name": "建立商品",
+                    "icon": "smile",
+                    "path": "/commodity/form",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CommodityForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/CommodityForm'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "商品查詢",
+                    "icon": "smile",
+                    "path": "/commodity/list",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListCommodity' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListCommodity'), loading: LoadingComponent}),
+                    "exact": true
+                  }
+                ]
+              },
+              {
+                "name": "个人设置",
+                "icon": "smile",
+                "path": "/accountsettings",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
                 "exact": true
               },
               {
-                "name": "群組",
+                "name": "个人中心",
                 "icon": "smile",
-                "path": "/chatroom",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Chatroom' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/Chatroom'), loading: LoadingComponent}),
+                "path": "/accountcenter",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountCenter' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountCenter'), loading: LoadingComponent}),
+                "exact": true
+              },
+              {
+                "name": "公會資訊",
+                "icon": "smile",
+                "path": "/guild",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildAdvanced'), loading: LoadingComponent}),
                 "exact": true
               },
               {
