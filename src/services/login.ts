@@ -21,7 +21,14 @@ export async function fakeAccountLogin(params: LoginParamsType) {
     headers: {
       'content-type': 'application/json'
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify({
+      guild: params.guild.guild,
+      platform: params.guild.platform,
+      password: params.password,
+      username: params.username,
+      code: params.captchaComp.code,
+      codeId: params.captchaComp.codeId,
+    }),
     method: 'POST',
   })
   const res = JSON.parse(await data.text());
