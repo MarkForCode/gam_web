@@ -13,8 +13,35 @@ import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { fakeSubmitForm } from './service';
 import styles from './style.less';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import React from 'react';
+
+
+
+const createElement = () => {
+  const div = document.createElement("div");
+  return div;
+};
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "imageBlot" // #5 Optinal if using custom formats
+];
 
 const CommodityForm: FC<Record<string, any>> = () => {
+  const [quillRef, setQuillRef] = React.useState<any>({})
+  const [desc, setDesc] = React.useState<string>('')
   const { run } = useRequest(fakeSubmitForm, {
     manual: true,
     onSuccess: () => {
@@ -25,6 +52,51 @@ const CommodityForm: FC<Record<string, any>> = () => {
   const onFinish = async (values: Record<string, any>) => {
     run(values);
   };
+
+
+  const imageHandler = (v: any) => {
+    const input = document.createElement('input') as any;
+
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      var file: any = input.files[0];
+      var formData = new FormData();
+
+      formData.append('image', file);
+
+      var fileName = file.name;
+      console.log(file);
+      console.log(quillRef);
+      const quill = quillRef.getEditor();
+      const oldHtml = quill.root;
+      console.log(oldHtml);
+      const img = document.createElement('img');
+      img.src = `https://s3.ap-northeast-1.amazonaws.com/persistence.biatalk.cc/Business/setshowbiz/menu/menu_20220721.jpg`;
+      oldHtml.appendChild(img);
+    };
+  }
+
+
+  const modules = {
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['link', 'image'],
+        ['clean'],
+        [{ 'color': [] }]
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  };
+
 
   return (
     <PageContainer content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。">
@@ -37,6 +109,16 @@ const CommodityForm: FC<Record<string, any>> = () => {
           initialValues={{ public: '1' }}
           onFinish={onFinish}
         >
+          <ReactQuill
+            ref={el => {
+              setQuillRef(el);
+            }}
+            modules={modules}
+            formats={formats}
+            value={desc}
+          >
+            <div className="my-editing-area" />
+          </ReactQuill>
           <ProFormText
             width="md"
             label="标题"
