@@ -3,6 +3,8 @@
 import { request } from 'umi';
 import { TableListItem } from './data';
 
+const host = API_URL + '/api/v1/guild/account';
+
 /** 获取规则列表 GET /api/rule */
 export async function rule(
   params: {
@@ -19,7 +21,7 @@ export async function rule(
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
-  }>('/api/rule', {
+  }>(host, {
     method: 'GET',
     params: {
       ...params,

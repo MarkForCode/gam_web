@@ -1,5 +1,5 @@
 /** Request 网络请求工具 更详细的 api 文档: https://github.com/umijs/umi-request */
-import { extend } from 'umi-request';
+import { extend, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 
 const codeMessage: Record<number, string> = {
@@ -43,6 +43,16 @@ const errorHandler = (error: { response: Response }): Response => {
   return response;
 };
 
+const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
+  let authHeader: any = options.headers;
+  authHeader['Authorization'] = `Bearer ${window.localStorage.getItem('token')}`;
+
+  return {
+    url: `${url}`,
+    options: { ...options, interceptors: true, headers: authHeader },
+  };
+};
+
 /**
  * @en-US Configure the default parameters for request
  * @zh-CN 配置request请求时的默认参数
@@ -51,5 +61,6 @@ const request = extend({
   errorHandler, // default error handling
   credentials: 'include', // Does the default request bring cookies
 });
+request.interceptors.request.use(authHeaderInterceptor);
 
 export default request;

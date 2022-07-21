@@ -51,18 +51,7 @@ const ListCommodity: FC = () => {
               }
             />
             <div className={styles.cardItemContent}>
-              <span>{moment(item.updatedAt).fromNow()}</span>
-              <div className={styles.avatarList}>
-                <AvatarList size="small">
-                  {item.members.map((member, i) => (
-                    <AvatarList.Item
-                      key={getKey(item.id, i)}
-                      src={member.avatar}
-                      tips={member.name}
-                    />
-                  ))}
-                </AvatarList>
-              </div>
+              <span>{moment(item.updatedAt || item.createdAt).fromNow()}</span>
             </div>
           </Card>
         </List.Item>
