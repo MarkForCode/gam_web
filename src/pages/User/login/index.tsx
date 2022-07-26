@@ -95,7 +95,7 @@ const Login: React.FC<LoginProps> = (props) => {
         )}
         {type === 'account' && (
           <>
-            <Form.Item name="guild" rules={[{
+            <Form.Item label="公會" name="guild" rules={[{
               validateTrigger: 'onBlur',
               validator: async (rule, value) => {
                 console.log(rule, value);

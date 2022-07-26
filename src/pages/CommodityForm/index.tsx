@@ -1,4 +1,4 @@
-import { Card, message } from 'antd';
+import { Button, Card, Form, message, Upload } from 'antd';
 import ProForm, {
   ProFormDateRangePicker,
   ProFormDependency,
@@ -6,23 +6,18 @@ import ProForm, {
   ProFormRadio,
   ProFormSelect,
   ProFormText,
-  ProFormTextArea,
 } from '@ant-design/pro-form';
 import { useRequest } from 'umi';
 import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { fakeSubmitForm } from './service';
 import styles from './style.less';
+import TextEditor from '@/components/TextEditor';
+import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import React from 'react';
-
-
-
-const createElement = () => {
-  const div = document.createElement("div");
-  return div;
-};
+import FormItem from 'antd/lib/form/FormItem';
+import { UploadOutlined } from '@ant-design/icons';
 
 const formats = [
   "header",
@@ -39,9 +34,21 @@ const formats = [
   "imageBlot" // #5 Optinal if using custom formats
 ];
 
+
+const uploadProps = {
+  maxCount: 1,
+  beforeUpload(file: any) {
+    console.log(file)
+  },
+  onChange(info: any) {
+    console.log(info.fileList);
+  },
+  accept: ".jpg, .png",
+};
+
+
 const CommodityForm: FC<Record<string, any>> = () => {
   const [quillRef, setQuillRef] = React.useState<any>({})
-  const [desc, setDesc] = React.useState<string>('')
   const { run } = useRequest(fakeSubmitForm, {
     manual: true,
     onSuccess: () => {
@@ -50,7 +57,12 @@ const CommodityForm: FC<Record<string, any>> = () => {
   });
 
   const onFinish = async (values: Record<string, any>) => {
-    run(values);
+    console.log(values, quillRef);
+    run({
+      title: values.title,
+      content: quillRef.state.value,
+      previewImage: values.previewImage,
+    });
   };
 
 
@@ -109,16 +121,22 @@ const CommodityForm: FC<Record<string, any>> = () => {
           initialValues={{ public: '1' }}
           onFinish={onFinish}
         >
-          <ReactQuill
-            ref={el => {
-              setQuillRef(el);
-            }}
-            modules={modules}
-            formats={formats}
-            value={desc}
+
+          <FormItem
+            // {...formItemLayout}
+            label="預覽圖"
+            name="previewImage"
+            rules={[
+              {
+                required: false,
+                // message: formatMessage({ id: 'apntokenform.title.required' }),
+              },
+            ]}
           >
-            <div className="my-editing-area" />
-          </ReactQuill>
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined />}>Click to Upload (jpg, png)</Button>
+            </Upload>
+          </FormItem>
           <ProFormText
             width="md"
             label="标题"
@@ -131,6 +149,17 @@ const CommodityForm: FC<Record<string, any>> = () => {
             ]}
             placeholder="给目标起个名字"
           />
+
+          <ReactQuill
+            ref={el => {
+              setQuillRef(el);
+            }}
+            modules={modules}
+            formats={formats}
+          >
+            <div className="my-editing-area" />
+          </ReactQuill>
+
           <ProFormDateRangePicker
             label="起止日期"
             width="md"
@@ -143,45 +172,6 @@ const CommodityForm: FC<Record<string, any>> = () => {
             ]}
             placeholder={['开始日期', '结束日期']}
           />
-          <ProFormTextArea
-            label="目标描述"
-            width="xl"
-            name="goal"
-            rules={[
-              {
-                required: true,
-                message: '请输入目标描述',
-              },
-            ]}
-            placeholder="请输入你的阶段性工作目标"
-          />
-
-          <ProFormTextArea
-            label="衡量标准"
-            name="standard"
-            width="xl"
-            rules={[
-              {
-                required: true,
-                message: '请输入衡量标准',
-              },
-            ]}
-            placeholder="请输入衡量标准"
-          />
-
-          <ProFormText
-            width="md"
-            label={
-              <span>
-                客户
-                <em className={styles.optional}>（选填）</em>
-              </span>
-            }
-            tooltip="目标的服务对象"
-            name="client"
-            placeholder="请描述你服务的客户，内部客户直接 @姓名／工号"
-          />
-
           <ProFormText
             width="md"
             label={
