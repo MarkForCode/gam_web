@@ -7,7 +7,7 @@ import ProForm, {
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-form';
-import { useRequest } from 'umi';
+import { connect, useRequest } from 'umi';
 import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { fakeSubmitForm } from './service';
@@ -18,6 +18,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import FormItem from 'antd/lib/form/FormItem';
 import { UploadOutlined } from '@ant-design/icons';
+import { ConnectState } from '@/models/connect';
+import { CommodityParamsType } from '@/services/file';
 
 const formats = [
   "header",
@@ -47,22 +49,24 @@ const uploadProps = {
 };
 
 
-const CommodityForm: FC<Record<string, any>> = () => {
+const CommodityForm: FC<Record<string, any>> = (props) => {
   const [quillRef, setQuillRef] = React.useState<any>({})
-  const { run } = useRequest(fakeSubmitForm, {
-    manual: true,
-    onSuccess: () => {
-      message.success('提交成功');
-    },
-  });
+  const handleSubmit = (values: CommodityParamsType) => {
+    const { dispatch } = props;
+    dispatch({
+      type: 'file/upload',
+      payload: {
+        title: values.title,
+        content: quillRef.state.value,
+        previewImage: values.previewImage,
+      },
+    });
+  };
 
   const onFinish = async (values: Record<string, any>) => {
     console.log(values, quillRef);
-    run({
-      title: values.title,
-      content: quillRef.state.value,
-      previewImage: values.previewImage,
-    });
+    handleSubmit(values as CommodityParamsType);
+    return Promise.resolve();
   };
 
 
@@ -257,4 +261,6 @@ const CommodityForm: FC<Record<string, any>> = () => {
   );
 };
 
-export default CommodityForm;
+export default connect(({ loading }: ConnectState) => ({
+  submitting: loading.effects['file/upload'],
+}))(CommodityForm);
