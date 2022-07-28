@@ -1,6 +1,6 @@
-import { Card, Col, Form, List, Row, Select, Typography } from 'antd';
+import { Button, Card, Col, Form, List, Row, Select, Typography } from 'antd';
 import moment from 'moment';
-import type { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useRequest } from 'umi';
 import AvatarList from './components/AvatarList';
 import StandardFormRow from './components/StandardFormRow';
@@ -13,22 +13,59 @@ const { Option } = Select;
 const FormItem = Form.Item;
 const { Paragraph } = Typography;
 
-const getKey = (id: string, index: number) => `${id}-${index}`;
-
 const ListCommodity: FC = () => {
-  const { data, loading, run } = useRequest((values: any) => {
-    console.log('form data', values);
-    return queryFakeList({
-      count: 8,
-    });
-  });
+  const [initLoading, setInitLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<ListItemDataType[]>([]);
+  const [list, setList] = useState<ListItemDataType[]>([]);
 
-  const list = data?.list || [];
+  useEffect(() => {
+    queryFakeList({
+    }).then((res) => {
+      setInitLoading(false);
+      setList(res.data.list);
+      setList(res.data.list);
+    })
+  }, []);
+
+
+  const onLoadMore = () => {
+    setLoading(true);
+    // setList(
+    //   data.concat([...new Array(count)].map(() => ({ loading: true, name: {}, picture: {} }))),
+    // );
+    queryFakeList({})
+      .then(res => {
+        const newData = data.concat(res.data.list);
+        setData(newData);
+        setList(newData);
+        setLoading(false);
+        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+        // In real scene, you can using public method of react-virtualized:
+        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+        window.dispatchEvent(new Event('resize'));
+      });
+  };
+
+  const loadMore =
+    !initLoading && !loading ? (
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px',
+        }}
+      >
+        <Button onClick={onLoadMore}>loading more</Button>
+      </div>
+    ) : null;
 
   const cardList = list && (
     <List<ListItemDataType>
       rowKey="id"
-      loading={loading}
+      loading={initLoading}
+      loadMore={loadMore}
       grid={{
         gutter: 16,
         xs: 1,
@@ -74,7 +111,7 @@ const ListCommodity: FC = () => {
           onValuesChange={(_, values) => {
             // 表单项变化时请求数据
             // 模拟查询表单生效
-            run(values);
+            // queryFakeList(values);
           }}
         >
           <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
