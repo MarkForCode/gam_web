@@ -6,6 +6,8 @@ export type Member = {
 
 export interface Params {
   count?: number;
+  cursor?: string;
+  title?: string;
 }
 export interface ListItemDataType {
   id: string;

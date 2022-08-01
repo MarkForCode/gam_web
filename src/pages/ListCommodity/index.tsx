@@ -1,11 +1,11 @@
-import { Button, Card, Col, Form, List, Row, Select, Typography } from 'antd';
+import { Button, Card, Col, Form, Input, List, Row, Select, Typography } from 'antd';
 import moment from 'moment';
 import { FC, useEffect, useState } from 'react';
-import { useRequest } from 'umi';
+import { useRequest, history } from 'umi';
 import AvatarList from './components/AvatarList';
 import StandardFormRow from './components/StandardFormRow';
 import TagSelect from './components/TagSelect';
-import type { ListItemDataType } from './data.d';
+import type { ListItemDataType, Params } from './data.d';
 import { queryFakeList } from './service';
 import styles from './style.less';
 
@@ -18,28 +18,29 @@ const ListCommodity: FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ListItemDataType[]>([]);
   const [list, setList] = useState<ListItemDataType[]>([]);
-
+  const [params, setParams] = useState<Params>({});
+  const [cursor, setCursor] = useState<string>('');
   useEffect(() => {
-    queryFakeList({
-    }).then((res) => {
+    onLoadMore().then(() => {
       setInitLoading(false);
-      setList(res.data.list);
-      setList(res.data.list);
     })
   }, []);
 
 
   const onLoadMore = () => {
+    console.log(params);
     setLoading(true);
-    // setList(
-    //   data.concat([...new Array(count)].map(() => ({ loading: true, name: {}, picture: {} }))),
-    // );
-    queryFakeList({})
+    return queryFakeList({ ...params, cursor })
       .then(res => {
-        const newData = data.concat(res.data.list);
+        console.log(res);
+        const ll = res.data.list.filter((l) => l.id != cursor)
+        const newData = data.concat(ll);
         setData(newData);
         setList(newData);
-        setLoading(false);
+        setCursor(newData[newData.length - 1].id)
+        if (ll.length >= 8) {
+          setLoading(false);
+        }
         // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
         // In real scene, you can using public method of react-virtualized:
         // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
@@ -77,13 +78,18 @@ const ListCommodity: FC = () => {
       }}
       dataSource={list}
       renderItem={(item) => (
-        <List.Item>
+        <List.Item
+          onClick={(event) => {
+            history.push('/commodity/detail/' + item.id);
+          }}>
           <Card className={styles.card} hoverable cover={<img alt={item.title} src={item.cover} />}>
             <Card.Meta
               title={<a>{item.title}</a>}
               description={
                 <Paragraph className={styles.item} ellipsis={{ rows: 2 }}>
                   {item.subDescription}
+                  <br></br>
+                  {item.id}
                 </Paragraph>
               }
             />
@@ -108,13 +114,23 @@ const ListCommodity: FC = () => {
       <Card bordered={false}>
         <Form
           layout="inline"
-          onValuesChange={(_, values) => {
-            // 表单项变化时请求数据
-            // 模拟查询表单生效
-            // queryFakeList(values);
+          onFinish={(values) => {
+            setLoading(true);
+            setParams(values);
+            queryFakeList(values)
+              .then(res => {
+                console.log(res);
+                const newData = res.data.list;
+                setData(newData);
+                setList(newData);
+                if (newData.length >= 8) {
+                  setLoading(false);
+                }
+                window.dispatchEvent(new Event('resize'));
+              });
           }}
         >
-          <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
+          {/* <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
             <FormItem name="category">
               <TagSelect expandable>
                 <TagSelect.Option value="cat1">类目一</TagSelect.Option>
@@ -131,23 +147,27 @@ const ListCommodity: FC = () => {
                 <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
               </TagSelect>
             </FormItem>
-          </StandardFormRow>
+          </StandardFormRow> */}
           <StandardFormRow title="其它选项" grid last>
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="作者" name="author">
                   <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                    <Option value="lisa">王昭君</Option>
+                    <Option value="lisa">mark</Option>
                   </Select>
                 </FormItem>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>
-                <FormItem {...formItemLayout} label="好评度" name="rate">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                    <Option value="good">优秀</Option>
-                    <Option value="normal">普通</Option>
-                  </Select>
+                <FormItem {...formItemLayout} label="標題" name="title">
+                  <Input />
                 </FormItem>
+              </Col>
+              <Col lg={8} md={10} sm={10} xs={24}>
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                </Form.Item>
               </Col>
             </Row>
           </StandardFormRow>

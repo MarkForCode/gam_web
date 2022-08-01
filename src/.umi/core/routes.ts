@@ -94,6 +94,13 @@ export function getRoutes() {
                     "path": "/commodity/list",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListCommodity' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListCommodity'), loading: LoadingComponent}),
                     "exact": true
+                  },
+                  {
+                    "name": "商品明細",
+                    "hideInMenu": true,
+                    "path": "/commodity/detail/:id",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CommodityBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/CommodityBasic'), loading: LoadingComponent}),
+                    "exact": true
                   }
                 ]
               },

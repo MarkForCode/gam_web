@@ -71,6 +71,12 @@ export default [
                     path: '/commodity/list',
                     component: './ListCommodity',
                   },
+                  {
+                    name: '商品明細',
+                    hideInMenu: true,
+                    path: '/commodity/detail/:id',
+                    component: './CommodityBasic',
+                  },
                 ],
               },
               {
