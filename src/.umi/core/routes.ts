@@ -20,6 +20,13 @@ export function getRoutes() {
             "path": "/user/login",
             "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__User__login' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/User/login'), loading: LoadingComponent}),
             "exact": true
+          },
+          {
+            "name": "注册页",
+            "icon": "smile",
+            "path": "/user/register",
+            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__UserRegister' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/UserRegister'), loading: LoadingComponent}),
+            "exact": true
           }
         ]
       },
@@ -66,8 +73,15 @@ export function getRoutes() {
                   {
                     "name": "建立公告",
                     "icon": "smile",
-                    "path": "/admin/announcemnetform",
+                    "path": "/admin/announcemnet/form",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementForm'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "查询表格",
+                    "icon": "smile",
+                    "path": "/admin/announcement",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAnnouncementList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAnnouncementList'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]
@@ -100,6 +114,13 @@ export function getRoutes() {
                     "hideInMenu": true,
                     "path": "/commodity/detail/:id",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CommodityBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/CommodityBasic'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "查询交易",
+                    "icon": "smile",
+                    "path": "/commodity/deal",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListDealList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListDealList'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]

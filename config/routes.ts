@@ -12,6 +12,12 @@ export default [
             path: '/user/login',
             component: './User/login',
           },
+          {
+            name: '注册页',
+            icon: 'smile',
+            path: '/user/register',
+            component: './UserRegister',
+          },
         ],
       },
       {
@@ -48,8 +54,14 @@ export default [
                   {
                     name: '建立公告',
                     icon: 'smile',
-                    path: '/admin/announcemnetform',
+                    path: '/admin/announcemnet/form',
                     component: './AnnouncementForm',
+                  },
+                  {
+                    name: '查询表格',
+                    icon: 'smile',
+                    path: '/admin/announcement',
+                    component: './ListAnnouncementList',
                   },
                 ],
               },
@@ -76,6 +88,12 @@ export default [
                     hideInMenu: true,
                     path: '/commodity/detail/:id',
                     component: './CommodityBasic',
+                  },
+                  {
+                    name: '查询交易',
+                    icon: 'smile',
+                    path: '/commodity/deal',
+                    component: './ListDealList',
                   },
                 ],
               },

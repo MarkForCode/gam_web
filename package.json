@@ -59,6 +59,7 @@
     "lodash-decorators": "^6.0.1",
     "moment": "^2.25.3",
     "numeral": "^2.0.6",
+    "nzh": "^1.0.8",
     "omit.js": "^2.0.2",
     "react": "^16.14.0",
     "react-dev-inspector": "^1.1.1",
