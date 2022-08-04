@@ -1,14 +1,18 @@
 import { request } from 'umi';
 import type { CurrentUser, ListItemDataType } from './data.d';
 
+const host = API_URL + '/api/v1/guild/account';
+const announceHost = API_URL + '/api/v1/guild/announce';
 export async function queryCurrent(): Promise<{ data: CurrentUser }> {
-  return request('/api/currentUserDetail');
+  const rr =await request(host + '/state');
+  console.log(rr)
+  return rr;
 }
 
 export async function queryFakeList(params: {
   count: number;
 }): Promise<{ data: { list: ListItemDataType[] } }> {
-  return request('/api/fake_list_Detail', {
-    params,
-  });
+  const rr = await request(announceHost);
+  console.log(rr);
+  return rr;
 }
