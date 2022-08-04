@@ -2,12 +2,12 @@ import type { Reducer, Effect } from 'umi';
 
 import { fakeAccountLogin } from '@/services/login';
 import { message } from 'antd';
-import { fakeSubmitForm } from '@/services/file';
+import { fakeSubmitForm } from '@/services/commodity';
 
 export type FileModelState = {
 };
 
-export type FileModelType = {
+export type CommodityModelType = {
   namespace: string;
   state: any;
   effects: {
@@ -17,8 +17,8 @@ export type FileModelType = {
   };
 };
 
-const Model: FileModelType = {
-  namespace: 'file',
+const Model: CommodityModelType = {
+  namespace: 'commodity',
   state: {
   },
   effects: {

@@ -44,7 +44,7 @@ export function getRoutes() {
                 "path": "/welcome",
                 "name": "welcome",
                 "icon": "smile",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Welcome' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/Welcome'), loading: LoadingComponent}),
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountCenter' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountCenter'), loading: LoadingComponent}),
                 "exact": true
               },
               {
@@ -109,13 +109,6 @@ export function getRoutes() {
                 "icon": "smile",
                 "path": "/accountsettings",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
-                "exact": true
-              },
-              {
-                "name": "个人中心",
-                "icon": "smile",
-                "path": "/accountcenter",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountCenter' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountCenter'), loading: LoadingComponent}),
                 "exact": true
               },
               {

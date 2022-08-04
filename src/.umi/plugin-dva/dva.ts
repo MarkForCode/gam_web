@@ -5,11 +5,14 @@ import dva from 'dva';
 // @ts-ignore
 import createLoading from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
-import ModelFile0 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file.ts';
-import ModelGlobal1 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
-import ModelLogin2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
-import ModelSetting3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
-import ModelUser4 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
+import ModelAnnouncement0 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/announcement.ts';
+import ModelCommodity1 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/commodity.ts';
+import ModelDeal2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/deal.ts';
+import ModelFile3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file.ts';
+import ModelGlobal4 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
+import ModelLogin5 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
+import ModelSetting6 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
+import ModelUser7 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
 
 let app:any = null;
 
@@ -32,11 +35,14 @@ export function _onCreate(options = {}) {
   (runtimeDva.plugins || []).forEach((plugin:any) => {
     app.use(plugin);
   });
-  app.model({ namespace: 'file', ...ModelFile0 });
-app.model({ namespace: 'global', ...ModelGlobal1 });
-app.model({ namespace: 'login', ...ModelLogin2 });
-app.model({ namespace: 'setting', ...ModelSetting3 });
-app.model({ namespace: 'user', ...ModelUser4 });
+  app.model({ namespace: 'announcement', ...ModelAnnouncement0 });
+app.model({ namespace: 'commodity', ...ModelCommodity1 });
+app.model({ namespace: 'deal', ...ModelDeal2 });
+app.model({ namespace: 'file', ...ModelFile3 });
+app.model({ namespace: 'global', ...ModelGlobal4 });
+app.model({ namespace: 'login', ...ModelLogin5 });
+app.model({ namespace: 'setting', ...ModelSetting6 });
+app.model({ namespace: 'user', ...ModelUser7 });
   return app;
 }
 

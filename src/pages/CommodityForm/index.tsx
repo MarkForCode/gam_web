@@ -19,7 +19,7 @@ import 'react-quill/dist/quill.snow.css';
 import FormItem from 'antd/lib/form/FormItem';
 import { UploadOutlined } from '@ant-design/icons';
 import { ConnectState } from '@/models/connect';
-import { CommodityParamsType } from '@/services/file';
+import { CommodityParamsType } from '@/services/commodity';
 
 const formats = [
   "header",
@@ -54,7 +54,7 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
   const handleSubmit = (values: CommodityParamsType) => {
     const { dispatch } = props;
     dispatch({
-      type: 'file/upload',
+      type: 'commodity/upload',
       payload: {
         title: values.title,
         content: quillRef.state.value,
@@ -262,5 +262,5 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
 };
 
 export default connect(({ loading }: ConnectState) => ({
-  submitting: loading.effects['file/upload'],
+  submitting: loading.effects['commodity/upload'],
 }))(CommodityForm);

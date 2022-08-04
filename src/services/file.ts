@@ -6,8 +6,8 @@ export type CommodityParamsType = {
 };
 
 
-const host = API_URL + '/api/v1/guild/commodity';
 const fileHost = API_URL + '/api/v1/guild/file';
+
 
 export async function fakeSubmitForm(params: CommodityParamsType) {
   console.log(params)
@@ -16,26 +16,15 @@ export async function fakeSubmitForm(params: CommodityParamsType) {
     const link = await getPresigned();
     dd = JSON.parse(await link.text())
     console.log(dd);
-    await fakeUploadFile(dd, params.previewImage.file.originFileObj);
+    return fakeUploadFile(dd, params.previewImage.file.originFileObj);
   }
-  const body = {
-    ...params,
-    file: dd?.fields.key,
-  };
-  console.log(body)
-  return fetch(host, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
-    },
-    body: JSON.stringify(body),
-  });
 }
-
 
 export async function getPresigned() {
   return fetch(fileHost  + `/presigned?ext=jpg`, {
+    headers: {
+      'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+    },
     method: 'GET',
   });
 }

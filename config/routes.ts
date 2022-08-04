@@ -31,7 +31,7 @@ export default [
                 path: '/welcome',
                 name: 'welcome',
                 icon: 'smile',
-                component: './Welcome',
+                component: './AccountCenter',
               },
               {
                 path: '/admin',
@@ -84,12 +84,6 @@ export default [
                 icon: 'smile',
                 path: '/accountsettings',
                 component: './AccountSettings',
-              },
-              {
-                name: '个人中心',
-                icon: 'smile',
-                path: '/accountcenter',
-                component: './AccountCenter',
               },
               {
                 name: '公會資訊',

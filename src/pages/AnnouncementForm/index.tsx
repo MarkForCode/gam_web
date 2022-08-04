@@ -1,4 +1,4 @@
-import { Card, message } from 'antd';
+import { Button, Card, Form, message, Upload } from 'antd';
 import ProForm, {
   ProFormDateRangePicker,
   ProFormDependency,
@@ -6,25 +6,113 @@ import ProForm, {
   ProFormRadio,
   ProFormSelect,
   ProFormText,
-  ProFormTextArea,
 } from '@ant-design/pro-form';
-import { useRequest } from 'umi';
+import { connect, useRequest } from 'umi';
 import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { fakeSubmitForm } from './service';
 import styles from './style.less';
+import TextEditor from '@/components/TextEditor';
+import React from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import FormItem from 'antd/lib/form/FormItem';
+import { UploadOutlined } from '@ant-design/icons';
+import { ConnectState } from '@/models/connect';
+import { CommodityParamsType } from '@/services/announcement';
 
-const AnnouncementForm: FC<Record<string, any>> = () => {
-  const { run } = useRequest(fakeSubmitForm, {
-    manual: true,
-    onSuccess: () => {
-      message.success('提交成功');
-    },
-  });
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "imageBlot" // #5 Optinal if using custom formats
+];
+
+
+const uploadProps = {
+  maxCount: 1,
+  beforeUpload(file: any) {
+    console.log(file)
+  },
+  onChange(info: any) {
+    console.log(info.fileList);
+  },
+  accept: ".jpg, .png",
+};
+
+
+const AnnouncementForm: FC<Record<string, any>> = (props) => {
+  const [quillRef, setQuillRef] = React.useState<any>({})
+  const handleSubmit = (values: CommodityParamsType) => {
+    const { dispatch } = props;
+    dispatch({
+      type: 'announcement/upload',
+      payload: {
+        title: values.title,
+        content: quillRef.state.value,
+        previewImage: values.previewImage,
+      },
+    });
+  };
 
   const onFinish = async (values: Record<string, any>) => {
-    run(values);
+    console.log(values, quillRef);
+    handleSubmit(values as CommodityParamsType);
+    return Promise.resolve();
   };
+
+
+  const imageHandler = (v: any) => {
+    const input = document.createElement('input') as any;
+
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      var file: any = input.files[0];
+      var formData = new FormData();
+
+      formData.append('image', file);
+
+      var fileName = file.name;
+      console.log(file);
+      console.log(quillRef);
+      const quill = quillRef.getEditor();
+      const oldHtml = quill.root;
+      console.log(oldHtml);
+      const img = document.createElement('img');
+      img.src = `https://s3.ap-northeast-1.amazonaws.com/persistence.biatalk.cc/Business/setshowbiz/menu/menu_20220721.jpg`;
+      oldHtml.appendChild(img);
+    };
+  }
+
+
+  const modules = {
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['link', 'image'],
+        ['clean'],
+        [{ 'color': [] }]
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  };
+
 
   return (
     <PageContainer content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。">
@@ -37,6 +125,22 @@ const AnnouncementForm: FC<Record<string, any>> = () => {
           initialValues={{ public: '1' }}
           onFinish={onFinish}
         >
+
+          <FormItem
+            // {...formItemLayout}
+            label="預覽圖"
+            name="previewImage"
+            rules={[
+              {
+                required: false,
+                // message: formatMessage({ id: 'apntokenform.title.required' }),
+              },
+            ]}
+          >
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined />}>Click to Upload (jpg, png)</Button>
+            </Upload>
+          </FormItem>
           <ProFormText
             width="md"
             label="标题"
@@ -49,6 +153,17 @@ const AnnouncementForm: FC<Record<string, any>> = () => {
             ]}
             placeholder="给目标起个名字"
           />
+
+          <ReactQuill
+            ref={el => {
+              setQuillRef(el);
+            }}
+            modules={modules}
+            formats={formats}
+          >
+            <div className="my-editing-area" />
+          </ReactQuill>
+
           <ProFormDateRangePicker
             label="起止日期"
             width="md"
@@ -61,45 +176,6 @@ const AnnouncementForm: FC<Record<string, any>> = () => {
             ]}
             placeholder={['开始日期', '结束日期']}
           />
-          <ProFormTextArea
-            label="目标描述"
-            width="xl"
-            name="goal"
-            rules={[
-              {
-                required: true,
-                message: '请输入目标描述',
-              },
-            ]}
-            placeholder="请输入你的阶段性工作目标"
-          />
-
-          <ProFormTextArea
-            label="衡量标准"
-            name="standard"
-            width="xl"
-            rules={[
-              {
-                required: true,
-                message: '请输入衡量标准',
-              },
-            ]}
-            placeholder="请输入衡量标准"
-          />
-
-          <ProFormText
-            width="md"
-            label={
-              <span>
-                客户
-                <em className={styles.optional}>（选填）</em>
-              </span>
-            }
-            tooltip="目标的服务对象"
-            name="client"
-            placeholder="请描述你服务的客户，内部客户直接 @姓名／工号"
-          />
-
           <ProFormText
             width="md"
             label={
@@ -185,4 +261,6 @@ const AnnouncementForm: FC<Record<string, any>> = () => {
   );
 };
 
-export default AnnouncementForm;
+export default connect(({ loading }: ConnectState) => ({
+  submitting: loading.effects['announcement/upload'],
+}))(AnnouncementForm);

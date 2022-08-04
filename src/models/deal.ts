@@ -2,27 +2,27 @@ import type { Reducer, Effect } from 'umi';
 
 import { fakeAccountLogin } from '@/services/login';
 import { message } from 'antd';
-import { fakeSubmitForm } from '@/services/file';
+import { fakeSubmitForm } from '@/services/deal';
 
 export type FileModelState = {
 };
 
-export type FileModelType = {
+export type DealModelType = {
   namespace: string;
   state: any;
   effects: {
-    upload: Effect;
+    apply: Effect;
   };
   reducers: {
   };
 };
 
-const Model: FileModelType = {
-  namespace: 'file',
+const Model: DealModelType = {
+  namespace: 'deal',
   state: {
   },
   effects: {
-    *upload({ payload }, { call, put }) {
+    *apply({ payload }, { call, put }) {
       const response = yield call(fakeSubmitForm, payload);
       console.log(response);
       // Login successfully
