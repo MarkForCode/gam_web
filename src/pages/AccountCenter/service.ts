@@ -9,10 +9,19 @@ export async function queryCurrent(): Promise<{ data: CurrentUser }> {
   return rr;
 }
 
-export async function queryFakeList(params: {
+export async function querySystemAnnouncementList(params: {
   count: number;
 }): Promise<{ data: { list: ListItemDataType[] } }> {
-  const rr = await request(announceHost);
-  console.log(rr);
-  return rr;
+  const ww = await request(announceHost + '/system');
+  console.log(ww);
+  return ww;
 }
+
+export async function queryGuildAnnouncementList(params: {
+  count: number;
+}): Promise<{ data: { list: ListItemDataType[] } }> {
+  const ww = await request(announceHost + '/guild');
+  console.log(ww);
+  return ww;
+}
+

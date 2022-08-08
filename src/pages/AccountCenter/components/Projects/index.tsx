@@ -2,7 +2,7 @@ import { Card, List } from 'antd';
 import { useRequest } from 'umi';
 import React from 'react';
 import moment from 'moment';
-import { queryFakeList } from '../../service';
+import { queryGuildAnnouncementList } from '../../service';
 import AvatarList from '../AvatarList';
 import type { ListItemDataType } from '../../data.d';
 import styles from './index.less';
@@ -10,7 +10,7 @@ import styles from './index.less';
 const Projects: React.FC = () => {
   // 获取tab列表数据
   const { data: listData } = useRequest(() => {
-    return queryFakeList({
+    return queryGuildAnnouncementList({
       count: 30,
     });
   });
@@ -25,7 +25,7 @@ const Projects: React.FC = () => {
         <List.Item>
           <Card className={styles.card} hoverable cover={<img alt={item.title} src={item.cover} />}>
             <Card.Meta title={<a>{item.title}</a>} description={item.subDescription} />
-            <div className={styles.cardItemContent}>
+            {/* <div className={styles.cardItemContent}>
               <span>{moment(item.updatedAt).fromNow()}</span>
               <div className={styles.avatarList}>
                 <AvatarList size="small">
@@ -38,7 +38,7 @@ const Projects: React.FC = () => {
                   ))}
                 </AvatarList>
               </div>
-            </div>
+            </div> */}
           </Card>
         </List.Item>
       )}

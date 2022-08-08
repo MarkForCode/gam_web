@@ -150,8 +150,9 @@ const UserRegister: FC = () => {
     <div className={styles.main}>
       <h3>注册</h3>
       <Form form={form} name="UserRegister" onFinish={onFinish}>
-        <FormItem
-          name="mail"
+
+      <FormItem
+          name="platform"
           rules={[
             {
               required: true,
@@ -163,7 +164,39 @@ const UserRegister: FC = () => {
             },
           ]}
         >
-          <Input size="large" placeholder="邮箱" />
+          <Input size="large" placeholder="平台" />
+        </FormItem>
+
+        <FormItem
+          name="guild"
+          rules={[
+            {
+              required: true,
+              message: '请输入邮箱地址!',
+            },
+            {
+              type: 'email',
+              message: '邮箱地址格式错误!',
+            },
+          ]}
+        >
+          <Input size="large" placeholder="公會" />
+        </FormItem>
+
+        <FormItem
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: '请输入邮箱地址!',
+            },
+            {
+              type: 'email',
+              message: '邮箱地址格式错误!',
+            },
+          ]}
+        >
+          <Input size="large" placeholder="帳號" />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {
@@ -217,28 +250,21 @@ const UserRegister: FC = () => {
         >
           <Input size="large" type="password" placeholder="确认密码" />
         </FormItem>
-        <InputGroup compact>
-          <Select size="large" value={prefix} onChange={changePrefix} style={{ width: '20%' }}>
-            <Option value="86">+86</Option>
-            <Option value="87">+87</Option>
-          </Select>
-          <FormItem
-            style={{ width: '80%' }}
-            name="mobile"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机号!',
-              },
-              {
-                pattern: /^\d{11}$/,
-                message: '手机号格式错误!',
-              },
-            ]}
-          >
-            <Input size="large" placeholder="手机号" />
-          </FormItem>
-        </InputGroup>
+        <FormItem
+          name="mail"
+          rules={[
+            {
+              required: true,
+              message: '请输入邮箱地址!',
+            },
+            {
+              type: 'email',
+              message: '邮箱地址格式错误!',
+            },
+          ]}
+        >
+          <Input size="large" placeholder="邮箱" />
+        </FormItem>
         <Row gutter={8}>
           <Col span={16}>
             <FormItem

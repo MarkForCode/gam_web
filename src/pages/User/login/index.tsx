@@ -177,6 +177,12 @@ const Login: React.FC<LoginProps> = (props) => {
         >
         </div>
       </ProForm>
+
+      <div>
+        <a style={{ float: 'right', padding: '15px' }} href="/user/register">
+          申請使用
+        </a>
+      </div>
     </div>
   );
 };

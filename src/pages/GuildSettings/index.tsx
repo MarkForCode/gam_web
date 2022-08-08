@@ -2,26 +2,22 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Menu } from 'antd';
 import BaseView from './components/base';
-import BindingView from './components/binding';
-import NotificationView from './components/notification';
-import SecurityView from './components/security';
 import styles from './style.less';
 
 const { Item } = Menu;
 
-type AccountSettingsStateKeys = 'base' | 'security' ;
-type AccountSettingsState = {
+type GuildSettingsStateKeys = 'base' ;
+type GuildSettingsState = {
   mode: 'inline' | 'horizontal';
-  selectKey: AccountSettingsStateKeys;
+  selectKey: GuildSettingsStateKeys;
 };
 
-const AccountSettings: React.FC = () => {
+const GuildSettings: React.FC = () => {
   const menuMap: Record<string, React.ReactNode> = {
     base: '基本设置',
-    security: '安全设置',
   };
 
-  const [initConfig, setInitConfig] = useState<AccountSettingsState>({
+  const [initConfig, setInitConfig] = useState<GuildSettingsState>({
     mode: 'inline',
     selectKey: 'base',
   });
@@ -40,7 +36,7 @@ const AccountSettings: React.FC = () => {
       if (window.innerWidth < 768 && offsetWidth > 400) {
         mode = 'horizontal';
       }
-      setInitConfig({ ...initConfig, mode: mode as AccountSettingsState['mode'] });
+      setInitConfig({ ...initConfig, mode: mode as GuildSettingsState['mode'] });
     });
   };
 
@@ -63,8 +59,6 @@ const AccountSettings: React.FC = () => {
     switch (selectKey) {
       case 'base':
         return <BaseView />;
-      case 'security':
-        return <SecurityView />;
       default:
         return null;
     }
@@ -87,7 +81,7 @@ const AccountSettings: React.FC = () => {
             onClick={({ key }) => {
               setInitConfig({
                 ...initConfig,
-                selectKey: key as AccountSettingsStateKeys,
+                selectKey: key as GuildSettingsStateKeys,
               });
             }}
           >
@@ -102,4 +96,4 @@ const AccountSettings: React.FC = () => {
     </GridContent>
   );
 };
-export default AccountSettings;
+export default GuildSettings;

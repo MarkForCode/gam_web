@@ -46,6 +46,12 @@ export default [
                 authority: ['ADMIN', 'NORMAL'],
                 routes: [
                   {
+                    name: '公會设置',
+                    icon: 'smile',
+                    path: '/admin/guildsettings',
+                    component: './GuildSettings',
+                  },
+                  {
                     name: '帳號管理',
                     icon: 'smile',
                     path: '/admin/account',
@@ -58,10 +64,16 @@ export default [
                     component: './AnnouncementForm',
                   },
                   {
-                    name: '查询表格',
+                    name: '查询公告',
                     icon: 'smile',
                     path: '/admin/announcement',
                     component: './ListAnnouncementList',
+                  },
+                  {
+                    name: '帳務管理',
+                    icon: 'smile',
+                    path: '/admin/listfinancelist',
+                    component: './ListFinanceList',
                   },
                 ],
               },

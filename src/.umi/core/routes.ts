@@ -64,6 +64,13 @@ export function getRoutes() {
                 ],
                 "routes": [
                   {
+                    "name": "公會设置",
+                    "icon": "smile",
+                    "path": "/admin/guildsettings",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildSettings'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
                     "name": "帳號管理",
                     "icon": "smile",
                     "path": "/admin/account",
@@ -78,10 +85,17 @@ export function getRoutes() {
                     "exact": true
                   },
                   {
-                    "name": "查询表格",
+                    "name": "查询公告",
                     "icon": "smile",
                     "path": "/admin/announcement",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAnnouncementList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAnnouncementList'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "帳務管理",
+                    "icon": "smile",
+                    "path": "/admin/listfinancelist",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListFinanceList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListFinanceList'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]

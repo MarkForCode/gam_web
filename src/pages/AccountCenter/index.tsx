@@ -28,14 +28,6 @@ const operationTabList = [
       </span>
     ),
   },
-  {
-    key: 'projects',
-    tab: (
-      <span>
-        项目 <span style={{ fontSize: 14 }}>(8)</span>
-      </span>
-    ),
-  },
 ];
 
 const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
@@ -144,9 +136,6 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
 
   // 渲染tab切换
   const renderChildrenByTabKey = (tabValue: tabKeyType) => {
-    if (tabValue === 'projects') {
-      return <Projects />;
-    }
     if (tabValue === 'applications') {
       return <Applications />;
     }

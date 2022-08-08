@@ -1,7 +1,9 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from 'umi';
-import { TableListItem } from './data';
+import { TableListItem, TableListParams } from './data';
+
+const host = API_URL + '/api/v1/guild/commodity/deal';
 
 /** 获取规则列表 GET /api/rule */
 export async function rule(
@@ -19,7 +21,7 @@ export async function rule(
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
-  }>('/api/rule', {
+  }>(host, {
     method: 'GET',
     params: {
       ...params,
