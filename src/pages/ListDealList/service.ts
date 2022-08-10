@@ -3,7 +3,7 @@
 import { request } from 'umi';
 import { TableListItem, TableListParams } from './data';
 
-const host = API_URL + '/api/v1/guild/commodity/deal';
+const host = API_URL + '/api/v1/guild/deal';
 
 /** 获取规则列表 GET /api/rule */
 export async function rule(
