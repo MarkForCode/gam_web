@@ -11,8 +11,9 @@ import ModelDeal2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam
 import ModelFile3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file.ts';
 import ModelGlobal4 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
 import ModelLogin5 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
-import ModelSetting6 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
-import ModelUser7 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
+import ModelRegister6 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/register.ts';
+import ModelSetting7 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
+import ModelUser8 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
 
 let app:any = null;
 
@@ -41,8 +42,9 @@ app.model({ namespace: 'deal', ...ModelDeal2 });
 app.model({ namespace: 'file', ...ModelFile3 });
 app.model({ namespace: 'global', ...ModelGlobal4 });
 app.model({ namespace: 'login', ...ModelLogin5 });
-app.model({ namespace: 'setting', ...ModelSetting6 });
-app.model({ namespace: 'user', ...ModelUser7 });
+app.model({ namespace: 'register', ...ModelRegister6 });
+app.model({ namespace: 'setting', ...ModelSetting7 });
+app.model({ namespace: 'user', ...ModelUser8 });
   return app;
 }
 

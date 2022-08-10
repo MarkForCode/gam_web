@@ -12,6 +12,7 @@ export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/
 export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file';
 export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global';
 export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login';
+export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/register';
 export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting';
 export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user';
 

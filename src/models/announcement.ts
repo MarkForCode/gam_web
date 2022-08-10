@@ -1,6 +1,5 @@
 import type { Reducer, Effect } from 'umi';
 
-import { fakeAccountLogin } from '@/services/login';
 import { message } from 'antd';
 import { fakeSubmitForm } from '@/services/announcement';
 

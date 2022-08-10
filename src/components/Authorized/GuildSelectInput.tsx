@@ -16,7 +16,7 @@ interface UserValue {
   value: string;
 }
 
-async function fetchPlatformList(): Promise<UserValue[]> {
+export async function fetchPlatformList(): Promise<UserValue[]> {
   return fetch(API_URL + '/api/v1/guild/login/platform')
     .then(response => response.json())
     .then(body => {

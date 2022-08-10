@@ -14,9 +14,12 @@ export interface UserRegisterParams {
   prefix: string;
 }
 
+const host = API_URL + '/api/v1/guild/trial';
 export async function fakeRegister(params: UserRegisterParams) {
-  return request('/api/register', {
+  const res = await request(host, {
     method: 'POST',
     data: params,
   });
+  console.log(res);
+  return res;
 }
