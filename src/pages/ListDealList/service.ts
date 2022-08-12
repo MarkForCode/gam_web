@@ -30,9 +30,8 @@ export async function rule(
   });
 }
 
-/** 新建规则 PUT /api/rule */
 export async function updateRule(data: { [key: string]: any }, options?: { [key: string]: any }) {
-  return request<TableListItem>('/api/rule', {
+  return request<TableListItem>(host, {
     data,
     method: 'PUT',
     ...(options || {}),

@@ -16,7 +16,6 @@ import type { TableListItem, TableListPagination } from './data';
  *
  * @param fields
  */
-
 const handleAdd = async (fields: TableListItem) => {
   const hide = message.loading('正在添加');
 
@@ -59,7 +58,6 @@ const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) =
  *
  * @param selectedRows
  */
-
 const handleRemove = async (selectedRows: TableListItem[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
@@ -79,10 +77,6 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
 };
 
 const TableList: React.FC = () => {
-  /** 新建窗口的弹窗 */
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  /** 分布更新窗口的弹窗 */
-
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
@@ -92,9 +86,8 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '规则名称',
+      title: '標題',
       dataIndex: 'name',
-      tip: '规则名称是唯一的 key',
       render: (dom, entity) => {
         return (
           <a
@@ -109,18 +102,6 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '描述',
-      dataIndex: 'desc',
-      valueType: 'textarea',
-    },
-    {
-      title: '服务调用次数',
-      dataIndex: 'callNo',
-      sorter: true,
-      hideInForm: true,
-      renderText: (val: string) => `${val}万`,
-    },
-    {
       title: '状态',
       dataIndex: 'status',
       hideInForm: true,
@@ -128,18 +109,6 @@ const TableList: React.FC = () => {
         0: {
           text: '关闭',
           status: 'Default',
-        },
-        1: {
-          text: '运行中',
-          status: 'Processing',
-        },
-        2: {
-          text: '已上线',
-          status: 'Success',
-        },
-        3: {
-          text: '异常',
-          status: 'Error',
         },
       },
     },
@@ -170,14 +139,19 @@ const TableList: React.FC = () => {
         <a
           key="config"
           onClick={() => {
-            handleUpdateModalVisible(true);
             setCurrentRow(record);
           }}
         >
-          配置
+          修改
         </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          订阅警报
+        record.buyers.length > 0 && <a
+          key="config"
+          onClick={() => {
+            setCurrentRow(record);
+            handleUpdateModalVisible(true);
+          }}
+        >
+          審核
         </a>,
       ],
     },
@@ -192,6 +166,16 @@ const TableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
+        toolBarRender={() => [
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+            }}
+          >
+            <PlusOutlined /> 新建
+          </Button>,
+        ]}
         request={rule}
         columns={columns}
         rowSelection={{
@@ -213,9 +197,6 @@ const TableList: React.FC = () => {
                 {selectedRowsState.length}
               </a>{' '}
               项 &nbsp;&nbsp;
-              <span>
-                服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-              </span>
             </div>
           }
         >
@@ -226,38 +207,10 @@ const TableList: React.FC = () => {
               actionRef.current?.reloadAndRest?.();
             }}
           >
-            批量删除
+            批量取消
           </Button>
-          <Button type="primary">批量审批</Button>
         </FooterToolbar>
       )}
-      <ModalForm
-        title="新建规则"
-        width="400px"
-        visible={createModalVisible}
-        onVisibleChange={handleModalVisible}
-        onFinish={async (value) => {
-          const success = await handleAdd(value as TableListItem);
-          if (success) {
-            handleModalVisible(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-      >
-        <ProFormText
-          rules={[
-            {
-              required: true,
-              message: '规则名称为必填项',
-            },
-          ]}
-          width="md"
-          name="name"
-        />
-        <ProFormTextArea width="md" name="desc" />
-      </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value, currentRow);

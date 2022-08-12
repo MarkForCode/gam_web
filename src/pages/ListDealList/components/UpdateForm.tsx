@@ -56,8 +56,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         initialValues={{
           name: props.values.name,
           desc: props.values.desc,
+          buyers: props.values.buyers
         }}
-        title="基本信息"
       >
         <ProFormText
           name="name"
@@ -70,86 +70,19 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             },
           ]}
         />
-        <ProFormTextArea
-          name="desc"
-          width="md"
-          label="规则描述"
-          placeholder="请输入至少五个字符"
-          rules={[
-            {
-              required: true,
-              message: '请输入至少五个字符的规则描述！',
-              min: 5,
-            },
-          ]}
-        />
-      </StepsForm.StepForm>
-      <StepsForm.StepForm
-        initialValues={{
-          target: '0',
-          template: '0',
-        }}
-        title="配置规则属性"
-      >
+        {console.log(props.values.buyers)}
         <ProFormSelect
           name="target"
           width="md"
           label="监控对象"
-          valueEnum={{
-            0: '表一',
-            1: '表二',
-          }}
-        />
-        <ProFormSelect
-          name="template"
-          width="md"
-          label="规则模板"
-          valueEnum={{
-            0: '规则模板一',
-            1: '规则模板二',
-          }}
-        />
-        <ProFormRadio.Group
-          name="type"
-          label="规则类型"
-          options={[
-            {
-              value: '0',
-              label: '强',
-            },
-            {
-              value: '1',
-              label: '弱',
-            },
-          ]}
-        />
-      </StepsForm.StepForm>
-      <StepsForm.StepForm
-        initialValues={{
-          type: '1',
-          frequency: 'month',
-        }}
-        title="设定调度周期"
-      >
-        <ProFormDateTimePicker
-          name="time"
-          width="md"
-          label="开始时间"
-          rules={[
-            {
-              required: true,
-              message: '请选择开始时间！',
-            },
-          ]}
-        />
-        <ProFormSelect
-          name="frequency"
-          label="监控对象"
-          width="md"
-          valueEnum={{
-            month: '月',
-            week: '周',
-          }}
+          options={
+            props.values.buyers?.map((b) => {
+              return {
+                label: b.username,
+                value: b.id,
+              }
+            })
+          }
         />
       </StepsForm.StepForm>
     </StepsForm>
