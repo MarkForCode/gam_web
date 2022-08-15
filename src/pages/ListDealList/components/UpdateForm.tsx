@@ -7,6 +7,7 @@ import {
   StepsForm,
   ProFormRadio,
   ProFormDateTimePicker,
+  ModalForm,
 } from '@ant-design/pro-form';
 import type { TableListItem } from '../data';
 
@@ -26,66 +27,48 @@ export type UpdateFormProps = {
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
+  console.log(props);
   return (
-    <StepsForm
-      stepsProps={{
-        size: 'small',
-      }}
-      stepsFormRender={(dom, submitter) => {
-        return (
-          <Modal
-            width={640}
-            bodyStyle={{
-              padding: '32px 40px 48px',
-            }}
-            destroyOnClose
-            title="规则配置"
-            visible={props.updateModalVisible}
-            footer={submitter}
-            onCancel={() => {
-              props.onCancel();
-            }}
-          >
-            {dom}
-          </Modal>
-        );
-      }}
+    <ModalForm
+      width={640}
+      title="规则配置"
+      visible={props.updateModalVisible}
+      // footer={submitter}
       onFinish={props.onSubmit}
     >
-      <StepsForm.StepForm
-        initialValues={{
-          name: props.values.name,
-          desc: props.values.desc,
-          buyers: props.values.buyers
-        }}
-      >
-        <ProFormText
-          name="name"
-          label="规则名称"
-          width="md"
-          rules={[
-            {
-              required: true,
-              message: '请输入规则名称！',
-            },
-          ]}
-        />
-        {console.log(props.values.buyers)}
-        <ProFormSelect
-          name="target"
-          width="md"
-          label="监控对象"
-          options={
-            props.values.buyers?.map((b) => {
-              return {
-                label: b.username,
-                value: b.id,
-              }
-            })
+      <ProFormText
+        name="name"
+        label="规则名称"
+        width="md"
+        initialValue={props.values.name}
+        disabled
+        rules={[
+          {
+            required: true,
+            message: '请输入规则名称！',
+          },
+        ]}
+      />
+      <ProFormSelect
+        name="buyerId"
+        width="md"
+        label="监控对象"
+        options={
+          props.values.buyers?.map((b) => {
+            return {
+              label: b.username,
+              value: b.id,
+            }
+          })
+        }
+        rules={[
+          {
+            required: true,
+            message: '請確認購買者！'
           }
-        />
-      </StepsForm.StepForm>
-    </StepsForm>
+        ]}
+      />
+    </ModalForm>
   );
 };
 

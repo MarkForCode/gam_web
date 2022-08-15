@@ -131,10 +131,17 @@ export function getRoutes() {
                     "exact": true
                   },
                   {
-                    "name": "查询交易",
+                    "name": "商品管理",
                     "icon": "smile",
                     "path": "/commodity/deal",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListDealList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListDealList'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "我的購買清單",
+                    "icon": "smile",
+                    "path": "/commodity/listmydeallist",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListMyDealList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListMyDealList'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]

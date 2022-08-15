@@ -40,11 +40,11 @@ const Model: LoginModelType = {
         type: 'changeLoginStatus',
         payload: response,
       });
+      console.log(response);
       // Login successfully
       if (response.status === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
-        // console.log(response);
         const ss:any = jwt_decode(response.data.access_token);
         window.localStorage.setItem('token', response.data.access_token);
         if(ss !== null) {
@@ -72,6 +72,7 @@ const Model: LoginModelType = {
         }
         history.replace(redirect || '/');
       }
+      message.success('登录失敗！');
     },
 
     logout() {

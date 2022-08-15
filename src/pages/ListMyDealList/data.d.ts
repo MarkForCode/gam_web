@@ -1,13 +1,10 @@
 export type TableListItem = {
-  commodityId: string;
+  key: number;
   disabled?: boolean;
   href: string;
   avatar: string;
   name: string;
-  buyers: {
-    id: string;
-    username: string;
-  }[]
+  owner: string;
   desc: string;
   callNo: number;
   status: string;

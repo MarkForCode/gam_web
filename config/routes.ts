@@ -102,10 +102,16 @@ export default [
                     component: './CommodityBasic',
                   },
                   {
-                    name: '查询交易',
+                    name: '商品管理',
                     icon: 'smile',
                     path: '/commodity/deal',
                     component: './ListDealList',
+                  },
+                  {
+                    name: '我的購買清單',
+                    icon: 'smile',
+                    path: '/commodity/listmydeallist',
+                    component: './ListMyDealList',
                   },
                 ],
               },

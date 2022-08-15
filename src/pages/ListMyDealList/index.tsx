@@ -11,25 +11,7 @@ import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import { rule, addRule, updateRule, removeRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
-/**
- * 添加节点
- *
- * @param fields
- */
-const handleAdd = async (fields: TableListItem) => {
-  const hide = message.loading('正在添加');
 
-  try {
-    await addRule({ ...fields });
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
-};
 /**
  * 更新节点
  *
@@ -58,13 +40,14 @@ const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) =
  *
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: TableListItem) => {
+
+const handleRemove = async (selectedRows: TableListItem[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
 
   try {
     await removeRule({
-      commodityId: selectedRows.commodityId,
+      key: selectedRows.map((row) => row.key),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -77,6 +60,10 @@ const handleRemove = async (selectedRows: TableListItem) => {
 };
 
 const TableList: React.FC = () => {
+  /** 新建窗口的弹窗 */
+  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
+  /** 分布更新窗口的弹窗 */
+
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
@@ -136,36 +123,6 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        record.status == '' && <a
-          key="config"
-          onClick={() => {
-            setCurrentRow(record);
-          }}
-        >
-          修改
-        </a>,
-        record.status == '' && <a
-          key="config"
-          onClick={async () => {
-            setCurrentRow(record);
-            if(confirm('確認下架？')){
-              await handleRemove(record);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }
-          }}
-        >
-          下架
-        </a>,
-        record.status == 'PENDING' && <a
-          key="config"
-          onClick={() => {
-            setCurrentRow(record);
-            handleUpdateModalVisible(true);
-          }}
-        >
-          審核
-        </a>,
         record.status == 'PROCESSING' && <a
           key="config"
         >
@@ -180,49 +137,20 @@ const TableList: React.FC = () => {
       <ProTable<TableListItem, TableListPagination>
         headerTitle="查询表格"
         actionRef={actionRef}
-        rowKey="commodityId"
+        rowKey="key"
         search={{
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-            }}
-          >
-            <PlusOutlined /> 新建
-          </Button>,
         ]}
         request={rule}
         columns={columns}
-        // rowSelection={{
-        //   onChange: (_, selectedRows) => {
-        //     setSelectedRows(selectedRows);
-        //   },
-        // }}
-      />
-      <UpdateForm
-        onSubmit={async (value) => {
-          const success = await handleUpdate(value, currentRow);
-
-          if (success) {
-            handleUpdateModalVisible(false);
-            setCurrentRow(undefined);
-
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
+        rowSelection={{
+          onChange: (_, selectedRows) => {
+            setSelectedRows(selectedRows);
+          },
         }}
-        onCancel={() => {
-          handleUpdateModalVisible(false);
-          setCurrentRow(undefined);
-        }}
-        updateModalVisible={updateModalVisible}
-        values={currentRow || {}}
       />
-
       <Drawer
         width={600}
         visible={showDetail}
