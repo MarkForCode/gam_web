@@ -25,12 +25,14 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
 
   const handleSubmit = (commodityId: string) => {
     const { dispatch } = props;
-    dispatch({
-      type: 'deal/apply',
-      payload: {
-        commodityId
-      },
-    });
+    if (confirm('確定購買？')) {
+      dispatch({
+        type: 'deal/apply',
+        payload: {
+          commodityId
+        },
+      });
+    }
   };
 
   const cardList = data && (

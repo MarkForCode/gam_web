@@ -27,7 +27,6 @@ export type UpdateFormProps = {
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
-  console.log(props);
   return (
     <ModalForm
       width={640}
@@ -35,6 +34,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       visible={props.updateModalVisible}
       // footer={submitter}
       onFinish={props.onSubmit}
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => {
+          props.onCancel()
+        }
+      }}
     >
       <ProFormText
         name="name"

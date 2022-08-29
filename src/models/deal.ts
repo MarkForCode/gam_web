@@ -25,9 +25,11 @@ const Model: DealModelType = {
       const response = yield call(fakeSubmitForm, payload);
       console.log(response);
       // Login successfully
-      if (response.ok) {
+      if (response === true) {
         message.success('🎉 🎉 🎉  上傳成功！');
         return;
+      } else {
+        message.error(response.message)
       }
     },
   },

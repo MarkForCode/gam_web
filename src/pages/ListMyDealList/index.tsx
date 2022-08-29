@@ -9,7 +9,7 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import { rule, addRule, updateRule, removeRule } from './service';
+import { rule, addRule, updateRule, removeRule, auditRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
 
 /**
@@ -59,6 +59,31 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
   }
 };
 
+
+/**
+ * 删除节点
+ *
+ * @param selectedRows
+ */
+ const handleAudit = async (selectedRows: TableListItem) => {
+  const hide = message.loading('正在查收');
+  if (!selectedRows) return true;
+
+  try {
+    await auditRule({
+      commodityId: selectedRows.commodityId,
+    });
+    hide();
+    message.success('查收成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('查收失败，请重试');
+    return false;
+  }
+};
+
+
 const TableList: React.FC = () => {
   /** 新建窗口的弹窗 */
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
@@ -72,6 +97,11 @@ const TableList: React.FC = () => {
   /** 国际化配置 */
 
   const columns: ProColumns<TableListItem>[] = [
+    {
+      title: 'ID',
+      dataIndex: 'commodityId',
+      hideInTable: true,
+    },
     {
       title: '標題',
       dataIndex: 'name',
@@ -123,8 +153,16 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        record.status == 'PROCESSING' && <a
+        (record.status == 'PROCESSING' || record.status == 'SELLER CONFIRM') && <a
           key="config"
+          onClick={async () => {
+            setCurrentRow(record);
+            if (confirm('確認查收？')) {
+              await handleAudit(record);
+              setSelectedRows([]);
+              actionRef.current?.reloadAndRest?.();
+            }
+          }}
         >
           查收
         </a>,

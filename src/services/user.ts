@@ -6,7 +6,7 @@ export async function query(): Promise<any> {
 
 export async function queryCurrent(): Promise<any> {
   const exp = window.localStorage.getItem('exp');
-  if(exp && parseInt(exp) > new Date().valueOf()) {
+  if(exp && parseInt(exp) > new Date().valueOf() -10000) {
     return {
       name: window.localStorage.getItem('userName') || 'sefs',
       avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',

@@ -57,3 +57,12 @@ export async function removeRule(data: { commodityId: string }, options?: { [key
     ...(options || {}),
   });
 }
+
+export async function auditRule(data: { commodityId: string }, options?: { [key: string]: any }) {
+  console.log(data);
+  return request<Record<string, any>>(host, {
+    data,
+    method: 'PATCH',
+    ...(options || {}),
+  });
+}
