@@ -39,44 +39,44 @@ export default [
                 icon: 'smile',
                 component: './AccountCenter',
               },
-              {
-                path: '/admin',
-                name: 'admin',
-                icon: 'crown',
-                authority: ['ADMIN', 'NORMAL'],
-                routes: [
-                  // {
-                  //   name: '公會设置',
-                  //   icon: 'smile',
-                  //   path: '/admin/guildsettings',
-                  //   component: './GuildSettings',
-                  // },
-                  // {
-                  //   name: '帳號管理',
-                  //   icon: 'smile',
-                  //   path: '/admin/account',
-                  //   component: './ListAccount',
-                  // },
-                  // {
-                  //   name: '建立公告',
-                  //   icon: 'smile',
-                  //   path: '/admin/announcemnet/form',
-                  //   component: './AnnouncementForm',
-                  // },
-                  // {
-                  //   name: '查询公告',
-                  //   icon: 'smile',
-                  //   path: '/admin/announcement',
-                  //   component: './ListAnnouncementList',
-                  // },
-                  // {
-                  //   name: '帳務管理',
-                  //   icon: 'smile',
-                  //   path: '/admin/listfinancelist',
-                  //   component: './ListFinanceList',
-                  // },
-                ],
-              },
+              // {
+              //   path: '/admin',
+              //   name: 'admin',
+              //   icon: 'crown',
+              //   authority: ['ADMIN', 'NORMAL'],
+              //   routes: [
+              //     {
+              //       name: '公會设置',
+              //       icon: 'smile',
+              //       path: '/admin/guildsettings',
+              //       component: './GuildSettings',
+              //     },
+              //     {
+              //       name: '帳號管理',
+              //       icon: 'smile',
+              //       path: '/admin/account',
+              //       component: './ListAccount',
+              //     },
+              //     {
+              //       name: '建立公告',
+              //       icon: 'smile',
+              //       path: '/admin/announcemnet/form',
+              //       component: './AnnouncementForm',
+              //     },
+              //     {
+              //       name: '查询公告',
+              //       icon: 'smile',
+              //       path: '/admin/announcement',
+              //       component: './ListAnnouncementList',
+              //     },
+              //     {
+              //       name: '帳務管理',
+              //       icon: 'smile',
+              //       path: '/admin/listfinancelist',
+              //       component: './ListFinanceList',
+              //     },
+              //   ],
+              // },
               {
                 path: '/commodity',
                 name: '商品',
@@ -115,12 +115,12 @@ export default [
                   },
                 ],
               },
-              // {
-              //   name: '个人设置',
-              //   icon: 'smile',
-              //   path: '/accountsettings',
-              //   component: './AccountSettings',
-              // },
+              {
+                name: '个人设置',
+                icon: 'smile',
+                path: '/accountsettings',
+                component: './AccountSettings',
+              },
               // {
               //   name: '公會資訊',
               //   icon: 'smile',

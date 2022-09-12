@@ -1,5 +1,4 @@
-import type { Reducer, Effect } from 'umi';
-
+import { Reducer, Effect, history } from 'umi';
 import { message } from 'antd';
 import { fakeSubmitForm } from '@/services/commodity';
 
@@ -27,6 +26,7 @@ const Model: CommodityModelType = {
       // Login successfully
       if (response.ok) {
         message.success('🎉 🎉 🎉  上傳成功！');
+        history.replace('/commodity/list');
         return;
       }
     },

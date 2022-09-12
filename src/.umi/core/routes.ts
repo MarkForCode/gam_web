@@ -55,16 +55,6 @@ export function getRoutes() {
                 "exact": true
               },
               {
-                "path": "/admin",
-                "name": "admin",
-                "icon": "crown",
-                "authority": [
-                  "ADMIN",
-                  "NORMAL"
-                ],
-                "routes": []
-              },
-              {
                 "path": "/commodity",
                 "name": "商品",
                 "icon": "crown",
@@ -109,6 +99,13 @@ export function getRoutes() {
                     "exact": true
                   }
                 ]
+              },
+              {
+                "name": "个人设置",
+                "icon": "smile",
+                "path": "/accountsettings",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
+                "exact": true
               },
               {
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__404' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/404'), loading: LoadingComponent}),

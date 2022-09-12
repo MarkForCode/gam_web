@@ -148,15 +148,15 @@ const ListCommodity: FC = () => {
               </TagSelect>
             </FormItem>
           </StandardFormRow> */}
-          <StandardFormRow title="其它选项" grid last>
+          <StandardFormRow title="选项" grid last>
             <Row gutter={16}>
-              <Col lg={8} md={10} sm={10} xs={24}>
+              {/* <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="作者" name="author">
                   <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
                     <Option value="lisa">mark</Option>
                   </Select>
                 </FormItem>
-              </Col>
+              </Col> */}
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="標題" name="title">
                   <Input />
@@ -165,7 +165,7 @@ const ListCommodity: FC = () => {
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
-                    Submit
+                    查詢
                   </Button>
                 </Form.Item>
               </Col>
