@@ -13,18 +13,18 @@ import styles from './Center.less';
 
 const operationTabList = [
   {
-    key: 'articles',
+    key: 'applications',
     tab: (
       <span>
-        文章 <span style={{ fontSize: 14 }}>(8)</span>
+        系統公告 <span style={{ fontSize: 14 }}>(8)</span>
       </span>
     ),
   },
   {
-    key: 'applications',
+    key: 'articles',
     tab: (
       <span>
-        应用 <span style={{ fontSize: 14 }}>(8)</span>
+        公會公告 <span style={{ fontSize: 14 }}>(8)</span>
       </span>
     ),
   },

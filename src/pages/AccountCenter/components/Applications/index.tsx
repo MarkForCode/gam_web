@@ -9,7 +9,7 @@ import { Avatar, Card, Dropdown, List, Menu, Tooltip } from 'antd';
 import React from 'react';
 import numeral from 'numeral';
 import type { ListItemDataType } from '../../data.d';
-import { queryGuildAnnouncementList } from '../../service';
+import { queryGuildAnnouncementList, querySystemAnnouncementList } from '../../service';
 import stylesApplications from './index.less';
 
 export function formatWan(val: number) {
@@ -40,8 +40,10 @@ export function formatWan(val: number) {
 
 const Applications: React.FC = () => {
   // 获取tab列表数据
+  
   const { data: listData } = useRequest(() => {
-    return queryGuildAnnouncementList({
+    console.log(123);
+    return querySystemAnnouncementList({
       count: 30,
     });
   });

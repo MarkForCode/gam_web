@@ -47,9 +47,9 @@ const Model: LoginModelType = {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         const ss:any = jwt_decode(response.data.access_token);
-        window.localStorage.setItem('token', response.data.access_token);
         if(ss !== null) {
           console.log(ss);
+          window.localStorage.setItem('token', response.data.access_token);
           window.localStorage.setItem('exp', (ss['exp'] * 1000).toString() || '0');
           window.localStorage.setItem('username', ss['user']['name'] ||  'test')
           window.localStorage.setItem('role', ss['user']['role'] ||  'user')
