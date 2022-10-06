@@ -2,7 +2,7 @@ import { Card, List } from 'antd';
 import { useRequest } from 'umi';
 import React from 'react';
 import moment from 'moment';
-import { queryGuildAnnouncementList } from '../../service';
+import { queryGuildAnnouncementList, querySystemAnnouncementList } from '../../service';
 import AvatarList from '../AvatarList';
 import type { ListItemDataType } from '../../data.d';
 import styles from './index.less';
@@ -10,7 +10,7 @@ import styles from './index.less';
 const Projects: React.FC = () => {
   // 获取tab列表数据
   const { data: listData } = useRequest(() => {
-    return queryGuildAnnouncementList({
+    return querySystemAnnouncementList({
       count: 30,
     });
   });

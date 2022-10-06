@@ -68,17 +68,11 @@ const Applications: React.FC = () => {
     </Menu>
   );
   const CardInfo: React.FC<{
-    activeUser: React.ReactNode;
-    newUser: React.ReactNode;
-  }> = ({ activeUser, newUser }) => (
+    desc: React.ReactNode;
+  }> = ({ desc }) => (
     <div className={stylesApplications.cardInfo}>
       <div>
-        <p>活跃用户</p>
-        <p>{activeUser}</p>
-      </div>
-      <div>
-        <p>新增用户</p>
-        <p>{newUser}</p>
+        <p>{desc}</p>
       </div>
     </div>
   );
@@ -94,25 +88,24 @@ const Applications: React.FC = () => {
             hoverable
             bodyStyle={{ paddingBottom: 20 }}
             actions={[
-              <Tooltip key="download" title="下载">
-                <DownloadOutlined />
-              </Tooltip>,
-              <Tooltip title="编辑" key="edit">
-                <EditOutlined />
-              </Tooltip>,
-              <Tooltip title="分享" key="share">
-                <ShareAltOutlined />
-              </Tooltip>,
-              <Dropdown overlay={itemMenu} key="ellipsis">
-                <EllipsisOutlined />
-              </Dropdown>,
+              // <Tooltip key="download" title="下载">
+              //   <DownloadOutlined />
+              // </Tooltip>,
+              // <Tooltip title="编辑" key="edit">
+              //   <EditOutlined />
+              // </Tooltip>,
+              // <Tooltip title="分享" key="share">
+              //   <ShareAltOutlined />
+              // </Tooltip>,
+              // <Dropdown overlay={itemMenu} key="ellipsis">
+              //   <EllipsisOutlined />
+              // </Dropdown>,
             ]}
           >
             <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.title} />
             <div className={stylesApplications.cardItemContent}>
               <CardInfo
-                activeUser={formatWan(item.activeUser)}
-                newUser={numeral(item.newUser).format('0,0')}
+                desc={item.description}
               />
             </div>
           </Card>

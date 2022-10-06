@@ -4,7 +4,7 @@ import { useRequest } from 'umi';
 import { List, Tag } from 'antd';
 import ArticleListContent from '../ArticleListContent';
 import type { ListItemDataType } from '../../data.d';
-import { queryGuildAnnouncementList } from '../../service';
+import { queryGuildAnnouncementList, querySystemAnnouncementList } from '../../service';
 import styles from './index.less';
 
 const Articles: React.FC = () => {
@@ -19,7 +19,7 @@ const Articles: React.FC = () => {
 
   // 获取tab列表数据
   const { data: listData } = useRequest(() => {
-    return queryGuildAnnouncementList({
+    return querySystemAnnouncementList({
       count: 30,
     });
   });
