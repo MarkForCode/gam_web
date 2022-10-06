@@ -1,8 +1,12 @@
 import { request } from 'umi';
 import type { CurrentUser, GeographicItemType } from './data';
 
+const host = API_URL + '/api/v1/guild/account';
+
 export async function queryCurrent(): Promise<{ data: CurrentUser }> {
-  return request('/api/accountSettingCurrentUser');
+  const result = await request(host + '/state');
+  console.log(result);
+  return result;
 }
 
 export async function queryProvince(): Promise<{ data: GeographicItemType[] }> {
