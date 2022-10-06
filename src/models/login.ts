@@ -71,7 +71,9 @@ const Model: LoginModelType = {
             return;
           }
         }
-        history.replace(redirect || '/');
+        setTimeout(() => {
+          history.replace(redirect || '/');  
+        }, 1000);
       }
       message.success('登录失敗！');
     },
