@@ -38,8 +38,7 @@ export default [
                 name: 'welcome',
                 icon: 'smile',
                 component: './AccountCenter',
-              },
-              // {
+              }, // {
               //   path: '/admin',
               //   name: 'admin',
               //   icon: 'crown',
@@ -84,8 +83,8 @@ export default [
                 authority: ['ADMIN', 'NORMAL'],
                 routes: [
                   {
-                    name: '建立商品',
-                    icon: 'smile',
+                    // name: '建立商品',
+                    // icon: 'smile',
                     path: '/commodity/form',
                     component: './CommodityForm',
                   },
@@ -121,6 +120,10 @@ export default [
                 path: '/accountsettings',
                 component: './AccountSettings',
               },
+              {
+                path: '/announcement/detail/:id',
+                component: './AnnouncementBasic',
+              }, 
               // {
               //   name: '公會資訊',
               //   icon: 'smile',

@@ -64,8 +64,6 @@ export function getRoutes() {
                 ],
                 "routes": [
                   {
-                    "name": "建立商品",
-                    "icon": "smile",
                     "path": "/commodity/form",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CommodityForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/CommodityForm'), loading: LoadingComponent}),
                     "exact": true
@@ -105,6 +103,11 @@ export function getRoutes() {
                 "icon": "smile",
                 "path": "/accountsettings",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
+                "exact": true
+              },
+              {
+                "path": "/announcement/detail/:id",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementBasic'), loading: LoadingComponent}),
                 "exact": true
               },
               {
