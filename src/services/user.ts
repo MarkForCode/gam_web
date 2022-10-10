@@ -12,32 +12,31 @@ export async function queryCurrent(): Promise<any> {
     const ss: any = jwt_decode(accessToken);
     console.log(ss);
     return {
-      name: ss.user.nickname || 'sefs',
-      avatar: ss.user.avatar || 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-      userid: ss.user.id || '00000001',
+      name: ss.user.nickname || '',
+      avatar: ss.user.avatar || '',
+      userid: ss.user.id || '',
       email: ss.user.email || '',
       signature: ss.user.signature || '',
-      title: '',
-      group: '',
-      tags: [
-        {
-          key: '0',
-          label: '很有想法的',
-        },
-      ],
-      country: 'China',
-      geographic: {
-        province: {
-          label: '浙江省',
-          key: '330000',
-        },
-        city: {
-          label: '杭州市',
-          key: '330100',
-        },
-      },
-      address: '西湖区工专路 77 号',
-      phone: '0752-268888888',
+      // title: '',
+      group: ss.user.group || '',
+      // tags: [
+      //   {
+      //     key: '0',
+      //     label: '很有想法的',
+      //   },
+      // ],
+      // country: 'China',
+      // geographic: {
+      //   province: {
+      //     label: '浙江省',
+      //     key: '330000',
+      //   },
+      //   city: {
+      //     label: '杭州市',
+      //     key: '330100',
+      //   },
+      // },
+      // address: '西湖区工专路 77 号',
     };
   } else {
     window.localStorage.removeItem('token')
