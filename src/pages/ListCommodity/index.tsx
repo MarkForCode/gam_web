@@ -33,11 +33,16 @@ const ListCommodity: FC = () => {
     return queryFakeList({ ...params, cursor })
       .then(res => {
         console.log(res);
-        const ll = res.data.list.filter((l) => l.id != cursor)
+        let ll;
+        if(cursor == '' && res.data.list.length > 8){
+          ll = res.data.list.splice(0, 8);
+        }else {
+          ll = res.data.list.filter((l) => l.id != cursor)
+        }
         const newData = data.concat(ll);
         setData(newData);
         setList(newData);
-        setCursor(newData[newData.length - 1].id)
+        setCursor(newData[newData.length - 1].id);
         if (ll.length >= 8) {
           setLoading(false);
         }

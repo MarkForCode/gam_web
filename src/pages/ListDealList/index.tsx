@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
+import { useRequest, history } from 'umi';
 import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
@@ -144,6 +145,7 @@ const TableList: React.FC = () => {
     {
       title: '上次调度时间',
       sorter: true,
+      hideInSearch: true,
       dataIndex: 'updatedAt',
       valueType: 'dateTime',
       renderFormItem: (item, { defaultRender, ...rest }, form) => {
@@ -226,6 +228,7 @@ const TableList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
+              history.push('/commodity/form');
             }}
           >
             <PlusOutlined /> 新建
