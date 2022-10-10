@@ -34,22 +34,22 @@ const Articles: React.FC = () => {
         <List.Item
           key={item.id}
           actions={[
-            <IconText key="star" icon={<StarTwoTone />} text={item.star} />,
-            <IconText key="like" icon={<LikeOutlined />} text={item.like} />,
-            <IconText key="message" icon={<MessageFilled />} text={item.message} />,
+            // <IconText key="star" icon={<StarTwoTone />} text={item.star} />,
+            // <IconText key="like" icon={<LikeOutlined />} text={item.like} />,
+            // <IconText key="message" icon={<MessageFilled />} text={item.message} />,
           ]}
         >
           <List.Item.Meta
             title={
-              <a className={styles.listItemMetaTitle} href={item.href}>
+              <a className={styles.listItemMetaTitle} href={`/announcement/detail/${item.id}`}>
                 {item.title}
               </a>
             }
             description={
               <span>
-                <Tag>Ant Design</Tag>
+                {/* <Tag>Ant Design</Tag>
                 <Tag>设计语言</Tag>
-                <Tag>蚂蚁金服</Tag>
+                <Tag>蚂蚁金服</Tag> */}
               </span>
             }
           />

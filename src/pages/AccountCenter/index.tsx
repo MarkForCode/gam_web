@@ -38,60 +38,60 @@ const operationTabList = [
   // },
 ];
 
-const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
-  const ref = useRef<Input | null>(null);
-  const [newTags, setNewTags] = useState<TagType[]>([]);
-  const [inputVisible, setInputVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+// const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
+//   const ref = useRef<Input | null>(null);
+//   const [newTags, setNewTags] = useState<TagType[]>([]);
+//   const [inputVisible, setInputVisible] = useState<boolean>(false);
+//   const [inputValue, setInputValue] = useState<string>('');
 
-  const showInput = () => {
-    setInputVisible(true);
-    if (ref.current) {
-      // eslint-disable-next-line no-unused-expressions
-      ref.current?.focus();
-    }
-  };
+//   const showInput = () => {
+//     setInputVisible(true);
+//     if (ref.current) {
+//       // eslint-disable-next-line no-unused-expressions
+//       ref.current?.focus();
+//     }
+//   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setInputValue(e.target.value);
+//   };
 
-  const handleInputConfirm = () => {
-    let tempsTags = [...newTags];
-    if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
-      tempsTags = [...tempsTags, { key: `new-${tempsTags.length}`, label: inputValue }];
-    }
-    setNewTags(tempsTags);
-    setInputVisible(false);
-    setInputValue('');
-  };
+//   const handleInputConfirm = () => {
+//     let tempsTags = [...newTags];
+//     if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
+//       tempsTags = [...tempsTags, { key: `new-${tempsTags.length}`, label: inputValue }];
+//     }
+//     setNewTags(tempsTags);
+//     setInputVisible(false);
+//     setInputValue('');
+//   };
 
-  return (
-    <div className={styles.tags}>
-      <div className={styles.tagsTitle}>标签</div>
-      {(tags || []).concat(newTags).map((item) => (
-        <Tag key={item.key}>{item.label}</Tag>
-      ))}
-      {inputVisible && (
-        <Input
-          ref={ref}
-          type="text"
-          size="small"
-          style={{ width: 78 }}
-          value={inputValue}
-          onChange={handleInputChange}
-          onBlur={handleInputConfirm}
-          onPressEnter={handleInputConfirm}
-        />
-      )}
-      {!inputVisible && (
-        <Tag onClick={showInput} style={{ borderStyle: 'dashed' }}>
-          <PlusOutlined />
-        </Tag>
-      )}
-    </div>
-  );
-};
+//   return (
+//     <div className={styles.tags}>
+//       <div className={styles.tagsTitle}>标签</div>
+//       {(tags || []).concat(newTags).map((item) => (
+//         <Tag key={item.key}>{item.label}</Tag>
+//       ))}
+//       {inputVisible && (
+//         <Input
+//           ref={ref}
+//           type="text"
+//           size="small"
+//           style={{ width: 78 }}
+//           value={inputValue}
+//           onChange={handleInputChange}
+//           onBlur={handleInputConfirm}
+//           onPressEnter={handleInputConfirm}
+//         />
+//       )}
+//       {!inputVisible && (
+//         <Tag onClick={showInput} style={{ borderStyle: 'dashed' }}>
+//           <PlusOutlined />
+//         </Tag>
+//       )}
+//     </div>
+//   );
+// };
 
 const AccountCenter: React.FC<RouteChildrenProps> = () => {
   const [tabKey, setTabKey] = useState<tabKeyType>('applications');
@@ -102,17 +102,9 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
   });
 
   //  渲染用户信息
-  const renderUserInfo = ({ title, group, geographic }: Partial<CurrentUser>) => {
+  const renderUserInfo = ({ group }: Partial<CurrentUser>) => {
     return (
       <div className={styles.detail}>
-        <p>
-          <ContactsOutlined
-            style={{
-              marginRight: 8,
-            }}
-          />
-          {title}
-        </p>
         <p>
           <ClusterOutlined
             style={{
@@ -120,23 +112,6 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
             }}
           />
           {group}
-        </p>
-        <p>
-          <HomeOutlined
-            style={{
-              marginRight: 8,
-            }}
-          />
-          {(geographic || { province: { label: '' } }).province.label}
-          {
-            (
-              geographic || {
-                city: {
-                  label: '',
-                },
-              }
-            ).city.label
-          }
         </p>
       </div>
     );
@@ -148,7 +123,8 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
     //   return <Projects />;
     // }
     if (tabValue === 'applications') {
-      return <Applications />;
+      // return <Applications />;
+      return <Articles />;
     }
     if (tabValue === 'articles') {
       return <Articles />;
@@ -169,10 +145,10 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
                   <div>{currentUser?.signature}</div>
                 </div>
                 {renderUserInfo(currentUser)}
-                <Divider dashed />
-                <TagList tags={currentUser.tags || []} />
+                {/* <Divider dashed /> */}
+                {/* <TagList tags={currentUser.tags || []} /> */}
                 <Divider style={{ marginTop: 16 }} dashed />
-                <div className={styles.team}>
+                {/* <div className={styles.team}>
                   <div className={styles.teamTitle}>团队</div>
                   <Row gutter={36}>
                     {currentUser.notice &&
@@ -185,7 +161,7 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
                         </Col>
                       ))}
                   </Row>
-                </div>
+                </div> */}
               </div>
             )}
           </Card>
