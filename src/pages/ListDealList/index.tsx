@@ -83,7 +83,7 @@ const handleRemove = async (selectedRows: TableListItem) => {
  *
  * @param selectedRows
  */
- const handleAudit = async (selectedRows: TableListItem) => {
+const handleAudit = async (selectedRows: TableListItem) => {
   const hide = message.loading('正在查收');
   if (!selectedRows) return true;
 
@@ -136,10 +136,26 @@ const TableList: React.FC = () => {
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: '关闭',
-          status: 'Default',
+        ALL: {
+          text: '-',
+          status: 'ALL',
         },
+        SHELF: {
+          text: '待交易',
+          status: 'SHELF',
+        },
+        PENDING: {
+          text: '待審核交易',
+          status: 'PENDING',
+        },
+        CONFIRM: {
+          text: '確認查收',
+          status: 'CONFIRM',
+        },
+        PROCESSING: {
+          text: '等待對方付款',
+          status: 'PROCESSING',
+        }
       },
     },
     {
@@ -179,7 +195,7 @@ const TableList: React.FC = () => {
           key="config"
           onClick={async () => {
             setCurrentRow(record);
-            if(confirm('確認下架？')){
+            if (confirm('確認下架？')) {
               await handleRemove(record);
               setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
@@ -197,11 +213,11 @@ const TableList: React.FC = () => {
         >
           審核
         </a>,
-        (record.status == 'PROCESSING' || record.status == 'BUYER CONFIRM')  && <a
+        (record.status == 'PROCESSING' || record.status == 'BUYER CONFIRM') && <a
           key="config"
           onClick={async () => {
             setCurrentRow(record);
-            if(confirm('確認查收？')){
+            if (confirm('確認查收？')) {
               await handleAudit(record);
               setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
@@ -236,11 +252,11 @@ const TableList: React.FC = () => {
         ]}
         request={rule}
         columns={columns}
-        // rowSelection={{
-        //   onChange: (_, selectedRows) => {
-        //     setSelectedRows(selectedRows);
-        //   },
-        // }}
+      // rowSelection={{
+      //   onChange: (_, selectedRows) => {
+      //     setSelectedRows(selectedRows);
+      //   },
+      // }}
       />
       <UpdateForm
         onSubmit={async (value) => {
