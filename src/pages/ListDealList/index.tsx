@@ -191,7 +191,7 @@ const TableList: React.FC = () => {
         // >
         //   修改
         // </a>,
-        record.status == '' && <a
+        record.status == 'SHELF' && <a
           key="config"
           onClick={async () => {
             setCurrentRow(record);
