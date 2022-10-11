@@ -74,8 +74,9 @@ const Model: LoginModelType = {
         setTimeout(() => {
           history.replace(redirect || '/');  
         }, 1000);
+      }else {
+        message.error('登录失敗！');
       }
-      message.success('登录失敗！');
     },
 
     logout() {
