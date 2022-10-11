@@ -9,6 +9,15 @@ export async function queryCurrent(): Promise<{ data: CurrentUser }> {
   return result;
 }
 
+export async function modifyPassword(data: { password: string }, options?: { [key: string]: any }) {
+  console.log(data);
+  return request<Record<string, any>>(host + '/password', {
+    data,
+    method: 'PATCH',
+    ...(options || {}),
+  });
+}
+
 export async function queryProvince(): Promise<{ data: GeographicItemType[] }> {
   return request('/api/geographic/province');
 }

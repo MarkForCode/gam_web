@@ -1,6 +1,7 @@
 import type { Effect, Reducer } from 'umi';
 
-import { queryCurrent, query as queryUsers } from '@/services/user';
+import { queryCurrent, query as queryUsers, modifyProfile } from '@/services/user';
+import { message } from 'antd';
 
 export type CurrentUser = {
   avatar?: string;
@@ -26,6 +27,7 @@ export type UserModelType = {
   effects: {
     fetch: Effect;
     fetchCurrent: Effect;
+    modifyProfile: Effect;
   };
   reducers: {
     saveCurrentUser: Reducer<UserModelState>;
@@ -54,6 +56,14 @@ const UserModel: UserModelType = {
         type: 'saveCurrentUser',
         payload: response,
       });
+    },
+    *modifyProfile({ payload }, { call, put }) {
+      const response = yield call(modifyProfile, payload);
+      if(response){
+        message.success('更新基本信息成功');
+      }else{
+        message.error('更新基本信息失敗！');
+      }
     },
   },
 

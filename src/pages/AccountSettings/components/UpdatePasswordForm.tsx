@@ -9,19 +9,12 @@ import {
   ProFormDateTimePicker,
   ModalForm,
 } from '@ant-design/pro-form';
-import type { CurrentUser } from '../data';
+import type { CurrentUser, PasswordType } from '../data';
 
-export type FormValueType = {
-  target?: string;
-  template?: string;
-  type?: string;
-  time?: string;
-  frequency?: string;
-} & Partial<CurrentUser>;
 
 export type UpdateFormProps = {
-  onCancel: (flag?: boolean, formVals?: FormValueType) => void;
-  onSubmit: (values: FormValueType) => Promise<void>;
+  onCancel: (flag?: boolean, formVals?: PasswordType) => void;
+  onSubmit: (values: PasswordType) => Promise<void>;
   updateModalVisible: boolean;
 };
 
@@ -42,23 +35,23 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     >
       <ProFormText
         name="password"
-        label="规则名称"
+        label="密碼"
         width="md"
         rules={[
           {
             required: true,
-            message: '请输入规则名称！',
+            message: '請輸入密碼！',
           },
         ]}
       />
       <ProFormText
         name="password2"
-        label="规则名称"
+        label="確認密碼"
         width="md"
         rules={[
           {
             required: true,
-            message: '请输入规则名称！',
+            message: '請重複輸入密碼！',
           },
         ]}
       />

@@ -13,6 +13,11 @@ export type GeographicType = {
   city: GeographicItemType;
 };
 
+export type PasswordType = {
+  password: string;
+  password2: string;
+};
+
 export type NoticeType = {
   id: string;
   title: string;

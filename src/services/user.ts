@@ -1,6 +1,8 @@
 import request from '@/utils/request';
 import jwt_decode from "jwt-decode";
 
+const host = API_URL + '/api/v1/guild/account';
+
 export async function query(): Promise<any> {
   return request('/api/users');
 }
@@ -45,4 +47,34 @@ export async function queryCurrent(): Promise<any> {
 
 export async function queryNotices(): Promise<any> {
   return request('/api/notices');
+}
+
+
+export type ModifyParamsType = {
+  nickname: string;
+  avatar: string;
+  email: string;
+  phone: string;
+  signature: string;
+};
+
+export async function modifyProfile(params: ModifyParamsType) {
+  console.log(123, params);
+  const data = await fetch(host + '/state', {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+    },
+    body: JSON.stringify({
+      nickname: params.nickname,
+      avatar: params.avatar,
+      email: params.email,
+      phone: params.phone,
+      signature: params.signature,
+    }),
+    method: 'PUT',
+  })
+  const res = JSON.parse(await data.text());
+  console.log(res);
+  return res;
 }

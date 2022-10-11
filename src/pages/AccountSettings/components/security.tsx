@@ -1,10 +1,37 @@
 import React, { useRef, useState } from 'react';
-import { List } from 'antd';
-import UpdateForm from './UpdateForm';
+import { List, message } from 'antd';
+import UpdatePasswordForm from './UpdatePasswordForm';
+import UpdateEmailForm from './UpdateEmailForm';
 import { ActionType } from '@ant-design/pro-table';
-import { CurrentUser } from 'umi';
+import { CurrentUser, useRequest } from 'umi';
+import { queryCurrent } from '../service';
+import { PasswordType } from '../data';
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
+
+
+/**
+ * 删除节点
+ *
+ * @param selectedRows
+ */
+ const handleModifyPassword = async (selectedRows: PasswordType) => {
+  const hide = message.loading('正在修改');
+  if (!selectedRows) return true;
+
+  try {
+    // await modifyPassword({
+    //   password: selectedRows.password,
+    // });
+    hide();
+    message.success('修改成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('修改失败，请重试');
+    return false;
+  }
+};
 
 const passwordStrength = {
   strong: <span className="strong">强</span>,
@@ -13,9 +40,13 @@ const passwordStrength = {
 };
 
 const SecurityView: React.FC = () => {
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updatePasswordModalVisible, handleUpdatePasswordModalVisible] = useState<boolean>(false);
+  const [updateEmailModalVisible, handleUpdateEmailModalVisible] = useState<boolean>(false);
+
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<CurrentUser>();
+  const { data: currentUser, loading } = useRequest(() => {
+    return queryCurrent();
+  });
   const getData = () => [
     {
       title: '账户密码',
@@ -26,19 +57,23 @@ const SecurityView: React.FC = () => {
       //   </>
       // ),
       actions: [<a key="Modify" onClick={() => {
-        handleUpdateModalVisible(true);
+        handleUpdatePasswordModalVisible(true);
       }} > 修改</a >
       ],
     },
     // {
     //   title: '密保手机',
     //   description: `已绑定手机：138****8293`,
-    //   actions: [<a key="Modify">修改</a>],
+    //   actions: [<a key="Modify" onClick={() => {
+    //     handleUpdateModalVisible(true);
+    //   }}>修改</a>],
     // },
     // {
-    //   title: '备用邮箱',
-    //   description: `已绑定邮箱：ant***sign.com`,
-    //   actions: [<a key="Modify">修改</a>],
+    //   title: '邮箱',
+    //   description: `已绑定邮箱：${currentUser?.email || ''}`,
+    //   actions: [<a key="Modify" onClick={() => {
+    //     handleUpdateEmailModalVisible(true);
+    //   }}>修改</a>],
     // },
     // {
     //   title: 'MFA 设备',
@@ -60,17 +95,34 @@ const SecurityView: React.FC = () => {
         )}
       />
 
-      <UpdateForm
+      <UpdatePasswordForm
         onSubmit={async (value) => {
-          handleUpdateModalVisible(false);
+          console.log(value);
+          handleModifyPassword(value);
+          handleUpdatePasswordModalVisible(false);
           if (actionRef.current) {
             actionRef.current.reload();
           }
         }}
         onCancel={() => {
-          handleUpdateModalVisible(false);
+          handleUpdatePasswordModalVisible(false);
         }}
-        updateModalVisible={updateModalVisible}
+        updateModalVisible={updatePasswordModalVisible}
+      />
+
+      <UpdateEmailForm
+        onSubmit={async (value) => {
+          console.log(value);
+          handleModifyPassword(value);
+          handleUpdateEmailModalVisible(false);
+          if (actionRef.current) {
+            actionRef.current.reload();
+          }
+        }}
+        onCancel={() => {
+          handleUpdateEmailModalVisible(false);
+        }}
+        updateModalVisible={updateEmailModalVisible}
       />
     </>
   );

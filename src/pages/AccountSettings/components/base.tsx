@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
 import ProForm, {
@@ -8,11 +8,13 @@ import ProForm, {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-form';
-import { useRequest } from 'umi';
+import { connect, useRequest } from 'umi';
 import { queryCurrent } from '../service';
 import { queryProvince, queryCity } from '../service';
 
 import styles from './BaseView.less';
+import { ConnectState } from '@/models/connect';
+import { ModifyParamsType } from '@/services/user';
 
 const validatorPhone = (rule: any, value: string, callback: (message?: string) => void) => {
   const values = value.split('-');
@@ -42,7 +44,7 @@ const AvatarView = ({ avatar }: { avatar: string }) => (
   </>
 );
 
-const BaseView: React.FC = () => {
+const BaseView: FC<Record<string, any>> = (props) => {
   const { data: currentUser, loading } = useRequest(() => {
     return queryCurrent();
   });
@@ -58,9 +60,15 @@ const BaseView: React.FC = () => {
     return '';
   };
 
-  const handleFinish = async () => {
-    //TODO:
-    message.success('更新基本信息成功');
+  const handleFinish = async (values: ModifyParamsType) => {
+    console.log(values);
+    const { dispatch } = props;
+    dispatch({
+      type: 'user/modifyProfile',
+      payload: {
+        ...values
+      },
+    });
   };
   return (
     <div className={styles.baseView}>
@@ -109,7 +117,7 @@ const BaseView: React.FC = () => {
                 ]}
               />
               <ProFormTextArea
-                name="profile"
+                name="signature"
                 label="个人简介"
                 rules={[
                   {
@@ -119,7 +127,7 @@ const BaseView: React.FC = () => {
                 ]}
                 placeholder="个人简介"
               />
-              <ProFormText
+              {/* <ProFormText
                 width="md"
                 name="phone"
                 label="联系电话"
@@ -129,7 +137,7 @@ const BaseView: React.FC = () => {
                     message: '请输入您的联系电话!',
                   },
                 ]}
-              />
+              /> */}
             </ProForm>
           </div>
           <div className={styles.right}>
@@ -141,4 +149,7 @@ const BaseView: React.FC = () => {
   );
 };
 
-export default BaseView;
+// export default BaseView;
+export default connect(({ loading }: ConnectState) => ({
+  submitting: loading.effects['user/modifyProfile'],
+}))(BaseView);
