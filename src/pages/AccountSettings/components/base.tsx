@@ -98,45 +98,21 @@ const BaseView: FC<Record<string, any>> = (props) => {
                 width="md"
                 name="email"
                 label="邮箱"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的邮箱!',
-                  },
-                ]}
               />
               <ProFormText
                 width="md"
                 name="name"
                 label="昵称"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的昵称!',
-                  },
-                ]}
               />
               <ProFormTextArea
                 name="signature"
                 label="个人简介"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入个人简介!',
-                  },
-                ]}
                 placeholder="个人简介"
               />
               {/* <ProFormText
                 width="md"
                 name="phone"
                 label="联系电话"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的联系电话!',
-                  },
-                ]}
               /> */}
             </ProForm>
           </div>
