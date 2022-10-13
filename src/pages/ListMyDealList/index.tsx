@@ -123,15 +123,32 @@ const TableList: React.FC = () => {
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: '关闭',
-          status: 'Default',
+        ALL: {
+          text: '-',
+          status: 'ALL',
         },
+        SHELF: {
+          text: '待交易',
+          status: 'SHELF',
+        },
+        PENDING: {
+          text: '待審核交易',
+          status: 'PENDING',
+        },
+        CONFIRM: {
+          text: '確認查收',
+          status: 'CONFIRM',
+        },
+        PROCESSING: {
+          text: '等待對方付款',
+          status: 'PROCESSING',
+        }
       },
     },
     {
       title: '上次调度时间',
       sorter: true,
+      hideInSearch: true,
       dataIndex: 'updatedAt',
       valueType: 'dateTime',
       renderFormItem: (item, { defaultRender, ...rest }, form) => {
