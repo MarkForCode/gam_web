@@ -34,9 +34,9 @@ const ListCommodity: FC = () => {
       .then(res => {
         console.log(res);
         let ll;
-        if(cursor == '' && res.data.list.length > 8){
+        if (cursor == '' && res.data.list.length > 8) {
           ll = res.data.list.splice(0, 8);
-        }else {
+        } else {
           ll = res.data.list.filter((l) => l.id != cursor)
         }
         const newData = data.concat(ll);
@@ -165,6 +165,26 @@ const ListCommodity: FC = () => {
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="標題" name="title">
                   <Input />
+                </FormItem>
+              </Col>
+              <Col lg={8} md={10} sm={10} xs={24}>
+                <FormItem {...formItemLayout} label="分類" name="type">
+                  <Select
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="Search to Select"
+                    optionFilterProp="children"
+                    filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                    filterSort={(optionA, optionB) =>
+                      (optionA!.children as unknown as string)
+                        .toLowerCase()
+                        .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                    }
+                  >
+                    <Option value="-">-</Option>
+                    <Option value="ITEM">ITEM</Option>
+                    <Option value="WEAPON">WEAPON</Option>
+                  </Select>
                 </FormItem>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>

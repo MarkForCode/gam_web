@@ -1,6 +1,6 @@
-import { Select } from 'antd';
-import React, { useEffect, useState } from 'react';
-
+import { Select, Spin } from 'antd';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import debounce from 'lodash/debounce';
 interface SelectInputValue {
   platform?: string;
   guild?: string;
@@ -30,10 +30,13 @@ export async function fetchPlatformList(): Promise<UserValue[]> {
     });
 }
 
-async function fetchGuildList(platformId: string): Promise<UserValue[]> {
+async function fetchGuildList(platformId: string, key?: string): Promise<UserValue[]> {
   console.log('fetching guild', platformId);
-
-  return fetch(API_URL + '/api/v1/guild/login/guild?platformId=' + platformId)
+  let url = API_URL + '/api/v1/guild/login/guild?platformId=' + platformId;
+  if (key) {
+    url += `&key=${key}`
+  }
+  return fetch(url)
     .then(response => response.json())
     .then(body =>
       body.map(
@@ -72,12 +75,29 @@ const GuildSelectInput: React.FC<SelectInputProps> = ({ onChange }) => {
     setPlatformInput(platform);
     setGuildInput('');
     triggerChange({ guild: '', platform: platform });
-    
+
     fetchGuildList(platform).then((newOptions) => {
       setGuildOptions(newOptions);
       setGuildFetching(false);
     })
   };
+
+
+  const fetchRef = useRef(0);
+  const onSearchGuildInput = useMemo(() => {
+    const loadOptions = (playfrom: string, value: string) => {
+
+      console.log(playfrom, value);
+      fetchGuildList(playfrom, value).then(newOptions => {
+        console.log(newOptions)
+        setGuildOptions(newOptions);
+        setGuildFetching(false);
+      });
+    };
+
+    return debounce(loadOptions, 800);
+  }, [fetchGuildList]);
+
 
   const onChangeGuildInput = (guild: string) => {
     console.log(`selected ${guild}`);
@@ -85,24 +105,30 @@ const GuildSelectInput: React.FC<SelectInputProps> = ({ onChange }) => {
     triggerChange({ guild: guild, platform: platformInput });
   };
 
-
   return (
-    <><Select
-      showSearch
-      placeholder="Select a platform"
-      onChange={onChangePlatformInput}
-      options={platformOptions}
-      value={platformInput}
-    >
-    </Select>
+    <>
       <Select
         showSearch
+        placeholder="Select a platform"
+        onChange={onChangePlatformInput}
+        options={platformOptions}
+        value={platformInput}
+      >
+      </Select>
+      <Select
+        showSearch
+        filterOption={false}
         placeholder="Select a guild"
+        onSearch={(value) => {
+          onSearchGuildInput(platformInput, value)
+        }}
+        notFoundContent={guildFetching ? <Spin size="small" /> : null}
         onChange={onChangeGuildInput}
         options={guildOptions}
         value={guildInput}
       >
-      </Select></>
+      </Select>
+    </>
   );
 }
 
