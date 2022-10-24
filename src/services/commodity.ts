@@ -9,18 +9,26 @@ export type CommodityParamsType = {
 
 const host = API_URL + '/api/v1/guild/commodity';
 
+export async function fakeUploadImage(file: File){
+  const link = await getPresigned();
+  const dd = JSON.parse(await link.text())
+  console.log(dd);
+  await fakeUploadFile(dd, file);
+  return {
+    host: dd.url,
+    path: dd.fields.key
+  }
+}
+
 export async function fakeSubmitForm(params: CommodityParamsType) {
   console.log(params)
-  let dd;
+  let key;
   if (params.previewImage) {
-    const link = await getPresigned();
-    dd = JSON.parse(await link.text())
-    console.log(dd);
-    await fakeUploadFile(dd, params.previewImage.file.originFileObj);
+    key = await fakeUploadImage(params.previewImage.file.originFileObj);
   }
   const body = {
     ...params,
-    file: dd?.fields.key,
+    file: key?.path,
   };
   console.log(body)
   return fetch(host, {
