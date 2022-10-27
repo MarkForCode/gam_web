@@ -49,7 +49,7 @@ export function getRoutes() {
               },
               {
                 "path": "/welcome",
-                "name": "welcome",
+                "name": "首頁",
                 "icon": "smile",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountCenter' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountCenter'), loading: LoadingComponent}),
                 "exact": true

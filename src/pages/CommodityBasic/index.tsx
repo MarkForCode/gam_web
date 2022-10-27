@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Badge, Button, Card, Col, Descriptions, Divider, Form, Row } from 'antd';
+import { Image, Button, Card, Col, Descriptions, Divider, Form, Row } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import React from 'react';
 import { connect, useLocation, useParams, useRequest } from 'umi';
@@ -36,13 +36,22 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
   };
 
   const cardList = data && (
-    <Descriptions title="商品資訊" style={{ marginBottom: 32 }}>
-      <Descriptions.Item label="取货单号">{data?.id}</Descriptions.Item>
-    </Descriptions>
+    <>
+      <Row justify="space-around">
+        <Col span={7}>
+          <Image src={data?.avatar}></Image>
+        </Col>
+        <Col span={16}>
+          <Descriptions title="商品資訊" style={{ marginBottom: 32 }}>
+            <Descriptions.Item label="商品名稱">{data?.title}</Descriptions.Item>
+          </Descriptions>
+        </Col>
+      </Row>
+    </>
   );
 
   const userList = data?.members && data.members && (
-    <Descriptions title="用户信息" style={{ marginBottom: 32 }}>
+    <Descriptions title="賣家資訊" style={{ marginBottom: 32 }}>
       <Descriptions.Item label="用户姓名">{data?.members[0]?.name}</Descriptions.Item>
     </Descriptions>
   )
@@ -56,6 +65,7 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
   return (
     <PageContainer>
       <Card bordered={false}>
+        {cardList}
         <Form
           layout="inline"
           onFinish={(values) => {
@@ -64,21 +74,18 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
             return Promise.resolve();
           }}
         >
-          <StandardFormRow title="其它选项" grid last>
+          <StandardFormRow title="" grid last>
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
-                    Submit
+                    購買
                   </Button>
                 </Form.Item>
               </Col>
             </Row>
           </StandardFormRow>
         </Form>
-      </Card>
-      <Card bordered={false}>
-        {cardList}
         <Divider style={{ marginBottom: 32 }} />
         {userList}
         <Divider style={{ marginBottom: 32 }} />

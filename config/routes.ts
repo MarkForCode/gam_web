@@ -35,7 +35,7 @@ export default [
               },
               {
                 path: '/welcome',
-                name: 'welcome',
+                name: '首頁',
                 icon: 'smile',
                 component: './AccountCenter',
               }, // {
