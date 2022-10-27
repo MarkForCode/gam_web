@@ -1,4 +1,4 @@
-import { fakeUploadFile, getPresigned } from "./file";
+import { fakeUploadImage } from "./file";
 
 export type CommodityParamsType = {
   title: string;
@@ -8,17 +8,6 @@ export type CommodityParamsType = {
 
 
 const host = API_URL + '/api/v1/guild/commodity';
-
-export async function fakeUploadImage(file: File){
-  const link = await getPresigned();
-  const dd = JSON.parse(await link.text())
-  console.log(dd);
-  await fakeUploadFile(dd, file);
-  return {
-    host: dd.url,
-    path: dd.fields.key
-  }
-}
 
 export async function fakeSubmitForm(params: CommodityParamsType) {
   console.log(params)

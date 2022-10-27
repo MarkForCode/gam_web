@@ -20,7 +20,7 @@ export async function fakeSubmitForm(params: CommodityParamsType) {
   }
 }
 
-export async function getPresigned() {
+async function getPresigned() {
   return fetch(fileHost  + `/presigned?ext=jpg`, {
     headers: {
       'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
@@ -42,7 +42,7 @@ interface PresignedData {
     "X-Amz-Signature": string
   }
 }
-export async function fakeUploadFile(presignedData: PresignedData, file: any) {
+async function fakeUploadFile(presignedData: PresignedData, file: any) {
   const url = presignedData.url;
   const formData = new FormData();
   Object.entries(presignedData.fields).map((f) => {
@@ -58,5 +58,16 @@ export async function fakeUploadFile(presignedData: PresignedData, file: any) {
     await fetch(url, requestOptions);
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function fakeUploadImage(file: File){
+  const link = await getPresigned();
+  const dd = JSON.parse(await link.text())
+  console.log(dd);
+  await fakeUploadFile(dd, file);
+  return {
+    host: dd.url,
+    path: dd.fields.key
   }
 }

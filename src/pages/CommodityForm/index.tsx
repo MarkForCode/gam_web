@@ -10,16 +10,14 @@ import ProForm, {
 import { connect, useRequest } from 'umi';
 import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { fakeSubmitForm } from './service';
-import styles from './style.less';
-import TextEditor from '@/components/TextEditor';
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import FormItem from 'antd/lib/form/FormItem';
 import { UploadOutlined } from '@ant-design/icons';
 import { ConnectState } from '@/models/connect';
-import { CommodityParamsType, fakeUploadImage } from '@/services/commodity';
+import { CommodityParamsType } from '@/services/commodity';
+import { fakeUploadImage } from '@/services/file';
 
 const formats = [
   "header",
