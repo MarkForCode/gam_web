@@ -16,6 +16,9 @@ import styles from './BaseView.less';
 import { ConnectState } from '@/models/connect';
 import { ModifyParamsType } from '@/services/user';
 
+
+
+
 const validatorPhone = (rule: any, value: string, callback: (message?: string) => void) => {
   const values = value.split('-');
   if (!values[0]) {
@@ -27,37 +30,36 @@ const validatorPhone = (rule: any, value: string, callback: (message?: string) =
   callback();
 };
 // 头像组件 方便以后独立，增加裁剪之类的功能
-const AvatarView = ({ avatar }: { avatar: string }) => (
-  <>
-    <div className={styles.avatar_title}>头像</div>
-    <div className={styles.avatar}>
-      <img src={avatar} alt="avatar" />
-    </div>
-    <Upload showUploadList={false}>
-      <div className={styles.button_view}>
-        <Button>
-          <UploadOutlined />
-          更换头像
-        </Button>
-      </div>
-    </Upload>
-  </>
-);
+
 
 const BaseView: FC<Record<string, any>> = (props) => {
-  const { data: currentUser, loading } = useRequest(() => {
-    return queryCurrent();
+  const [avatar, setAvatar] = React.useState<string>('')
+  const [avatarFile, setAvatarFile] = React.useState<File | undefined>(undefined)
+  const { data: currentUser, loading } = useRequest(async () => {
+    const current = await queryCurrent();
+    let url = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
+    if (current && current.data && current.data.avatar) {
+      url = current.data.avatar;
+    }
+    setAvatar(url);
+    return current;
   });
 
-  const getAvatarURL = () => {
-    if (currentUser) {
-      if (currentUser.avatar) {
-        return currentUser.avatar;
-      }
-      const url = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
-      return url;
-    }
-    return '';
+
+  const uploadProps = {
+    maxCount: 1,
+    listType: "picture",
+    beforeUpload(file: any) {
+      console.log(file)
+      const url = URL.createObjectURL(file);
+      setAvatar(url);
+      setAvatarFile(file);
+    },
+    onChange(info: any) {
+      console.log(info.fileList);
+    },
+    accept: ".jpg, .png",
+    showUploadList: false,
   };
 
   const handleFinish = async (values: ModifyParamsType) => {
@@ -66,10 +68,28 @@ const BaseView: FC<Record<string, any>> = (props) => {
     dispatch({
       type: 'user/modifyProfile',
       payload: {
-        ...values
+        ...values,
+        avatar: avatarFile
       },
     });
   };
+
+  const AvatarView = ({ avatar }: { avatar: string }) => (
+    <>
+      <div className={styles.avatar_title}>头像</div>
+      <div className={styles.avatar}>
+        <img src={avatar} alt="avatar" />
+      </div>
+      <Upload {...uploadProps}>
+        <div className={styles.button_view}>
+          <Button>
+            <UploadOutlined />
+            更換頭像
+          </Button>
+        </div>
+      </Upload>
+    </>
+  );
   return (
     <div className={styles.baseView}>
       {loading ? null : (
@@ -117,7 +137,7 @@ const BaseView: FC<Record<string, any>> = (props) => {
             </ProForm>
           </div>
           <div className={styles.right}>
-            <AvatarView avatar={getAvatarURL()} />
+            <AvatarView avatar={avatar} />
           </div>
         </>
       )}

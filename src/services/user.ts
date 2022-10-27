@@ -1,5 +1,6 @@
 import request from '@/utils/request';
 import jwt_decode from "jwt-decode";
+import { fakeUploadImage } from './file';
 
 const host = API_URL + '/api/v1/guild/account';
 
@@ -52,7 +53,7 @@ export async function queryNotices(): Promise<any> {
 
 export type ModifyParamsType = {
   nickname: string;
-  avatar: string;
+  avatar: File;
   email: string;
   phone: string;
   signature: string;
@@ -60,18 +61,25 @@ export type ModifyParamsType = {
 
 export async function modifyProfile(params: ModifyParamsType) {
   console.log(123, params);
+  let key;
+  if (params.avatar) {
+    key = await fakeUploadImage(params.avatar);
+  }
+  
+  const body = {
+    nickname: params.nickname,
+    email: params.email,
+    phone: params.phone,
+    signature: params.signature,
+    avatar: key?.path,
+  };
+  console.log(body);
   const data = await fetch(host + '/state', {
     headers: {
       'content-type': 'application/json',
       'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
     },
-    body: JSON.stringify({
-      nickname: params.nickname,
-      avatar: params.avatar,
-      email: params.email,
-      phone: params.phone,
-      signature: params.signature,
-    }),
+    body: JSON.stringify(body),
     method: 'PUT',
   })
   const res = JSON.parse(await data.text());

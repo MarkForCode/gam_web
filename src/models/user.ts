@@ -59,6 +59,7 @@ const UserModel: UserModelType = {
     },
     *modifyProfile({ payload }, { call, put }) {
       const response = yield call(modifyProfile, payload);
+      console.log(response);
       if(response){
         message.success('更新基本信息成功');
       }else{
