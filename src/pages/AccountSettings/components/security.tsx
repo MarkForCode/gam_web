@@ -4,7 +4,7 @@ import UpdatePasswordForm from './UpdatePasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
 import { ActionType } from '@ant-design/pro-table';
 import { CurrentUser, useRequest } from 'umi';
-import { queryCurrent } from '../service';
+import { modifyPassword, queryCurrent } from '../service';
 import { PasswordType } from '../data';
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
@@ -20,9 +20,9 @@ type Unpacked<T> = T extends (infer U)[] ? U : T;
   if (!selectedRows) return true;
 
   try {
-    // await modifyPassword({
-    //   password: selectedRows.password,
-    // });
+    await modifyPassword({
+      password: selectedRows.password,
+    });
     hide();
     message.success('修改成功，即将刷新');
     return true;
