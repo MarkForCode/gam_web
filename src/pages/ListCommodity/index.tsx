@@ -174,6 +174,7 @@ const ListCommodity: FC = () => {
                     style={{ width: 200 }}
                     placeholder="Search to Select"
                     optionFilterProp="children"
+                    defaultValue={''}
                     filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
                     filterSort={(optionA, optionB) =>
                       (optionA!.children as unknown as string)
@@ -181,9 +182,10 @@ const ListCommodity: FC = () => {
                         .localeCompare((optionB!.children as unknown as string).toLowerCase())
                     }
                   >
-                    <Option value="-">-</Option>
-                    <Option value="ITEM">ITEM</Option>
-                    <Option value="WEAPON">WEAPON</Option>
+                    <Option value="">全部</Option>
+                    <Option value="ITEM">物品</Option>
+                    <Option value="WEAPON">武器</Option>
+                    <Option value="ARMOR">裝備</Option>
                   </Select>
                 </FormItem>
               </Col>

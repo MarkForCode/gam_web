@@ -3,6 +3,7 @@ import { fakeUploadImage } from "./file";
 export type CommodityParamsType = {
   title: string;
   content: string;
+  type: string;
   previewImage: any;
 };
 

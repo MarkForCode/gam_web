@@ -8,6 +8,9 @@ export async function queryFakeList(
 ): Promise<{ data: { list: ListItemDataType[] } }> {
   console.log(params);
   return request(host, {
-    params,
+    params: {
+      ...params,
+      type: params.type == ''? undefined: params.type,
+    },
   });
 }

@@ -8,6 +8,7 @@ export interface Params {
   count?: number;
   cursor?: string;
   title?: string;
+  type?: string;
 }
 export interface ListItemDataType {
   id: string;

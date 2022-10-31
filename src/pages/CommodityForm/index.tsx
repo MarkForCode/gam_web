@@ -55,6 +55,7 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
       type: 'commodity/upload',
       payload: {
         title: values.title,
+        type: values.type,
         content: quillRef.state.value,
         previewImage: values.previewImage,
       },
@@ -152,7 +153,26 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
             ]}
             placeholder="给目标起个名字"
           />
-
+          <ProFormSelect
+            options={[
+              {
+                value: 'ITEM',
+                label: '物品',
+              },
+              {
+                value: 'WEAPON',
+                label: '武器',
+              },
+              {
+                value: 'ARMOR',
+                label: '裝備',
+              },
+            ]}
+            width="md"
+            initialValue='ITEM'
+            label="商品分類"
+            name="type"
+          />
           <ReactQuill
             ref={el => {
               setQuillRef(el);
