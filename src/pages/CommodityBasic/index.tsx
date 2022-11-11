@@ -1,8 +1,8 @@
 import { PageContainer } from '@ant-design/pro-layout';
-import type { ProColumns } from '@ant-design/pro-table';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Image, Button, Card, Col, Descriptions, Divider, Form, Row } from 'antd';
-import { FC, useEffect, useState } from 'react';
+import { Image, Button, Card, Col, Descriptions, Divider, Form, Row, message } from 'antd';
+import { FC, Fragment, useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { connect, useLocation, useParams, useRequest } from 'umi';
 import type { BasicGood, BasicProgress } from './data.d';
@@ -10,10 +10,18 @@ import { queryBasicProfile } from './service';
 import styles from './style.less';
 import StandardFormRow from '../ListCommodity/components/StandardFormRow';
 import { ConnectState } from '@/models/connect';
+import ConfirmBuyForm from './components/ConfirmBuyForm';
+import ButtonGroup from 'antd/lib/button/button-group';
+
+
 
 const CommodityBasic: FC<Record<string, any>> = (props) => {
+  const [ConfirmBuyModalVisible, handleConfirmBuyModalVisible] = useState<boolean>(false);
+
   const params = useParams<{ id: string }>();
   const [data, setData] = useState<any>({});
+
+  const actionRef = useRef<ActionType>();
 
   useEffect(() => {
     queryBasicProfile(params.id).then((d) => {
@@ -23,16 +31,15 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
     })
   }, []);
 
-  const handleSubmit = (commodityId: string) => {
+  const handleSubmit = (commodityId: string, bid: number) => {
     const { dispatch } = props;
-    if (confirm('確定購買？')) {
-      dispatch({
-        type: 'deal/apply',
-        payload: {
-          commodityId
-        },
-      });
-    }
+    dispatch({
+      type: 'deal/apply',
+      payload: {
+        commodityId,
+        bid
+      },
+    });
   };
 
   const cardList = data && (
@@ -44,6 +51,9 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
         <Col span={16}>
           <Descriptions title="商品資訊" style={{ marginBottom: 32 }}>
             <Descriptions.Item label="商品名稱">{data?.title}</Descriptions.Item>
+          </Descriptions>
+          <Descriptions title="" style={{ marginBottom: 32 }}>
+            <Descriptions.Item label="商品價格">{data?.basicPrice}</Descriptions.Item>
           </Descriptions>
         </Col>
       </Row>
@@ -62,30 +72,31 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
   function createMarkup() {
     return { __html: data.content };
   }
+
+  const action = (
+    <Fragment>
+      <Form
+        layout="inline"
+        onFinish={(values) => {
+          console.log(data, values);
+          handleConfirmBuyModalVisible(true);
+          return Promise.resolve();
+        }}
+      >
+        <ButtonGroup>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">購買</Button>
+          </Form.Item>
+        </ButtonGroup>
+      </Form>
+    </Fragment>
+  );
   return (
-    <PageContainer>
+    <PageContainer
+      extra={action}
+    >
       <Card bordered={false}>
         {cardList}
-        <Form
-          layout="inline"
-          onFinish={(values) => {
-            console.log(data);
-            handleSubmit(data.id);
-            return Promise.resolve();
-          }}
-        >
-          <StandardFormRow title="" grid last>
-            <Row gutter={16}>
-              <Col lg={8} md={10} sm={10} xs={24}>
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                  <Button type="primary" htmlType="submit">
-                    購買
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
-          </StandardFormRow>
-        </Form>
         <Divider style={{ marginBottom: 32 }} />
         {userList}
         <Divider style={{ marginBottom: 32 }} />
@@ -104,7 +115,24 @@ const CommodityBasic: FC<Record<string, any>> = (props) => {
           columns={progressColumns}
         /> */}
       </Card>
+
+      <ConfirmBuyForm
+        basicPrice={data.basicPrice}
+        onSubmit={async (value) => {
+          console.log(value);
+          handleSubmit(data.id, value.bid);
+          handleConfirmBuyModalVisible(false);
+          if (actionRef.current) {
+            actionRef.current.reload();
+          }
+        }}
+        onCancel={() => {
+          handleConfirmBuyModalVisible(false);
+        }}
+        updateModalVisible={ConfirmBuyModalVisible}
+      />
     </PageContainer >
+
   );
 };
 

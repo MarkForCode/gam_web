@@ -26,7 +26,7 @@ const Model: DealModelType = {
       console.log(response);
       // Login successfully
       if (response === true) {
-        message.success('🎉 🎉 🎉  上傳成功！');
+        message.success('🎉 🎉 🎉  出價成功！');
         return;
       } else {
         message.error(response.message)

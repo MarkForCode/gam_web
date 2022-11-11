@@ -14,13 +14,16 @@ export async function rule(
     current?: number;
     /** 页面的容量 */
     pageSize?: number;
+    cursor?: string;
   },
   options?: { [key: string]: any },
 ) {
+  console.log(params);
   return request<{
     data: TableListItem[];
     /** 列表的内容总数 */
     total?: number;
+    current?: number;
     success?: boolean;
   }>(host, {
     method: 'GET',

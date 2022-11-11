@@ -115,7 +115,7 @@ export default [
                 ],
               },
               {
-                name: '个人设置',
+                name: '個人設置',
                 icon: 'smile',
                 path: '/accountsettings',
                 component: './AccountSettings',
@@ -123,8 +123,13 @@ export default [
               {
                 path: '/announcement/detail/:id',
                 component: './AnnouncementBasic',
-              }, 
-              // {
+              },
+              {
+                name: '個人管理',
+                icon: 'smile',
+                path: '/accountadvanced',
+                component: './AccountAdvanced',
+              }, // {
               //   name: '公會資訊',
               //   icon: 'smile',
               //   path: '/guild',

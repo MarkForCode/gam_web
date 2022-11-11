@@ -14,6 +14,7 @@ export interface ListItemDataType {
   id: string;
   owner: string;
   title: string;
+  basicPrice: number;
   avatar: string;
   cover: string;
   status: 'normal' | 'exception' | 'active' | 'success';

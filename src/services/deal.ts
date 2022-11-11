@@ -1,6 +1,7 @@
 
 export type CommodityParamsType = {
   commodityId: string;
+  bid: number;
 };
 
 
@@ -15,6 +16,7 @@ export async function fakeSubmitForm(params: CommodityParamsType) {
     },
     body: JSON.stringify({
       commodityId: params.commodityId,
+      bid: Number(params.bid)
     }),
     method: 'POST',
   })

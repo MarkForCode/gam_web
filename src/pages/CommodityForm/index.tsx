@@ -58,6 +58,7 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
         type: values.type,
         content: quillRef.state.value,
         previewImage: values.previewImage,
+        basicPrice: values.basicPrice
       },
     });
   };
@@ -172,6 +173,18 @@ const CommodityForm: FC<Record<string, any>> = (props) => {
             initialValue='ITEM'
             label="商品分類"
             name="type"
+          />
+          <ProFormDigit
+            width="md"
+            label="價格"
+            name="basicPrice"
+            initialValue={0}
+            rules={[
+              {
+                required: true,
+                message: '请输入價格',
+              },
+            ]}
           />
           <ReactQuill
             ref={el => {

@@ -18,7 +18,7 @@ import type { TableListItem, TableListPagination } from './data';
  * @param fields
  */
 const handleAdd = async (fields: TableListItem) => {
-  const hide = message.loading('正在添加');
+  const hiderule = message.loading('正在添加');
 
   try {
     await addRule({ ...fields });
@@ -107,7 +107,7 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
-  /** 国际化配置 */
+  // const [cursor, setCursor] = useState<string>('');
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -118,18 +118,13 @@ const TableList: React.FC = () => {
     {
       title: '標題',
       dataIndex: 'name',
-      render: (dom, entity) => {
-        return (
-          <a
-            onClick={() => {
-              setCurrentRow(entity);
-              setShowDetail(true);
-            }}
-          >
-            {dom}
-          </a>
-        );
-      },
+      width: 200,
+      copyable: true,
+      ellipsis: true,
+    },
+    {
+      title: '價格',
+      dataIndex: 'basicPrice',
     },
     {
       title: '状态',
@@ -183,6 +178,15 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
+        <a
+          key="config"
+          onClick={() => {
+            setCurrentRow(record);
+            setShowDetail(true);
+          }}
+        >
+          查看
+        </a>,
         // record.status == '' && <a
         //   key="config"
         //   onClick={() => {
@@ -250,7 +254,19 @@ const TableList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={rule}
+        request={async (params, option) => {
+          const rr = await rule({
+            ...params,
+            // cursor
+          }, option)
+          // if (rr.current && rr.current > 2) {
+          //   setCursor(rr.data[rr.data.length - 1].commodityId);
+          // } else {
+          //   setCursor('');
+          // }
+
+          return rr;
+        }}
         columns={columns}
       // rowSelection={{
       //   onChange: (_, selectedRows) => {

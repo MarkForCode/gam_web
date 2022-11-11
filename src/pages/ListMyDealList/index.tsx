@@ -65,7 +65,7 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
  *
  * @param selectedRows
  */
- const handleAudit = async (selectedRows: TableListItem) => {
+const handleAudit = async (selectedRows: TableListItem) => {
   const hide = message.loading('正在查收');
   if (!selectedRows) return true;
 
@@ -105,18 +105,13 @@ const TableList: React.FC = () => {
     {
       title: '標題',
       dataIndex: 'name',
-      render: (dom, entity) => {
-        return (
-          <a
-            onClick={() => {
-              setCurrentRow(entity);
-              setShowDetail(true);
-            }}
-          >
-            {dom}
-          </a>
-        );
-      },
+      width: 200,
+      ellipsis: true,
+      copyable: true,
+    },
+    {
+      title: '出價',
+      dataIndex: 'bid',
     },
     {
       title: '状态',
@@ -170,6 +165,15 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
+        <a
+          key="config"
+          onClick={() => {
+            setCurrentRow(record);
+            setShowDetail(true);
+          }}
+        >
+          查看
+        </a>,
         (record.status == 'PROCESSING' || record.status == 'SELLER CONFIRM') && <a
           key="config"
           onClick={async () => {

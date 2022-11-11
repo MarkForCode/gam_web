@@ -99,7 +99,8 @@ const ListCommodity: FC = () => {
               }
             />
             <div className={styles.cardItemContent}>
-              <span>{moment(item.updatedAt || item.createdAt).fromNow()}</span>
+              <span>價格{item.basicPrice}元</span>
+              <span style={{textAlign: 'right'}}>{moment(item.updatedAt || item.createdAt).fromNow()}</span>
             </div>
           </Card>
         </List.Item>

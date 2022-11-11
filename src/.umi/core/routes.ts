@@ -99,7 +99,7 @@ export function getRoutes() {
                 ]
               },
               {
-                "name": "个人设置",
+                "name": "個人設置",
                 "icon": "smile",
                 "path": "/accountsettings",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
@@ -108,6 +108,13 @@ export function getRoutes() {
               {
                 "path": "/announcement/detail/:id",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementBasic'), loading: LoadingComponent}),
+                "exact": true
+              },
+              {
+                "name": "個人管理",
+                "icon": "smile",
+                "path": "/accountadvanced",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountAdvanced'), loading: LoadingComponent}),
                 "exact": true
               },
               {

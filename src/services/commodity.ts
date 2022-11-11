@@ -5,6 +5,7 @@ export type CommodityParamsType = {
   content: string;
   type: string;
   previewImage: any;
+  basicPrice: number;
 };
 
 

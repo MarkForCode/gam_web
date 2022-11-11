@@ -15,3 +15,7 @@ export type BasicProgress = {
   operator: string;
   cost: string;
 };
+
+export type BidType = {
+  bid: number;
+};
