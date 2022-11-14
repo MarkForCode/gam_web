@@ -45,29 +45,6 @@ const action = (
   </Fragment>
 );
 
-const extra = (
-  <div className={styles.moreInfo}>
-    <Statistic title="狀態" value="待审批" />
-    <Statistic title="錢包" value={568.08} prefix="¥" />
-  </div>
-);
-
-const description = (
-  <RouteContext.Consumer>
-    {({ isMobile }) => (
-      <Descriptions className={styles.headerList} size="small" column={isMobile ? 1 : 2}>
-        <Descriptions.Item label="暱稱">曲丽丽</Descriptions.Item>
-        <Descriptions.Item label="職位">XX 服务</Descriptions.Item>
-        <Descriptions.Item label="創建時間">2017-07-07</Descriptions.Item>
-        <Descriptions.Item label="公會">
-          <a href="">12421</a>
-        </Descriptions.Item>
-        <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item>
-      </Descriptions>
-    )}
-  </RouteContext.Consumer>
-);
-
 
 const operationTabList = [
   {
@@ -78,25 +55,9 @@ const operationTabList = [
 
 const columns = [
   {
-    title: '操作类型',
-    dataIndex: 'type',
-    key: 'type',
-  },
-  {
-    title: '操作人',
+    title: '操作動作',
     dataIndex: 'name',
     key: 'name',
-  },
-  {
-    title: '执行结果',
-    dataIndex: 'status',
-    key: 'status',
-    render: (text: string) => {
-      if (text === 'agree') {
-        return <Badge status="success" text="成功" />;
-      }
-      return <Badge status="error" text="驳回" />;
-    },
   },
   {
     title: '操作时间',
@@ -121,33 +82,41 @@ const AccountAdvanced: FC = () => {
     tabActiveKey: 'detail',
   });
   const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAdvancedProfile);
-  const { advancedOperation1, advancedOperation2, advancedOperation3 } = data;
+  const { state, log } = data;
   const contentList = {
     tab1: (
       <Table
         pagination={false}
         loading={loading}
-        dataSource={advancedOperation1}
-        columns={columns}
-      />
-    ),
-    tab2: (
-      <Table
-        pagination={false}
-        loading={loading}
-        dataSource={advancedOperation2}
-        columns={columns}
-      />
-    ),
-    tab3: (
-      <Table
-        pagination={false}
-        loading={loading}
-        dataSource={advancedOperation3}
+        dataSource={log}
         columns={columns}
       />
     ),
   };
+
+  const description = (
+    <RouteContext.Consumer>
+      {({ isMobile }) => (
+        <Descriptions className={styles.headerList} size="small" column={isMobile ? 1 : 2}>
+          <Descriptions.Item label="暱稱">{state?.name}</Descriptions.Item>
+          <Descriptions.Item label="職位">XX 服务</Descriptions.Item>
+          <Descriptions.Item label="創建時間">2017-07-07</Descriptions.Item>
+          <Descriptions.Item label="公會">
+            <a href="">{state?.group}</a>
+          </Descriptions.Item>
+          <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item>
+        </Descriptions>
+      )}
+    </RouteContext.Consumer>
+  );
+
+  const extra = (
+    <div className={styles.moreInfo}>
+      <Statistic title="狀態" value="待审批" />
+      <Statistic title="錢包" value={568.08} prefix="¥" />
+    </div>
+  );
+
   const onTabChange = (tabActiveKey: string) => {
     seTabStatus({ ...tabStatus, tabActiveKey });
   };
