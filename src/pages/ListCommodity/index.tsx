@@ -155,7 +155,7 @@ const ListCommodity: FC = () => {
             </FormItem>
           </StandardFormRow> */}
           <StandardFormRow title="选项" grid last>
-            <Row gutter={16}>
+            <Row gutter={24}>
               {/* <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="作者" name="author">
                   <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
@@ -163,16 +163,16 @@ const ListCommodity: FC = () => {
                   </Select>
                 </FormItem>
               </Col> */}
-              <Col lg={8} md={10} sm={10} xs={24}>
+              <Col lg={6} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="標題" name="title">
                   <Input />
                 </FormItem>
               </Col>
-              <Col lg={8} md={10} sm={10} xs={24}>
+              <Col lg={6} md={12} sm={12} xs={24}>
                 <FormItem {...formItemLayout} label="分類" name="type">
                   <Select
                     showSearch
-                    style={{ width: 200 }}
+                    style={{ width: 160 }}
                     placeholder="Search to Select"
                     optionFilterProp="children"
                     defaultValue={''}
@@ -190,7 +190,27 @@ const ListCommodity: FC = () => {
                   </Select>
                 </FormItem>
               </Col>
-              <Col lg={8} md={10} sm={10} xs={24}>
+              <Col lg={6} md={12} sm={12} xs={24}>
+                <FormItem {...formItemLayout} label="分類" name="status">
+                  <Select
+                    showSearch
+                    style={{ width: 160 }}
+                    placeholder="Search to Select"
+                    optionFilterProp="children"
+                    defaultValue={'PENDING'}
+                    filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                    filterSort={(optionA, optionB) =>
+                      (optionA!.children as unknown as string)
+                        .toLowerCase()
+                        .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                    }
+                  >
+                    <Option value="PENDING">待交易</Option>
+                    <Option value="CONFIRM">交易完成</Option>
+                  </Select>
+                </FormItem>
+              </Col>
+              <Col lg={6} md={12} sm={12} xs={24}>
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
                     查詢

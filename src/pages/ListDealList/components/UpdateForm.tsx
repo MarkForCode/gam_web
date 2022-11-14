@@ -30,7 +30,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   return (
     <ModalForm
       width={640}
-      title="规则配置"
+      title="審核"
       visible={props.updateModalVisible}
       // footer={submitter}
       onFinish={props.onSubmit}
@@ -61,7 +61,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         options={
           props.values.buyers?.map((b) => {
             return {
-              label: b.username,
+              label: b.username + '(' + props.values.bid + ')',
               value: b.id,
             }
           })

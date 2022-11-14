@@ -9,6 +9,7 @@ export interface Params {
   cursor?: string;
   title?: string;
   type?: string;
+  status?: string;
 }
 export interface ListItemDataType {
   id: string;

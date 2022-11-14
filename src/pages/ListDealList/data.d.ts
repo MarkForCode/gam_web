@@ -4,6 +4,7 @@ export type TableListItem = {
   href: string;
   avatar: string;
   name: string;
+  bid: number;
   buyers: {
     id: string;
     username: string;
