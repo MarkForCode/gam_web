@@ -27,7 +27,6 @@ export default [
           {
             path: '/',
             component: '../layouts/BasicLayout',
-            authority: ['ADMIN', 'NORMAL'],
             routes: [
               {
                 path: '/',
@@ -36,55 +35,53 @@ export default [
               {
                 path: '/welcome',
                 name: '首頁',
-                icon: 'smile',
+                icon: 'home',
                 component: './AccountCenter',
-              }, // {
-              //   path: '/admin',
-              //   name: 'admin',
-              //   icon: 'crown',
-              //   authority: ['ADMIN', 'NORMAL'],
-              //   routes: [
-              //     {
-              //       name: '公會设置',
-              //       icon: 'smile',
-              //       path: '/admin/guildsettings',
-              //       component: './GuildSettings',
-              //     },
-              //     {
-              //       name: '帳號管理',
-              //       icon: 'smile',
-              //       path: '/admin/account',
-              //       component: './ListAccount',
-              //     },
-              //     {
-              //       name: '建立公告',
-              //       icon: 'smile',
-              //       path: '/admin/announcemnet/form',
-              //       component: './AnnouncementForm',
-              //     },
-              //     {
-              //       name: '查询公告',
-              //       icon: 'smile',
-              //       path: '/admin/announcement',
-              //       component: './ListAnnouncementList',
-              //     },
-              //     {
-              //       name: '帳務管理',
-              //       icon: 'smile',
-              //       path: '/admin/listfinancelist',
-              //       component: './ListFinanceList',
-              //     },
-              //   ],
-              // },
+              },
+              {
+                path: '/guild',
+                name: '公會',
+                authority: ['ADMIN'],
+                icon: 'crown',
+                routes: [
+                  {
+                    name: '公會管理',
+                    path: '/guild/advanced',
+                    component: './GuildAdvanced',
+                  },
+                  {
+                    name: '公會设置',
+                    path: '/guild/admin/settings',
+                    component: './GuildSettings',
+                  },
+                  {
+                    name: '帳號管理',
+                    path: '/guild/admin/account',
+                    component: './ListAccount',
+                  },
+                  {
+                    name: '建立公告',
+                    hideInMenu: true,
+                    path: '/guild/admin/announcemnet/form',
+                    component: './AnnouncementForm',
+                  },
+                  {
+                    name: '查询公告',
+                    authority: ['ADMIN'],
+                    path: '/guild/admin/announcement',
+                    component: './ListAnnouncementList',
+                  },
+                ],
+              },
               {
                 path: '/commodity',
                 name: '商品',
-                icon: 'crown',
+                icon: 'gift',
                 authority: ['ADMIN', 'NORMAL'],
                 routes: [
                   {
-                    // name: '建立商品',
-                    // icon: 'smile',
+                    name: '建立商品',
+                    hideInMenu: true,
                     path: '/commodity/form',
                     component: './CommodityForm',
                   },
@@ -115,26 +112,28 @@ export default [
                 ],
               },
               {
-                name: '個人設置',
+                path: '/account',
+                name: '個人',
                 icon: 'smile',
-                path: '/accountsettings',
-                component: './AccountSettings',
+                routes: [
+                  {
+                    name: '個人管理',
+                    icon: 'smile',
+                    path: '/account/advanced',
+                    component: './AccountAdvanced',
+                  },
+                  {
+                    name: '個人設置',
+                    icon: 'smile',
+                    path: '/account/settings',
+                    component: './AccountSettings',
+                  },
+                ],
               },
               {
                 path: '/announcement/detail/:id',
                 component: './AnnouncementBasic',
               },
-              {
-                name: '個人管理',
-                icon: 'smile',
-                path: '/accountadvanced',
-                component: './AccountAdvanced',
-              }, // {
-              //   name: '公會資訊',
-              //   icon: 'smile',
-              //   path: '/guild',
-              //   component: './GuildAdvanced',
-              // },
               {
                 component: './404',
               },

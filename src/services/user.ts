@@ -21,6 +21,7 @@ export async function queryCurrent(): Promise<any> {
       email: ss.user.email || '',
       signature: ss.user.signature || '',
       // title: '',
+      role: ss.user.role || '',
       group: ss.user.group || '',
       // tags: [
       //   {

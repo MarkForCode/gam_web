@@ -37,10 +37,6 @@ export function getRoutes() {
           {
             "path": "/",
             "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__BasicLayout' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/layouts/BasicLayout'), loading: LoadingComponent}),
-            "authority": [
-              "ADMIN",
-              "NORMAL"
-            ],
             "routes": [
               {
                 "path": "/",
@@ -50,20 +46,66 @@ export function getRoutes() {
               {
                 "path": "/welcome",
                 "name": "首頁",
-                "icon": "smile",
+                "icon": "home",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountCenter' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountCenter'), loading: LoadingComponent}),
                 "exact": true
               },
               {
+                "path": "/guild",
+                "name": "公會",
+                "authority": [
+                  "ADMIN"
+                ],
+                "icon": "crown",
+                "routes": [
+                  {
+                    "name": "公會管理",
+                    "path": "/guild/advanced",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildAdvanced'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "公會设置",
+                    "path": "/guild/admin/settings",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildSettings'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "帳號管理",
+                    "path": "/guild/admin/account",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAccount' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAccount'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "建立公告",
+                    "hideInMenu": true,
+                    "path": "/guild/admin/announcemnet/form",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementForm'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "查询公告",
+                    "authority": [
+                      "ADMIN"
+                    ],
+                    "path": "/guild/admin/announcement",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAnnouncementList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAnnouncementList'), loading: LoadingComponent}),
+                    "exact": true
+                  }
+                ]
+              },
+              {
                 "path": "/commodity",
                 "name": "商品",
-                "icon": "crown",
+                "icon": "gift",
                 "authority": [
                   "ADMIN",
                   "NORMAL"
                 ],
                 "routes": [
                   {
+                    "name": "建立商品",
+                    "hideInMenu": true,
                     "path": "/commodity/form",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CommodityForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/CommodityForm'), loading: LoadingComponent}),
                     "exact": true
@@ -99,22 +141,29 @@ export function getRoutes() {
                 ]
               },
               {
-                "name": "個人設置",
+                "path": "/account",
+                "name": "個人",
                 "icon": "smile",
-                "path": "/accountsettings",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
-                "exact": true
+                "routes": [
+                  {
+                    "name": "個人管理",
+                    "icon": "smile",
+                    "path": "/account/advanced",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountAdvanced'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "個人設置",
+                    "icon": "smile",
+                    "path": "/account/settings",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountSettings'), loading: LoadingComponent}),
+                    "exact": true
+                  }
+                ]
               },
               {
                 "path": "/announcement/detail/:id",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementBasic'), loading: LoadingComponent}),
-                "exact": true
-              },
-              {
-                "name": "個人管理",
-                "icon": "smile",
-                "path": "/accountadvanced",
-                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AccountAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AccountAdvanced'), loading: LoadingComponent}),
                 "exact": true
               },
               {

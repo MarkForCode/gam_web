@@ -49,7 +49,7 @@ const action = (
 const operationTabList = [
   {
     key: 'tab1',
-    tab: '操作日志一',
+    tab: '操作日志',
   },
 ];
 

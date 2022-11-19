@@ -51,8 +51,7 @@ const Model: LoginModelType = {
           console.log(ss);
           window.localStorage.setItem('token', response.data.access_token);
           window.localStorage.setItem('exp', (ss['exp'] * 1000).toString() || '0');
-          window.localStorage.setItem('username', ss['user']['name'] ||  'test')
-          window.localStorage.setItem('role', ss['user']['role'] ||  'user')
+          window.localStorage.setItem('username', ss['user']['username'] ||  'test')
         }
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params as { redirect: string };
@@ -95,6 +94,7 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
+      console.log(payload);
       setAuthority(payload.currentAuthority);
       return {
         ...state,
