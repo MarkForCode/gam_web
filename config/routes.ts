@@ -44,18 +44,18 @@ export default [
                 authority: ['ADMIN'],
                 icon: 'crown',
                 routes: [
+                  // {
+                  //   name: '公會管理',
+                  //   path: '/guild/advanced',
+                  //   component: './GuildAdvanced',
+                  // },
+                  // {
+                  //   name: '公會设置',
+                  //   path: '/guild/admin/settings',
+                  //   component: './GuildSettings',
+                  // },
                   {
-                    name: '公會管理',
-                    path: '/guild/advanced',
-                    component: './GuildAdvanced',
-                  },
-                  {
-                    name: '公會设置',
-                    path: '/guild/admin/settings',
-                    component: './GuildSettings',
-                  },
-                  {
-                    name: '帳號管理',
+                    name: '成員管理',
                     path: '/guild/admin/account',
                     component: './ListAccount',
                   },

@@ -59,19 +59,7 @@ export function getRoutes() {
                 "icon": "crown",
                 "routes": [
                   {
-                    "name": "公會管理",
-                    "path": "/guild/advanced",
-                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildAdvanced'), loading: LoadingComponent}),
-                    "exact": true
-                  },
-                  {
-                    "name": "公會设置",
-                    "path": "/guild/admin/settings",
-                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__GuildSettings' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/GuildSettings'), loading: LoadingComponent}),
-                    "exact": true
-                  },
-                  {
-                    "name": "帳號管理",
+                    "name": "成員管理",
                     "path": "/guild/admin/account",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAccount' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAccount'), loading: LoadingComponent}),
                     "exact": true

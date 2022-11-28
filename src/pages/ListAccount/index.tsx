@@ -109,75 +109,76 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '描述',
-      dataIndex: 'desc',
-      valueType: 'textarea',
-    },
-    {
-      title: '服务调用次数',
-      dataIndex: 'callNo',
-      sorter: true,
+      title: '職位',
+      dataIndex: 'role',
       hideInForm: true,
-      renderText: (val: string) => `${val}万`,
+      valueEnum: {
+        'ADMIN': {
+          text: '管理者',
+        },
+        'NORMAL': {
+          text: '成員',
+        },
+      },
     },
     {
       title: '状态',
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: '关闭',
-          status: 'Default',
+        'PENDING': {
+          text: '邀請中',
         },
-        1: {
-          text: '运行中',
-          status: 'Processing',
+        'NORMAL': {
+          text: '已開通',
         },
-        2: {
-          text: '已上线',
-          status: 'Success',
-        },
-        3: {
-          text: '异常',
-          status: 'Error',
+        'SUSPEND': {
+          text: '封鎖中',
         },
       },
     },
     {
+      title: 'email',
+      sorter: true,
+      dataIndex: 'email',
+    },
+    {
       title: '上次调度时间',
       sorter: true,
-      dataIndex: 'updatedAt',
+      hideInSearch: true,
+      dataIndex: 'updateAt',
       valueType: 'dateTime',
-      renderFormItem: (item, { defaultRender, ...rest }, form) => {
-        const status = form.getFieldValue('status');
-
-        if (`${status}` === '0') {
-          return false;
-        }
-
-        if (`${status}` === '3') {
-          return <Input {...rest} placeholder="请输入异常原因！" />;
-        }
-
-        return defaultRender(item);
-      },
+    },
+    {
+      title: '建立時間',
+      sorter: true,
+      hideInSearch: true,
+      dataIndex: 'createdAt',
+      valueType: 'dateTime',
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
+        // <a
+        //   key="config"
+        //   onClick={() => {
+        //     handleUpdateModalVisible(true);
+        //     setCurrentRow(record);
+        //   }}
+        // >
+        //   配置
+        // </a>,
         <a
-          key="config"
+          key="delete"
           onClick={() => {
-            handleUpdateModalVisible(true);
-            setCurrentRow(record);
+            if (confirm('確定刪除嗎?')) {
+              handleRemove([record]);
+            }
           }}
         >
-          配置
-        </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          订阅警报
+          移除
         </a>,
       ],
     },
@@ -205,43 +206,7 @@ const TableList: React.FC = () => {
         ]}
         request={rule}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
-          },
-        }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              已选择{' '}
-              <a
-                style={{
-                  fontWeight: 600,
-                }}
-              >
-                {selectedRowsState.length}
-              </a>{' '}
-              项 &nbsp;&nbsp;
-              <span>
-                服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-              </span>
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            批量删除
-          </Button>
-          <Button type="primary">批量审批</Button>
-        </FooterToolbar>
-      )}
       <ModalForm
         title="新建规则"
         width="400px"
@@ -258,16 +223,20 @@ const TableList: React.FC = () => {
         }}
       >
         <ProFormText
+          label="email"
           rules={[
             {
               required: true,
               message: '规则名称为必填项',
             },
+            {
+              message: '請填入email 格式',
+              type: 'email',
+            },
           ]}
           width="md"
-          name="name"
+          name="email"
         />
-        <ProFormTextArea width="md" name="desc" />
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
