@@ -3,11 +3,11 @@ import { StarTwoTone, LikeOutlined, MessageFilled } from '@ant-design/icons';
 import { useRequest } from 'umi';
 import { List, Tag } from 'antd';
 import ArticleListContent from '../ArticleListContent';
-import type { ListItemDataType } from '../../data.d';
+import type { ListItemDataType } from '../../data';
 import { queryGuildAnnouncementList, querySystemAnnouncementList } from '../../service';
 import styles from './index.less';
 
-const Articles: React.FC = () => {
+const GuildAnnouncement: React.FC = () => {
   const IconText: React.FC<{
     icon: React.ReactNode;
     text: React.ReactNode;
@@ -19,7 +19,7 @@ const Articles: React.FC = () => {
 
   // 获取tab列表数据
   const { data: listData } = useRequest(() => {
-    return querySystemAnnouncementList({
+    return queryGuildAnnouncementList({
       count: 30,
     });
   });
@@ -60,4 +60,4 @@ const Articles: React.FC = () => {
   );
 };
 
-export default Articles;
+export default GuildAnnouncement;

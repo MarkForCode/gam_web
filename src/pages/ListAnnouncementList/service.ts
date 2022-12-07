@@ -21,7 +21,7 @@ export async function rule(
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
-  }>(host, {
+  }>(host + '/guild', {
     method: 'GET',
     params: {
       ...params,
@@ -41,7 +41,7 @@ export async function updateRule(data: { [key: string]: any }, options?: { [key:
 
 /** 新建规则 POST /api/rule */
 export async function addRule(data: { [key: string]: any }, options?: { [key: string]: any }) {
-  return request<TableListItem>('/api/rule', {
+  return request<TableListItem>(host, {
     data,
     method: 'POST',
     ...(options || {}),

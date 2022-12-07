@@ -4,9 +4,8 @@ import React, { useState, useRef } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Link, useRequest } from 'umi';
 import type { RouteChildrenProps } from 'react-router';
-import Projects from './components/Projects';
-import Articles from './components/Articles';
-import Applications from './components/Applications';
+import GuildAnnouncement from './components/GuildAnnouncement';
+import SystemAnnouncement from './components/SystemAnnouncement';
 import type { CurrentUser, TagType, tabKeyType } from './data.d';
 import { queryCurrent } from './service';
 import styles from './Center.less';
@@ -124,10 +123,10 @@ const AccountCenter: React.FC<RouteChildrenProps> = () => {
     // }
     if (tabValue === 'applications') {
       // return <Applications />;
-      return <Articles />;
+      return <GuildAnnouncement />;
     }
     if (tabValue === 'articles') {
-      return <Articles />;
+      return <SystemAnnouncement />;
     }
     return null;
   };
