@@ -10,7 +10,6 @@ import ProForm, {
 import { connect, useRequest } from 'umi';
 import type { FC } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import styles from './style.less';
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -18,6 +17,7 @@ import FormItem from 'antd/lib/form/FormItem';
 import { UploadOutlined } from '@ant-design/icons';
 import { ConnectState } from '@/models/connect';
 import { CommodityParamsType } from '@/services/announcement';
+import { fakeUploadImage } from '@/services/file';
 
 const formats = [
   "header",
@@ -34,9 +34,9 @@ const formats = [
   "imageBlot" // #5 Optinal if using custom formats
 ];
 
-
 const uploadProps = {
   maxCount: 1,
+  listType: "picture",
   beforeUpload(file: any) {
     console.log(file)
   },
@@ -81,14 +81,15 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
 
       formData.append('image', file);
 
-      var fileName = file.name;
       console.log(file);
+      const dd = await fakeUploadImage(file);
+      const fileUrl = dd.host + '/' + dd.path;
       console.log(quillRef);
       const quill = quillRef.getEditor();
       const oldHtml = quill.root;
       console.log(oldHtml);
       const img = document.createElement('img');
-      img.src = `https://s3.ap-northeast-1.amazonaws.com/persistence.biatalk.cc/Business/setshowbiz/menu/menu_20220721.jpg`;
+      img.src = fileUrl;
       oldHtml.appendChild(img);
     };
   }
@@ -162,7 +163,7 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
             <div className="my-editing-area" />
           </ReactQuill>
 
-          <ProFormDateRangePicker
+          {/* <ProFormDateRangePicker
             label="起止日期"
             width="md"
             name="date"
@@ -173,8 +174,8 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
               },
             ]}
             placeholder={['开始日期', '结束日期']}
-          />
-          <ProFormText
+          /> */}
+          {/* <ProFormText
             width="md"
             label={
               <span>
@@ -184,9 +185,9 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
             }
             name="invites"
             placeholder="请直接 @姓名／工号，最多可邀请 5 人"
-          />
+          /> */}
 
-          <ProFormDigit
+          {/* <ProFormDigit
             label={
               <span>
                 权重
@@ -202,9 +203,9 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
               formatter: (value) => `${value || 0}%`,
               parser: (value) => (value ? value.replace('%', '') : '0'),
             }}
-          />
+          /> */}
 
-          <ProFormRadio.Group
+          {/* <ProFormRadio.Group
             options={[
               {
                 value: '1',
@@ -222,7 +223,7 @@ const AnnouncementForm: FC<Record<string, any>> = (props) => {
             label="目标公开"
             help="客户、邀评人默认被分享"
             name="publicType"
-          />
+          /> */}
           <ProFormDependency name={['publicType']}>
             {({ publicType }) => {
               return (

@@ -41,7 +41,7 @@ const SystemAnnouncement: React.FC = () => {
         >
           <List.Item.Meta
             title={
-              <a className={styles.listItemMetaTitle} href={`/announcement/detail/${item.id}`}>
+              <a className={styles.listItemMetaTitle} href={`/system-announcement/detail/${item.id}`}>
                 {item.title}
               </a>
             }

@@ -67,7 +67,7 @@ export function getRoutes() {
                   {
                     "name": "建立公告",
                     "hideInMenu": true,
-                    "path": "/guild/admin/announcemnet/form",
+                    "path": "/guild/admin/announcement/form",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementForm' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementForm'), loading: LoadingComponent}),
                     "exact": true
                   },
@@ -150,7 +150,12 @@ export function getRoutes() {
                 ]
               },
               {
-                "path": "/announcement/detail/:id",
+                "path": "/guild-announcement/detail/:id",
+                "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementBasic'), loading: LoadingComponent}),
+                "exact": true
+              },
+              {
+                "path": "/system-announcement/detail/:id",
                 "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AnnouncementBasic' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/AnnouncementBasic'), loading: LoadingComponent}),
                 "exact": true
               },

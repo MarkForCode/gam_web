@@ -1,5 +1,9 @@
 export type TableListItem = {
-  key: number;
+  id: number;
+  title: string;
+  content: string;
+  owner: string;
+
   disabled?: boolean;
   href: string;
   avatar: string;

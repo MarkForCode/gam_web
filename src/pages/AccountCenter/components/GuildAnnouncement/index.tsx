@@ -41,7 +41,7 @@ const GuildAnnouncement: React.FC = () => {
         >
           <List.Item.Meta
             title={
-              <a className={styles.listItemMetaTitle} href={`/announcement/detail/${item.id}`}>
+              <a className={styles.listItemMetaTitle} href={`/guild-announcement/detail/${item.id}`}>
                 {item.title}
               </a>
             }

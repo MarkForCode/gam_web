@@ -16,7 +16,7 @@ export async function rule(
   },
   options?: { [key: string]: any },
 ) {
-  return request<{
+  const res = await request<{
     data: TableListItem[];
     /** 列表的内容总数 */
     total?: number;
@@ -28,6 +28,8 @@ export async function rule(
     },
     ...(options || {}),
   });
+  console.log(res);
+  return res;
 }
 
 /** 新建规则 PUT /api/rule */
@@ -50,7 +52,7 @@ export async function addRule(data: { [key: string]: any }, options?: { [key: st
 
 /** 删除规则 DELETE /api/rule */
 export async function removeRule(data: { key: number[] }, options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/rule', {
+  return request<Record<string, any>>(host + '/guild/' + data.key, {
     data,
     method: 'DELETE',
     ...(options || {}),

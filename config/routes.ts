@@ -62,7 +62,7 @@ export default [
                   {
                     name: '建立公告',
                     hideInMenu: true,
-                    path: '/guild/admin/announcemnet/form',
+                    path: '/guild/admin/announcement/form',
                     component: './AnnouncementForm',
                   },
                   {
@@ -131,7 +131,11 @@ export default [
                 ],
               },
               {
-                path: '/announcement/detail/:id',
+                path: '/guild-announcement/detail/:id',
+                component: './AnnouncementBasic',
+              },
+              {
+                path: '/system-announcement/detail/:id',
                 component: './AnnouncementBasic',
               },
               {

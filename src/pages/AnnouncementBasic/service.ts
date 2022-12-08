@@ -1,11 +1,15 @@
 import { request } from 'umi';
-import type { BasicGood, BasicProgress } from './data.d';
 
-export async function queryBasicProfile(): Promise<{
-  data: {
-    basicProgress: BasicProgress[];
-    basicGoods: BasicGood[];
-  };
+const host = API_URL + '/api/v1/guild/announce';
+
+export async function queryBasicProfile(id: string): Promise<{
+    id: string,
+    creator: any,
+    title: string,
+    content: string,
 }> {
-  return request('/api/profile/basic');
+  console.log(id);
+  const result = await request(host + `/guild/${id}`);
+  console.log(result)
+  return result;
 }
