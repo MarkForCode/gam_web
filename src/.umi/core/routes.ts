@@ -134,6 +134,13 @@ export function getRoutes() {
                     "path": "/commodity/listmydeallist",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListMyDealList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListMyDealList'), loading: LoadingComponent}),
                     "exact": true
+                  },
+                  {
+                    "name": "補單管理",
+                    "icon": "smile",
+                    "path": "/commodity/apportion",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListApportionList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListApportionList'), loading: LoadingComponent}),
+                    "exact": true
                   }
                 ]
               },

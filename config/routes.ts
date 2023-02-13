@@ -70,7 +70,6 @@ export default [
                     path: '/guild/admin/announcement',
                     component: './ListAnnouncementList',
                   },
-
                   {
                     name: '公會帳務',
                     path: '/guild/admin/fund/advanced',
@@ -118,6 +117,12 @@ export default [
                     icon: 'smile',
                     path: '/commodity/listmydeallist',
                     component: './ListMyDealList',
+                  },
+                  {
+                    name: '補單管理',
+                    icon: 'smile',
+                    path: '/commodity/apportion',
+                    component: './ListApportionList',
                   },
                 ],
               },
