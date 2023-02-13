@@ -42,7 +42,7 @@ const ListCommodity: FC = () => {
         const newData = data.concat(ll);
         setData(newData);
         setList(newData);
-        setCursor(newData[newData.length - 1].id);
+        setCursor(newData[newData.length - 1]?.id);
         if (ll.length >= 8) {
           setLoading(false);
         }
