@@ -104,7 +104,7 @@ const AccountAdvanced: FC = () => {
           <Descriptions.Item label="公會">
             <a href="">{state?.group}</a>
           </Descriptions.Item>
-          <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item>
+          {/* <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item> */}
         </Descriptions>
       )}
     </RouteContext.Consumer>
@@ -112,8 +112,8 @@ const AccountAdvanced: FC = () => {
 
   const extra = (
     <div className={styles.moreInfo}>
-      <Statistic title="狀態" value="待审批" />
-      <Statistic title="錢包" value={568.08} prefix="¥" />
+      {/* <Statistic title="狀態" value="待审批" /> */}
+      <Statistic title="錢包" value={568.08} prefix="$" />
     </div>
   );
 

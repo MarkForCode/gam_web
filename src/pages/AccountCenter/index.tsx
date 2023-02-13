@@ -15,7 +15,7 @@ const operationTabList = [
     key: 'applications',
     tab: (
       <span>
-        系統公告 <span style={{ fontSize: 14 }}>(8)</span>
+        公會公告 <span style={{ fontSize: 14 }}>(8)</span>
       </span>
     ),
   },
@@ -23,7 +23,7 @@ const operationTabList = [
     key: 'articles',
     tab: (
       <span>
-        公會公告 <span style={{ fontSize: 14 }}>(8)</span>
+        系統公告 <span style={{ fontSize: 14 }}>(8)</span>
       </span>
     ),
   },

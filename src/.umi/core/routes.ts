@@ -51,7 +51,7 @@ export function getRoutes() {
                 "exact": true
               },
               {
-                "path": "/guild",
+                "path": "/guild/admin",
                 "name": "公會",
                 "authority": [
                   "ADMIN"
@@ -73,11 +73,20 @@ export function getRoutes() {
                   },
                   {
                     "name": "查询公告",
-                    "authority": [
-                      "ADMIN"
-                    ],
                     "path": "/guild/admin/announcement",
                     "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListAnnouncementList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListAnnouncementList'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "公會帳務",
+                    "path": "/guild/admin/fund/advanced",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__FundAdvanced' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/FundAdvanced'), loading: LoadingComponent}),
+                    "exact": true
+                  },
+                  {
+                    "name": "成員帳務",
+                    "path": "/guild/admin/fund/member",
+                    "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListFundMemberList' */'/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/pages/ListFundMemberList'), loading: LoadingComponent}),
                     "exact": true
                   }
                 ]

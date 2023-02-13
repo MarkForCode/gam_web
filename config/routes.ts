@@ -39,7 +39,7 @@ export default [
                 component: './AccountCenter',
               },
               {
-                path: '/guild',
+                path: '/guild/admin',
                 name: '公會',
                 authority: ['ADMIN'],
                 icon: 'crown',
@@ -67,9 +67,19 @@ export default [
                   },
                   {
                     name: '查询公告',
-                    authority: ['ADMIN'],
                     path: '/guild/admin/announcement',
                     component: './ListAnnouncementList',
+                  },
+
+                  {
+                    name: '公會帳務',
+                    path: '/guild/admin/fund/advanced',
+                    component: './FundAdvanced',
+                  },
+                  {
+                    name: '成員帳務',
+                    path: '/guild/admin/fund/member',
+                    component: './ListFundMemberList',
                   },
                 ],
               },
