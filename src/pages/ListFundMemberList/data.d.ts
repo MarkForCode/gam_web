@@ -1,13 +1,9 @@
 export type TableListItem = {
   key: number;
-  disabled?: boolean;
-  href: string;
-  avatar: string;
   name: string;
-  owner: string;
-  desc: string;
-  callNo: number;
-  status: string;
+  withdrawApplyStatus: string;
+
+  
   updatedAt: Date;
   createdAt: Date;
   progress: number;

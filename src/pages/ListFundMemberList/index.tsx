@@ -11,26 +11,7 @@ import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import { rule, addRule, updateRule, removeRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
-/**
- * 添加节点
- *
- * @param fields
- */
 
-const handleAdd = async (fields: TableListItem) => {
-  const hide = message.loading('正在添加');
-
-  try {
-    await addRule({ ...fields });
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
-};
 /**
  * 更新节点
  *
@@ -54,29 +35,6 @@ const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) =
     return false;
   }
 };
-/**
- * 删除节点
- *
- * @param selectedRows
- */
-
-const handleRemove = async (selectedRows: TableListItem[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-
-  try {
-    await removeRule({
-      key: selectedRows.map((row) => row.key),
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
 
 const TableList: React.FC = () => {
   /** 新建窗口的弹窗 */
@@ -92,7 +50,7 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '成員ID',
+      title: '成員名稱',
       dataIndex: 'name',
       tip: '规则名称是唯一的 key',
       render: (dom, entity) => {
@@ -109,64 +67,33 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '名稱',
-      dataIndex: 'desc',
-      valueType: 'textarea',
-    },
-    {
       title: '帳戶金額',
-      dataIndex: 'callNo',
-      sorter: true,
-      hideInForm: true,
-      renderText: (val: string) => `${val}万`,
+      dataIndex: 'walletAmount',
+      hideInSearch: true,
     },
     {
       title: '申請狀態',
-      dataIndex: 'status',
+      dataIndex: 'withdrawApplyStatus',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: '关闭',
-          status: 'Default',
-        },
-        1: {
-          text: '运行中',
-          status: 'Processing',
-        },
-        2: {
-          text: '已上线',
-          status: 'Success',
-        },
-        3: {
-          text: '异常',
-          status: 'Error',
+        'PENDING': {
+          text: '申請中',
+          status: 'PENDING',
         },
       },
     },
     {
       title: '申請提款時間',
       sorter: true,
-      dataIndex: 'updatedAt',
+      dataIndex: 'withdrawApplyTime',
       valueType: 'dateTime',
-      renderFormItem: (item, { defaultRender, ...rest }, form) => {
-        const status = form.getFieldValue('status');
-
-        if (`${status}` === '0') {
-          return false;
-        }
-
-        if (`${status}` === '3') {
-          return <Input {...rest} placeholder="请输入异常原因！" />;
-        }
-
-        return defaultRender(item);
-      },
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
+        (record.withdrawApplyStatus == 'PENDING') &&
         <a
           key="config"
           onClick={() => {
@@ -190,82 +117,15 @@ const TableList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalVisible(true);
-            }}
-          >
-            <PlusOutlined /> 新建
-          </Button>,
         ]}
         request={rule}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
-          },
-        }}
+        // rowSelection={{
+        //   onChange: (_, selectedRows) => {
+        //     setSelectedRows(selectedRows);
+        //   },
+        // }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              已选择{' '}
-              <a
-                style={{
-                  fontWeight: 600,
-                }}
-              >
-                {selectedRowsState.length}
-              </a>{' '}
-              项 &nbsp;&nbsp;
-              <span>
-                服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-              </span>
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            批量删除
-          </Button>
-          <Button type="primary">批量审批</Button>
-        </FooterToolbar>
-      )}
-      <ModalForm
-        title="新建规则"
-        width="400px"
-        visible={createModalVisible}
-        onVisibleChange={handleModalVisible}
-        onFinish={async (value) => {
-          const success = await handleAdd(value as TableListItem);
-          if (success) {
-            handleModalVisible(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-      >
-        <ProFormText
-          rules={[
-            {
-              required: true,
-              message: '规则名称为必填项',
-            },
-          ]}
-          width="md"
-          name="name"
-        />
-        <ProFormTextArea width="md" name="desc" />
-      </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value, currentRow);
