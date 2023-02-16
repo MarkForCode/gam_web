@@ -45,11 +45,6 @@ export default [
                 icon: 'crown',
                 routes: [
                   // {
-                  //   name: '公會管理',
-                  //   path: '/guild/advanced',
-                  //   component: './GuildAdvanced',
-                  // },
-                  // {
                   //   name: '公會设置',
                   //   path: '/guild/admin/settings',
                   //   component: './GuildSettings',

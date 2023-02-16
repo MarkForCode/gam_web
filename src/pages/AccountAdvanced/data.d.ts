@@ -2,6 +2,7 @@ export type AdvancedOperation1 = {
   name: string;
   avatar: string;
   userid: string;
+  amount: number;
   email: string;
   signature: string;
   group: string;

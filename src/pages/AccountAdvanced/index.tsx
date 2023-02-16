@@ -113,7 +113,7 @@ const AccountAdvanced: FC = () => {
   const extra = (
     <div className={styles.moreInfo}>
       {/* <Statistic title="狀態" value="待审批" /> */}
-      <Statistic title="錢包" value={568.08} prefix="$" />
+      <Statistic title="錢包" value={state?.amount} prefix="$" />
     </div>
   );
 

@@ -21,7 +21,7 @@ export async function rule(
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
-  }>(host + '/member', {
+  }>(host + '/withdraw/applicant', {
     method: 'GET',
     params: {
       ...params,
