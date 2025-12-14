@@ -3,11 +3,11 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/react-intl';
+} from '/home/mark/workspace/gam_web/node_modules/react-intl';
 import { ApplyPluginsType } from 'umi';
 import { event, LANG_CHANGE_EVENT } from './locale';
 // @ts-ignore
-import warning from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/warning/warning.js';
+import warning from '/home/mark/workspace/gam_web/node_modules/@umijs/plugin-locale/node_modules/warning/warning.js';
 
 import { plugin } from '../core/plugin';
 
@@ -34,23 +34,29 @@ export {
   defineMessages,
   injectIntl,
   useIntl,
-} from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/react-intl';
+} from '/home/mark/workspace/gam_web/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
 const useLocalStorage = true;
 
 import enUS0 from 'antd/es/locale/en_US';
+import lang_enUS0 from "/home/mark/workspace/gam_web/src/locales/en-US.ts";
 import idID0 from 'antd/es/locale/id_ID';
+import lang_idID0 from "/home/mark/workspace/gam_web/src/locales/id-ID.ts";
 import jaJP0 from 'antd/es/locale/ja_JP';
+import lang_jaJP0 from "/home/mark/workspace/gam_web/src/locales/ja-JP.ts";
 import ptBR0 from 'antd/es/locale/pt_BR';
+import lang_ptBR0 from "/home/mark/workspace/gam_web/src/locales/pt-BR.ts";
 import zhCN0 from 'antd/es/locale/zh_CN';
+import lang_zhCN0 from "/home/mark/workspace/gam_web/src/locales/zh-CN.ts";
 import zhTW0 from 'antd/es/locale/zh_TW';
+import lang_zhTW0 from "/home/mark/workspace/gam_web/src/locales/zh-TW.ts";
 
 export const localeInfo: {[key: string]: any} = {
   'en-US': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/en-US.ts')),
+      ...lang_enUS0,
     },
     locale: 'en-US',
     antd: {
@@ -60,7 +66,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'id-ID': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/id-ID.ts')),
+      ...lang_idID0,
     },
     locale: 'id-ID',
     antd: {
@@ -70,7 +76,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'ja-JP': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/ja-JP.ts')),
+      ...lang_jaJP0,
     },
     locale: 'ja-JP',
     antd: {
@@ -80,7 +86,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'pt-BR': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/pt-BR.ts')),
+      ...lang_ptBR0,
     },
     locale: 'pt-BR',
     antd: {
@@ -90,7 +96,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-CN': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/zh-CN.ts')),
+      ...lang_zhCN0,
     },
     locale: 'zh-CN',
     antd: {
@@ -100,7 +106,7 @@ export const localeInfo: {[key: string]: any} = {
   },
   'zh-TW': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/locales/zh-TW.ts')),
+      ...lang_zhTW0,
     },
     locale: 'zh-TW',
     antd: {
@@ -132,13 +138,19 @@ export const addLocale = (
     ? Object.assign({}, localeInfo[name].messages, messages)
     : messages;
 
+
   const { momentLocale, antd } = extraLocales || {};
+  const locale = name.split('-')?.join('-')
   localeInfo[name] = {
     messages: mergeMessages,
-    locale: name.split('-')?.join('-'),
+    locale,
     momentLocale: momentLocale,
     antd,
   };
+   // 如果这是的 name 和当前的locale 相同需要重新设置一下，不然更新不了
+  if (locale === getLocale()) {
+    event.emit(LANG_CHANGE_EVENT, locale);
+  }
 };
 
 /**
@@ -196,7 +208,7 @@ export const getLocale = () => {
   // please clear localStorage if you change the baseSeparator config
   // because changing will break the app
   const lang =
-    typeof localStorage !== 'undefined' && useLocalStorage
+    navigator.cookieEnabled && typeof localStorage !== 'undefined' && useLocalStorage
       ? window.localStorage.getItem('umi_locale')
       : '';
   // support baseNavigator, default true
@@ -229,8 +241,6 @@ export const getDirection = () => {
  * @returns string
  */
 export const setLocale = (lang: string, realReload: boolean = true) => {
-  const localeExp = new RegExp(`^([a-z]{2})-?([A-Z]{2})?$`);
-
   const runtimeLocale = plugin.applyPlugins({
     key: 'locale',
     type: ApplyPluginsType.modify,
@@ -238,12 +248,8 @@ export const setLocale = (lang: string, realReload: boolean = true) => {
   });
 
   const updater = () => {
-    if (lang !== undefined && !localeExp.test(lang)) {
-      // for reset when lang === undefined
-      throw new Error('setLocale lang format error');
-    }
     if (getLocale() !== lang) {
-      if (typeof window.localStorage !== 'undefined' && useLocalStorage) {
+      if (navigator.cookieEnabled && typeof window.localStorage !== 'undefined' && useLocalStorage) {
         window.localStorage.setItem('umi_locale', lang || '');
       }
       setIntl(lang);

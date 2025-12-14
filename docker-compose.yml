@@ -1,0 +1,26 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    container_name: gam_web
+
+  # 开发模式服务（可选）
+  dev:
+    image: node:16-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - NODE_ENV=development
+    command: sh -c "yarn install && yarn start:dev"
+    container_name: gam_web_dev

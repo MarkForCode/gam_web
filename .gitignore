@@ -3,3 +3,6 @@
 
 .dccache
 .package-lock.json
+dist/
+
+src/.umi/*

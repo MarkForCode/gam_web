@@ -6,15 +6,15 @@ import { EffectsCommandMap, SubscriptionAPI } from 'dva';
 import { match } from 'react-router-dom';
 import { Location, LocationState, History } from 'history';
 
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/announcement';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/commodity';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/deal';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/register';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting';
-export * from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user';
+export * from '/home/mark/workspace/gam_web/src/models/announcement';
+export * from '/home/mark/workspace/gam_web/src/models/commodity';
+export * from '/home/mark/workspace/gam_web/src/models/deal';
+export * from '/home/mark/workspace/gam_web/src/models/file';
+export * from '/home/mark/workspace/gam_web/src/models/global';
+export * from '/home/mark/workspace/gam_web/src/models/login';
+export * from '/home/mark/workspace/gam_web/src/models/register';
+export * from '/home/mark/workspace/gam_web/src/models/setting';
+export * from '/home/mark/workspace/gam_web/src/models/user';
 
 export interface Action<T = any> {
   type: T

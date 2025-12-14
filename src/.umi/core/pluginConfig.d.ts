@@ -95,6 +95,7 @@ host?: string
 https?: ({
 key?: string
 cert?: string
+http2?: boolean
 [k: string]: any
 } | boolean)
 headers?: {
@@ -122,6 +123,7 @@ dynamicImportSyntax?: {
 exportStatic?: {
 htmlSuffix?: boolean
 dynamicRoot?: boolean
+supportWin?: boolean
 /**
  * extra render paths only enable in ssr
  */
@@ -170,6 +172,23 @@ fileName?: string
 publicPath?: ""
 basePath?: string
 writeToFileEmit?: boolean
+}
+/**
+ * open mfsu feature
+ */
+mfsu?: {
+development?: {
+output?: string
+}
+production?: {
+output?: string
+}
+mfName?: string
+exportAllMembers?: {
+
+}
+chunks?: string[]
+ignoreNodeBuiltInModules?: boolean
 }
 mountElementId?: ""
 mpa?: {
@@ -249,6 +268,8 @@ ProBlockOption?: string
 antd?: {
 dark?: boolean
 compact?: boolean
+mobile?: boolean
+disableBabelPluginImport?: boolean
 config?: {
 
 }
@@ -283,9 +304,7 @@ dataField?: ""
 block?: number
 esbuild?: {
 target?: (string | string[])
-}
-inspectorConfig?: {
-
+format?: ("iife" | "cjs" | "esm")
 }
 [k: string]: any
 }

@@ -3,17 +3,17 @@ import { Component } from 'react';
 import { ApplyPluginsType } from 'umi';
 import dva from 'dva';
 // @ts-ignore
-import createLoading from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/node_modules/dva-loading/dist/index.esm.js';
+import createLoading from '/home/mark/workspace/gam_web/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
-import ModelAnnouncement0 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/announcement.ts';
-import ModelCommodity1 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/commodity.ts';
-import ModelDeal2 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/deal.ts';
-import ModelFile3 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/file.ts';
-import ModelGlobal4 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/global.ts';
-import ModelLogin5 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/login.ts';
-import ModelRegister6 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/register.ts';
-import ModelSetting7 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/setting.ts';
-import ModelUser8 from '/Users/bo_mac01/Documents/workspace/nodejs_workspace/gam_web/src/models/user.ts';
+import ModelAnnouncement0 from '/home/mark/workspace/gam_web/src/models/announcement.ts';
+import ModelCommodity1 from '/home/mark/workspace/gam_web/src/models/commodity.ts';
+import ModelDeal2 from '/home/mark/workspace/gam_web/src/models/deal.ts';
+import ModelFile3 from '/home/mark/workspace/gam_web/src/models/file.ts';
+import ModelGlobal4 from '/home/mark/workspace/gam_web/src/models/global.ts';
+import ModelLogin5 from '/home/mark/workspace/gam_web/src/models/login.ts';
+import ModelRegister6 from '/home/mark/workspace/gam_web/src/models/register.ts';
+import ModelSetting7 from '/home/mark/workspace/gam_web/src/models/setting.ts';
+import ModelUser8 from '/home/mark/workspace/gam_web/src/models/user.ts';
 
 let app:any = null;
 
