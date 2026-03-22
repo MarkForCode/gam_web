@@ -1,4 +1,5 @@
-# justfile for gam_web project
+# justfile for GAM Monorepo Project
+# Commands for managing the monorepo with separate backstage and user-web apps
 
 # 设置 Node.js 选项以支持旧版 OpenSSL
 export NODE_OPTIONS := "--openssl-legacy-provider"
@@ -7,157 +8,135 @@ export NODE_OPTIONS := "--openssl-legacy-provider"
 default:
     @just --list
 
-# 安装依赖
+# ============ 工作区管理 ============
+
+# 安装依赖（所有工作区）
 install:
-    yarn install
+    yarn bootstrap
 
-# 开发模式启动
-start:
-    UMI_ENV=dev yarn umi dev
+# 清理所有工作区
+clean:
+    yarn clean
 
-# 开发模式启动（带环境变量）
+# 重新安装依赖
+reinstall: clean install
+
+# ============ 开发命令 ============
+
+# 启动所有应用（用户Web + 后台管理）
 dev:
-    REACT_APP_ENV=dev MOCK=none UMI_ENV=dev yarn umi dev
+    yarn dev
 
-# 开发模式启动（无 mock）
-start-no-mock:
-    MOCK=none UMI_ENV=dev yarn umi dev
+# 启动用户 Web 应用（端口 8080）
+dev-user:
+    yarn dev:user-web
 
-# 开发模式启动（无 UI）
-start-no-ui:
-    UMI_UI=none UMI_ENV=dev yarn umi dev
+# 启动后台管理应用（端口 8081）
+dev-backstage:
+    yarn dev:backstage
 
-# 预发布环境启动
-start-pre:
-    REACT_APP_ENV=pre UMI_ENV=dev yarn umi dev
+# ============ 构建命令 ============
 
-# 测试环境启动
-start-test:
-    REACT_APP_ENV=test MOCK=none UMI_ENV=dev yarn umi dev
-
-# 构建生产版本
+# 构建所有应用
 build:
-    yarn umi build
+    yarn build
 
-# 分析构建包大小
-analyze:
-    ANALYZE=1 yarn umi build
+# 构建用户 Web 应用
+build-user:
+    yarn build:user-web
+
+# 构建后台管理应用
+build-backstage:
+    yarn build:backstage
+
+# ============ Lint 和格式化 ============
 
 # 运行所有 lint 检查
 lint:
-    yarn umi g tmp
-    @just lint-js
-    @just lint-style
-    @just lint-prettier
+    yarn lint
 
-# JavaScript/TypeScript lint 检查
-lint-js:
-    eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src
-
-# JavaScript/TypeScript lint 修复
+# 修复 lint 问题
 lint-fix:
-    eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src
-    @just lint-style
+    yarn lint:fix
 
-# Prettier 检查
-lint-prettier:
-    prettier --check "src/**/*" --end-of-line auto
-
-# Style lint 修复
-lint-style:
-    stylelint --fix "src/**/*.less" --syntax less
-
-# 格式化代码
-prettier:
-    prettier -c --write "src/**/*"
-
-# TypeScript 类型检查
-tsc:
-    tsc --noEmit
+# ============ 测试 ============
 
 # 运行测试
 test:
-    yarn umi test
+    yarn test
 
-# 运行所有测试
-test-all:
-    node ./tests/beforeTest
-    node ./tests/run-tests.js
+# ============ Docker 相关命令（单应用） ============
 
-# 运行组件测试
-test-component:
-    yarn umi test ./src/components
+# 构建用户 Web Docker 镜像
+docker-build-user:
+    docker build -f packages/user-web/Dockerfile -t gam-user-web:latest .
 
-# 清理构建产物
-clean:
-    rm -rf dist
+# 构建后台管理 Docker 镜像
+docker-build-backstage:
+    docker build -f packages/backstage/Dockerfile -t gam-backstage:latest .
 
-# 清理 node_modules 和构建产物
-clean-all:
-    rm -rf node_modules dist
+# 构建所有 Docker 镜像
+docker-build-all: docker-build-user docker-build-backstage
+    @echo "✅ 所有 Docker 镜像构建完成"
 
-# 重新安装依赖
-reinstall: clean-all install
+# 运行用户 Web 容器
+docker-run-user:
+    docker run -d -p 8080:8080 --name gam-user-web gam-user-web:latest
 
-# 生成临时文件
-postinstall:
-    yarn umi g tmp
+# 运行后台管理容器
+docker-run-backstage:
+    docker run -d -p 8081:8081 --name gam-backstage gam-backstage:latest
 
-# 国际化：移除中文
-i18n-remove:
-    pro i18n-remove --locale=zh-CN --write
+# 停止用户 Web 容器
+docker-stop-user:
+    docker stop gam-user-web || true
+    docker rm gam-user-web || true
 
-# 获取区块
-fetch-blocks:
-    pro fetch-blocks
-    @just prettier
+# 停止后台管理容器
+docker-stop-backstage:
+    docker stop gam-backstage || true
+    docker rm gam-backstage || true
 
-# 部署到 GitHub Pages
-deploy: build
-    gh-pages -d dist
+# 停止所有应用容器
+docker-stop-all: docker-stop-user docker-stop-backstage
+    @echo "✅ 所有容器已停止"
 
-# 更新浏览器列表数据库
-update-browserslist:
-    yarn dlx browserslist@latest --update-db
+# ============ Docker Compose 相关命令 ============
 
-# 开发：清理并重新启动
-fresh-start: clean postinstall dev
-
-# === Docker 相关命令 ===
-
-# 构建 Docker 镜像
-docker-build:
-    docker build -t gam_web:latest .
-
-# 运行 Docker 容器（生产模式）
-docker-run:
-    docker run -d -p 8080:80 --name gam_web gam_web:latest
-
-# 停止 Docker 容器
-docker-stop:
-    docker stop gam_web || true
-    docker rm gam_web || true
-
-# 使用 Docker Compose 启动（生产模式）
+# 使用 Docker Compose 启动所有服务
 docker-up:
-    docker compose up -d web
+    docker compose up -d
 
-# 使用 Docker Compose 启动（开发模式）
-docker-dev:
-    docker compose up dev
+# 使用 Docker Compose 启动用户 Web
+docker-up-user:
+    docker compose up -d user-web
+
+# 使用 Docker Compose 启动后台管理
+docker-up-backstage:
+    docker compose up -d backstage
 
 # 停止 Docker Compose 服务
 docker-down:
     docker compose down
 
-# 查看 Docker 日志
+# 查看所有日志
 docker-logs:
-    docker compose logs -f web
+    docker compose logs -f
 
-# 重新构建并启动
-docker-rebuild: docker-down docker-build docker-up
+# 查看用户 Web 日志
+docker-logs-user:
+    docker compose logs -f user-web
 
-# 清理 Docker 资源
+# 查看后台管理日志
+docker-logs-backstage:
+    docker compose logs -f backstage
+
+# 重新构建并启动（Docker Compose）
+docker-rebuild: docker-down docker-build-all docker-up
+    @echo "✅ 所有服务已重新构建并启动"
+
+# 清理所有 Docker 资源
 docker-clean:
     docker compose down -v
-    docker rmi gam_web:latest || true
+    docker rmi gam-user-web:latest gam-backstage:latest || true
+    @echo "✅ Docker 资源已清理"
