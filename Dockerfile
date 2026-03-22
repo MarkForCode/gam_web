@@ -1,11 +1,8 @@
 # 多阶段构建 Dockerfile
-FROM node:16-alpine AS builder
+FROM node:24-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
-
-# 设置 Node.js 选项以支持旧版 OpenSSL
-ENV NODE_OPTIONS=--openssl-legacy-provider
 
 # 复制 package 文件
 COPY package.json yarn.lock ./
@@ -17,7 +14,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # 构建应用
-RUN yarn build
+RUN NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 # 生产阶段
 FROM nginx:alpine

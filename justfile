@@ -140,24 +140,24 @@ docker-stop:
 
 # 使用 Docker Compose 启动（生产模式）
 docker-up:
-    docker-compose up -d web
+    docker compose up -d web
 
 # 使用 Docker Compose 启动（开发模式）
 docker-dev:
-    docker-compose up dev
+    docker compose up dev
 
 # 停止 Docker Compose 服务
 docker-down:
-    docker-compose down
+    docker compose down
 
 # 查看 Docker 日志
 docker-logs:
-    docker-compose logs -f web
+    docker compose logs -f web
 
 # 重新构建并启动
 docker-rebuild: docker-down docker-build docker-up
 
 # 清理 Docker 资源
 docker-clean:
-    docker-compose down -v
+    docker compose down -v
     docker rmi gam_web:latest || true
