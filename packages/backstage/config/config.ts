@@ -48,7 +48,7 @@ export default defineConfig({
   chainWebpack(config: any) {
     config.resolve.alias.set(
       "@gam/shared",
-      path.resolve(__dirname, "../shared/src")
+      path.resolve(__dirname, "../../shared/src")
     );
     return config;
   },

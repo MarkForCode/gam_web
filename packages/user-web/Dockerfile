@@ -22,7 +22,6 @@ COPY packages/shared/src ./packages/shared/src
 COPY packages/shared/config ./packages/shared/config
 COPY packages/shared/tsconfig.json ./packages/shared/
 COPY packages/shared/jsconfig.json ./packages/shared/
-COPY packages/shared/public ./packages/shared/public 2>/dev/null || true
 
 # Copy user-web source code
 COPY packages/user-web/src ./packages/user-web/src
@@ -31,8 +30,8 @@ COPY packages/user-web/tsconfig.json ./packages/user-web/
 COPY packages/user-web/jsconfig.json ./packages/user-web/
 COPY packages/user-web/public ./packages/user-web/public
 
-# Build user-web application with workspace context
-RUN cd /app/packages/user-web && NODE_OPTIONS=--openssl-legacy-provider yarn build
+# Build user-web application from root with workspace resolution
+RUN NODE_OPTIONS=--openssl-legacy-provider yarn workspace @gam/user-web build
 
 # Production stage
 FROM nginx:alpine
