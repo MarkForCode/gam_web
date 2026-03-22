@@ -13,8 +13,8 @@ import { queryCurrent } from '../service';
 import { queryProvince, queryCity } from '../service';
 
 import styles from './BaseView.less';
-import { ConnectState } from '@gam/shared/models/connect';
-import { ModifyParamsType } from '@gam/shared/services/user';
+import { ConnectState } from '@/models/connect';
+import { ModifyParamsType } from '@/services/user';
 
 
 

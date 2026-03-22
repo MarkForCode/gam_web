@@ -4,7 +4,6 @@
   "private": true,
   "description": "GAM - Monorepo with backstage and user-web applications",
   "workspaces": [
-    "packages/shared",
     "packages/backstage",
     "packages/user-web"
   ],

@@ -15,9 +15,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import FormItem from 'antd/lib/form/FormItem';
 import { UploadOutlined } from '@ant-design/icons';
-import { ConnectState } from '@gam/shared/models/connect';
-import { CommodityParamsType } from '@gam/shared/services/commodity';
-import { fakeUploadImage } from '@gam/shared/services/file';
+import { ConnectState } from '@/models/connect';
+import { CommodityParamsType } from '@/services/commodity';
+import { fakeUploadImage } from '@/services/file';
 
 const formats = [
   "header",

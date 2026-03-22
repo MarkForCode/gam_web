@@ -7,13 +7,13 @@ import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, connect, FormattedMessage } from 'umi';
 import type { Dispatch } from 'umi';
-import type { StateType } from '@gam/shared/models/login';
-import type { LoginParamsType } from '@gam/shared/services/login';
-import type { ConnectState } from '@gam/shared/models/connect';
+import type { StateType } from '@/models/login';
+import type { LoginParamsType } from '@/services/login';
+import type { ConnectState } from '@/models/connect';
 
 import styles from './index.less';
-import CaptchaInput from '@gam/shared/components/Authorized/GuildCaptchaInput';
-import GuildSelectInput from '@gam/shared/components/Authorized/GuildSelectInput';
+import CaptchaInput from '@/components/Authorized/GuildCaptchaInput';
+import GuildSelectInput from '@/components/Authorized/GuildSelectInput';
 
 export type LoginProps = {
   dispatch: Dispatch;

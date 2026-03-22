@@ -1,6 +1,5 @@
 // https://umijs.org/config/
 import { defineConfig } from "umi";
-import path from "path";
 
 export default defineConfig({
   plugins: [
@@ -12,14 +11,6 @@ export default defineConfig({
     exclude: [],
     babelPlugins: [],
     babelOptions: {},
-  },
-
-  chainWebpack(config) {
-    config.resolve.alias.set(
-      "@gam/shared",
-      path.resolve(__dirname, "../shared/src")
-    );
-    return config;
   },
 
   define: {

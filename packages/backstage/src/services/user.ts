@@ -1,4 +1,4 @@
-import request from '@gam/shared/utils/request';
+import request from '@/utils/request';
 import jwt_decode from "jwt-decode";
 import { fakeUploadImage } from './file';
 

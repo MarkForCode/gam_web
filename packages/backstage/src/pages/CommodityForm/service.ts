@@ -1,4 +1,4 @@
-// import { fakeUploadFile } from '@gam/shared/services/file';
+// import { fakeUploadFile } from '@/services/file';
 // import { request } from 'umi';
 // import { CommodityInputParams } from './data';
 

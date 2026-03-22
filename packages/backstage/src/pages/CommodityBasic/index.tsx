@@ -9,7 +9,7 @@ import type { BasicGood, BasicProgress } from './data.d';
 import { queryBasicProfile } from './service';
 import styles from './style.less';
 import StandardFormRow from '../ListCommodity/components/StandardFormRow';
-import { ConnectState } from '@gam/shared/models/connect';
+import { ConnectState } from '@/models/connect';
 import ConfirmBuyForm from './components/ConfirmBuyForm';
 import ButtonGroup from 'antd/lib/button/button-group';
 

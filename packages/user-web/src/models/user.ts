@@ -1,6 +1,6 @@
 import type { Effect, Reducer } from 'umi';
 
-import { queryCurrent, query as queryUsers, modifyProfile } from '@gam/shared/services/user';
+import { queryCurrent, query as queryUsers, modifyProfile } from '@/services/user';
 import { message } from 'antd';
 
 export type CurrentUser = {

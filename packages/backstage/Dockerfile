@@ -10,20 +10,12 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Copy all package configurations
-COPY packages/shared/package.json ./packages/shared/
 COPY packages/backstage/package.json ./packages/backstage/
-COPY packages/user-web/package.json ./packages/user-web/
 
 # Install dependencies (workspace mode)
 RUN yarn install --frozen-lockfile
 
-# Copy shared source code
-COPY packages/shared/src ./packages/shared/src
-COPY packages/shared/config ./packages/shared/config
-COPY packages/shared/tsconfig.json ./packages/shared/
-COPY packages/shared/jsconfig.json ./packages/shared/
-
-# Copy backstage source code
+# Copy backstage source code (includes copied shared code)
 COPY packages/backstage/src ./packages/backstage/src
 COPY packages/backstage/config ./packages/backstage/config
 COPY packages/backstage/tsconfig.json ./packages/backstage/

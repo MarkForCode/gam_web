@@ -3,8 +3,8 @@ import { PageLoading } from '@ant-design/pro-layout';
 import type { ConnectProps } from 'umi';
 import { Redirect, connect } from 'umi';
 import { stringify } from 'querystring';
-import type { ConnectState } from '@gam/shared/models/connect';
-import type { CurrentUser } from '@gam/shared/models/user';
+import type { ConnectState } from '@/models/connect';
+import type { CurrentUser } from '@/models/user';
 
 type SecurityLayoutProps = {
   loading?: boolean;

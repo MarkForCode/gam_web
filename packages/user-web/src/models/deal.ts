@@ -1,7 +1,7 @@
 import type { Reducer, Effect } from 'umi';
 
 import { message } from 'antd';
-import { fakeSubmitForm } from '@gam/shared/services/deal';
+import { fakeSubmitForm } from '@/services/deal';
 
 export type FileModelState = {
 };

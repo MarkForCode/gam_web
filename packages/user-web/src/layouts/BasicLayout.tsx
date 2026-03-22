@@ -14,9 +14,9 @@ import type { Dispatch } from 'umi';
 import { Link, useIntl, connect, history } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
-import Authorized from '@gam/shared/utils/Authorized';
-import RightContent from '@gam/shared/components/GlobalHeader/RightContent';
-import type { ConnectState } from '@gam/shared/models/connect';
+import Authorized from '@/utils/Authorized';
+import RightContent from '@/components/GlobalHeader/RightContent';
+import type { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
 

@@ -2,9 +2,9 @@ import { stringify } from 'querystring';
 import type { Reducer, Effect } from 'umi';
 import { history } from 'umi';
 
-import { fakeAccountLogin } from '@gam/shared/services/login';
-import { setAuthority } from '@gam/shared/utils/authority';
-import { getPageQuery } from '@gam/shared/utils/utils';
+import { fakeAccountLogin } from '@/services/login';
+import { setAuthority } from '@/utils/authority';
+import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
 import jwt_decode from "jwt-decode";
 

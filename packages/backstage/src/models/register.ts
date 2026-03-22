@@ -2,11 +2,11 @@ import { stringify } from 'querystring';
 import type { Reducer, Effect } from 'umi';
 import { history } from 'umi';
 
-import { setAuthority } from '@gam/shared/utils/authority';
-import { getPageQuery } from '@gam/shared/utils/utils';
+import { setAuthority } from '@/utils/authority';
+import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
 import jwt_decode from "jwt-decode";
-import { fakeAccountRegister } from '@gam/shared/services/register';
+import { fakeAccountRegister } from '@/services/register';
 
 export type StateType = {
   status?: 'ok' | 'error';

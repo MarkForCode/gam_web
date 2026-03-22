@@ -7,9 +7,9 @@ import type { StateType } from './service';
 import { fakeRegister } from './service';
 
 import styles from './style.less';
-import { fetchPlatformList } from '@gam/shared/components/Authorized/GuildSelectInput';
-import { RegisterParamsType } from '@gam/shared/services/register';
-import { ConnectState } from '@gam/shared/models/connect';
+import { fetchPlatformList } from '@/components/Authorized/GuildSelectInput';
+import { RegisterParamsType } from '@/services/register';
+import { ConnectState } from '@/models/connect';
 import type { Dispatch } from 'umi';
 
 const FormItem = Form.Item;

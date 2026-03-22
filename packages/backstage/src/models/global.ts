@@ -1,7 +1,7 @@
 import type { Reducer, Effect } from 'umi';
 
-import type { NoticeIconData } from '@gam/shared/components/NoticeIcon';
-import { queryNotices } from '@gam/shared/services/user';
+import type { NoticeIconData } from '@/components/NoticeIcon';
+import { queryNotices } from '@/services/user';
 import type { ConnectState } from './connect.d';
 
 export type NoticeItem = {

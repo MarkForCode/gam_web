@@ -20,8 +20,7 @@
     "strict": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@@/*": ["./src/.umi/*"],
-      "@gam/shared/*": ["../shared/src/*"]
+      "@@/*": ["./src/.umi/*"]
     }
   },
   "include": [
