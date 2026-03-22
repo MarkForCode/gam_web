@@ -30,8 +30,8 @@ COPY packages/user-web/tsconfig.json ./packages/user-web/
 COPY packages/user-web/jsconfig.json ./packages/user-web/
 COPY packages/user-web/public ./packages/user-web/public
 
-# Build user-web application from root with workspace resolution
-RUN NODE_OPTIONS=--openssl-legacy-provider yarn workspace @gam/user-web build
+# Build user-web application
+RUN cd /app/packages/user-web && NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 # Production stage
 FROM nginx:alpine

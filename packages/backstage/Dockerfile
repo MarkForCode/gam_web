@@ -30,8 +30,8 @@ COPY packages/backstage/tsconfig.json ./packages/backstage/
 COPY packages/backstage/jsconfig.json ./packages/backstage/
 COPY packages/backstage/public ./packages/backstage/public
 
-# Build backstage application from root with workspace resolution
-RUN NODE_OPTIONS=--openssl-legacy-provider yarn workspace @gam/backstage build
+# Build backstage application  
+RUN cd /app/packages/backstage && NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 # Production stage
 FROM nginx:alpine
