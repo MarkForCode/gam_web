@@ -22,6 +22,7 @@ COPY packages/shared/src ./packages/shared/src
 COPY packages/shared/config ./packages/shared/config
 COPY packages/shared/tsconfig.json ./packages/shared/
 COPY packages/shared/jsconfig.json ./packages/shared/
+COPY packages/shared/public ./packages/shared/public 2>/dev/null || true
 
 # Copy backstage source code
 COPY packages/backstage/src ./packages/backstage/src
@@ -30,8 +31,8 @@ COPY packages/backstage/tsconfig.json ./packages/backstage/
 COPY packages/backstage/jsconfig.json ./packages/backstage/
 COPY packages/backstage/public ./packages/backstage/public
 
-# Build backstage application
-RUN NODE_OPTIONS=--openssl-legacy-provider yarn workspace @gam/backstage build
+# Build backstage application from workspace context
+RUN cd /app/packages/backstage && NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 # Production stage
 FROM nginx:alpine
