@@ -2,26 +2,26 @@
   "name": "gam-monorepo",
   "version": "4.5.0",
   "private": true,
-  "description": "GAM - Monorepo with backstage and user-web applications",
+  "description": "GAM - Monorepo with cms and user-web applications",
   "workspaces": [
-    "packages/backstage",
+    "packages/cms",
     "packages/user-web"
   ],
   "scripts": {
     "bootstrap": "yarn install",
     "clean": "rm -rf packages/*/node_modules node_modules",
-    "dev": "concurrently \"yarn dev:user-web\" \"yarn dev:backstage\"",
-    "dev:backstage": "yarn workspace @gam/backstage dev",
+    "dev": "concurrently \"yarn dev:user-web\" \"yarn dev:cms\"",
     "dev:user-web": "yarn workspace @gam/user-web dev",
-    "build": "yarn workspace @gam/backstage build && yarn workspace @gam/user-web build",
-    "build:backstage": "yarn workspace @gam/backstage build",
+    "dev:cms": "yarn workspace @gam/cms dev",
+    "build": "yarn workspace @gam/user-web build && yarn workspace @gam/cms build",
     "build:user-web": "yarn workspace @gam/user-web build",
+    "build:cms": "yarn workspace @gam/cms build",
     "docker:build": "docker-compose build",
     "docker:down": "docker-compose down",
     "docker:up": "docker-compose up",
-    "lint": "yarn workspace @gam/backstage lint && yarn workspace @gam/user-web lint",
-    "lint:fix": "yarn workspace @gam/backstage lint:fix && yarn workspace @gam/user-web lint:fix",
-    "test": "yarn workspace @gam/backstage test && yarn workspace @gam/user-web test"
+    "lint": "yarn workspace @gam/user-web lint && yarn workspace @gam/cms lint",
+    "lint:fix": "yarn workspace @gam/user-web lint:fix && yarn workspace @gam/cms lint:fix",
+    "test": "yarn workspace @gam/user-web test && yarn workspace @gam/cms test"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",

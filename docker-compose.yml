@@ -13,14 +13,14 @@ services:
     restart: unless-stopped
     container_name: gam_user_web
 
-  backstage:
+  cms:
     build:
       context: .
-      dockerfile: packages/backstage/Dockerfile
+      dockerfile: packages/cms/Dockerfile
     ports:
       - "8081:80"
     environment:
       - NODE_ENV=production
       - REACT_APP_ENV=prod
     restart: unless-stopped
-    container_name: gam_backstage
+    container_name: gam_cms
