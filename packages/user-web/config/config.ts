@@ -50,6 +50,11 @@ export default defineConfig({
       "@gam/shared",
       path.resolve(__dirname, "../../shared/src")
     );
+    // Allow typescript files from workspace packages
+    config.module
+      .rule("ts")
+      .include.add(path.resolve(__dirname, "../../shared/src"))
+      .end();
     return config;
   },
 
