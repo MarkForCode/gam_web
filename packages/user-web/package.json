@@ -6,7 +6,7 @@
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider umi build",
-    "dev": "cross-env REACT_APP_ENV=dev MOCK=none PORT=8080 UMI_ENV=dev umi dev",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=dev MOCK=none PORT=8080 UMI_ENV=dev umi dev",
     "lint": "umi g tmp && yarn lint:js && yarn lint:style && yarn lint:prettier",
     "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && yarn lint:style",
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",

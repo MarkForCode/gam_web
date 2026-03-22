@@ -1,5 +1,6 @@
 // https://umijs.org/config/
 import { defineConfig } from "umi";
+import path from "path";
 import defaultSettings from "./defaultSettings";
 import proxy from "./proxy";
 import routes from "./routes";
@@ -43,6 +44,14 @@ export default defineConfig({
   // 快速刷新功能 https://umijs.org/config#fastrefresh
   fastRefresh: {},
   esbuild: {},
+
+  chainWebpack(config: any) {
+    config.resolve.alias.set(
+      "@gam/shared",
+      path.resolve(__dirname, "../shared/src")
+    );
+    return config;
+  },
 
   define: {
     API_URL: "http://localhost:8833", // API address

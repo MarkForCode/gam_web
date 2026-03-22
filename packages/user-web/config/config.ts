@@ -1,8 +1,9 @@
 // https://umijs.org/config/
-import { defineConfig } from 'umi';
-import defaultSettings from './defaultSettings';
-import proxy from './proxy';
-import routes from './routes';
+import { defineConfig } from "umi";
+import path from "path";
+import defaultSettings from "./defaultSettings";
+import proxy from "./proxy";
+import routes from "./routes";
 
 const { REACT_APP_ENV } = process.env;
 
@@ -13,17 +14,17 @@ export default defineConfig({
     hmr: true,
   },
   history: {
-    type: 'browser',
+    type: "browser",
   },
   locale: {
     // default zh-CN
-    default: 'zh-CN',
+    default: "zh-CN",
     antd: true,
     // default true, when it is true, will use `navigator.language` overwrite default
     baseNavigator: true,
   },
   dynamicImport: {
-    loading: '@/components/PageLoading/index',
+    loading: "@/components/PageLoading/index",
   },
   targets: {
     ie: 11,
@@ -32,20 +33,28 @@ export default defineConfig({
   routes,
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
-    'primary-color': defaultSettings.primaryColor,
+    "primary-color": defaultSettings.primaryColor,
   },
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
+  proxy: proxy[REACT_APP_ENV || "dev"],
   manifest: {
-    basePath: '/',
+    basePath: "/",
   },
   // 快速刷新功能 https://umijs.org/config#fastrefresh
   fastRefresh: {},
   esbuild: {},
 
+  chainWebpack(config: any) {
+    config.resolve.alias.set(
+      "@gam/shared",
+      path.resolve(__dirname, "../shared/src")
+    );
+    return config;
+  },
+
   define: {
-    API_URL: 'http://localhost:8833', // API address
-    API_SECRET_KEY: 'XXXXXXXXXXXXXXXX', // API call key
+    API_URL: "http://localhost:8833", // API address
+    API_SECRET_KEY: "XXXXXXXXXXXXXXXX", // API call key
   },
 });

@@ -10,21 +10,22 @@
   ],
   "scripts": {
     "bootstrap": "yarn install",
-    "build": "yarn workspaces run build",
-    "build:backstage": "yarn workspace @gam/backstage build",
-    "build:user-web": "yarn workspace @gam/user-web build",
-    "clean": "yarn workspaces run clean && rm -rf node_modules",
-    "dev": "yarn workspaces run dev",
+    "clean": "rm -rf packages/*/node_modules node_modules",
+    "dev": "concurrently \"yarn dev:user-web\" \"yarn dev:backstage\"",
     "dev:backstage": "yarn workspace @gam/backstage dev",
     "dev:user-web": "yarn workspace @gam/user-web dev",
+    "build": "yarn workspace @gam/backstage build && yarn workspace @gam/user-web build",
+    "build:backstage": "yarn workspace @gam/backstage build",
+    "build:user-web": "yarn workspace @gam/user-web build",
     "docker:build": "docker-compose build",
     "docker:down": "docker-compose down",
     "docker:up": "docker-compose up",
-    "lint": "yarn workspaces run lint",
-    "lint:fix": "yarn workspaces run lint:fix",
-    "test": "yarn workspaces run test"
+    "lint": "yarn workspace @gam/backstage lint && yarn workspace @gam/user-web lint",
+    "lint:fix": "yarn workspace @gam/backstage lint:fix && yarn workspace @gam/user-web lint:fix",
+    "test": "yarn workspace @gam/backstage test && yarn workspace @gam/user-web test"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.0"
   },
   "engines": {

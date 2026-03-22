@@ -68,7 +68,7 @@ export default [
               },
               {
                 path: "/commodity",
-                name: "商品",
+                name: "商品管理",
                 icon: "gift",
                 authority: ["ADMIN"],
                 routes: [
@@ -79,19 +79,13 @@ export default [
                     component: "./CommodityForm",
                   },
                   {
-                    name: "商品查詢",
-                    icon: "smile",
-                    path: "/commodity/list",
-                    component: "./ListCommodity",
-                  },
-                  {
                     name: "商品明細",
                     hideInMenu: true,
                     path: "/commodity/detail/:id",
                     component: "./CommodityBasic",
                   },
                   {
-                    name: "商品管理",
+                    name: "商品交易",
                     icon: "smile",
                     path: "/commodity/deal",
                     component: "./ListDealList",
