@@ -1,26 +1,26 @@
+version: "3.8"
+
 services:
-  web:
+  user-web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: packages/user-web/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - NODE_ENV=production
+      - REACT_APP_ENV=prod
     restart: unless-stopped
-    container_name: gam_web
+    container_name: gam_user_web
 
-  # 开发模式服务（可选）
-  dev:
-    image: node:16-alpine
-    working_dir: /app
-    volumes:
-      - .:/app
-      - /app/node_modules
+  backstage:
+    build:
+      context: .
+      dockerfile: packages/backstage/Dockerfile
     ports:
-      - "8000:8000"
+      - "8081:8081"
     environment:
-      - NODE_OPTIONS=--openssl-legacy-provider
-      - NODE_ENV=development
-    command: sh -c "yarn install && yarn start:dev"
-    container_name: gam_web_dev
+      - NODE_ENV=production
+      - REACT_APP_ENV=prod
+    restart: unless-stopped
+    container_name: gam_backstage

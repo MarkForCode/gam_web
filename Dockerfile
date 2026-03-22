@@ -1,32 +1,26 @@
-# 多阶段构建 Dockerfile
+# This is a legacy Dockerfile for reference only
+# For the new monorepo setup, use docker-compose.yml which builds:
+# - packages/user-web/Dockerfile (port 8080)
+# - packages/backstage/Dockerfile (port 8081)
+
 FROM node:24-alpine AS builder
 
-# 设置工作目录
 WORKDIR /app
 
-# 复制 package 文件
 COPY package.json yarn.lock ./
 
-# 安装依赖
 RUN yarn install --frozen-lockfile
 
-# 复制源代码
 COPY . .
 
-# 构建应用
+# Build both apps using monorepo
 RUN NODE_OPTIONS=--openssl-legacy-provider yarn build
 
-# 生产阶段
 FROM nginx:alpine
 
-# 复制 nginx 配置
-COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 复制构建产物到 nginx 目录
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# 暴露端口
+# This image now only serves as reference - see docker-compose.yml for actual builds
 EXPOSE 80
 
-# 启动 nginx
 CMD ["nginx", "-g", "daemon off;"]
