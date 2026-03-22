@@ -24,7 +24,7 @@ export default defineConfig({
     baseNavigator: true,
   },
   dynamicImport: {
-    loading: "@/components/PageLoading/index",
+    loading: "@gam/shared/components/PageLoading/index",
   },
   targets: {
     ie: 11,
