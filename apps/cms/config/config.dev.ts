@@ -12,7 +12,6 @@ export default defineConfig({
     babelPlugins: [],
     babelOptions: {},
   },
-  webpack5: {},
 
   define: {
     API_URL: 'http://localhost:8833', // API address

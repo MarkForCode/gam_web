@@ -1,26 +1,21 @@
-version: "3.8"
 
 services:
   user-web:
     build:
       context: .
-      dockerfile: apps/user-web/Dockerfile
+      target: nginx-user-web
+    container_name: gam_user_web
     ports:
       - "8080:80"
-    environment:
-      - NODE_ENV=production
-      - REACT_APP_ENV=prod
-    restart: unless-stopped
-    container_name: gam_user_web
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
   cms:
     build:
       context: .
-      dockerfile: apps/cms/Dockerfile
+      target: nginx-cms
+    container_name: gam_cms
     ports:
       - "8081:80"
-    environment:
-      - NODE_ENV=production
-      - REACT_APP_ENV=prod
-    restart: unless-stopped
-    container_name: gam_cms
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

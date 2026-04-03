@@ -69,11 +69,11 @@ test:
 
 # 构建用户 Web Docker 镜像
 docker-build-user:
-    docker build -f apps/user-web/Dockerfile -t gam-user-web:latest .
+    docker build --target nginx-user-web --build-arg APP=user-web -t gam-user-web:latest .
 
 # 构建后台管理 Docker 镜像
 docker-build-backstage:
-    docker build -f apps/cms/Dockerfile -t gam-backstage:latest .
+    docker build --target nginx-cms --build-arg APP=cms -t gam-cms:latest .
 
 # 构建所有 Docker 镜像
 docker-build-all: docker-build-user docker-build-backstage
@@ -138,5 +138,5 @@ docker-rebuild: docker-down docker-build-all docker-up
 # 清理所有 Docker 资源
 docker-clean:
     docker compose down -v
-    docker rmi gam-user-web:latest gam-backstage:latest || true
+    docker rmi gam-user-web:latest gam-cms:latest || true
     @echo "✅ Docker 资源已清理"
