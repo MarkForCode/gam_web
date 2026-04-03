@@ -117,7 +117,7 @@ docker-up-backstage:
 
 # 停止 Docker Compose 服务
 docker-down:
-    docker compose down
+    docker compose down --rmi local
 
 # 查看所有日志
 docker-logs:

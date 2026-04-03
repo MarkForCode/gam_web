@@ -1,21 +1,26 @@
-
 services:
   user-web:
     build:
       context: .
-      target: nginx-user-web
+      target: runner
+      args:
+        - APP_NAME=user-web
     container_name: gam_user_web
     ports:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: always
 
   cms:
     build:
       context: .
-      target: nginx-cms
+      target: runner
+      args:
+        - APP_NAME=cms
     container_name: gam_cms
     ports:
       - "8081:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: always
