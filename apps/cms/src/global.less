@@ -1,5 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 @import '~antd/es/style/themes/dark.less';
+@import './dark-theme.less';
 
 html,
 body,
@@ -9,94 +10,6 @@ body,
 
 .colorWeak {
   filter: invert(80%);
-}
-
-.dark-mode {
-  @import '~antd/es/style/themes/dark.less';
-  
-  background-color: #141414;
-  color: rgba(255, 255, 255, 0.85);
-  
-  .ant-layout,
-  .ant-layout-sider {
-    background: #141414;
-  }
-  
-  .ant-menu,
-  .ant-menu-dark {
-    background: #141414;
-    color: rgba(255, 255, 255, 0.85);
-  }
-  
-  .ant-table,
-  .ant-table-thead > tr > th,
-  .ant-table-tbody > tr > td {
-    background: #1f1f1f;
-    border-color: #434343;
-    color: rgba(255, 255, 255, 0.85);
-  }
-  
-  .ant-input,
-  .ant-input-number,
-  .ant-select-selector,
-  .ant-picker {
-    background-color: #262626 !important;
-    border-color: #434343 !important;
-    color: rgba(255, 255, 255, 0.85) !important;
-  }
-  
-  .ant-input::placeholder {
-    color: rgba(255, 255, 255, 0.45);
-  }
-  
-  .ant-input-prefix,
-  .ant-input-suffix {
-    color: rgba(255, 255, 255, 0.65);
-  }
-  
-  .ant-card {
-    background: #1f1f1f;
-    border-color: #434343;
-  }
-  
-  .ant-dropdown-menu {
-    background: #262626;
-  }
-  
-  .ant-dropdown-menu-item {
-    color: rgba(255, 255, 255, 0.85);
-    
-    &:hover {
-      background-color: #434343;
-    }
-  }
-  
-  .ant-modal-content {
-    background: #1f1f1f;
-  }
-  
-  .ant-modal-header {
-    background: #1f1f1f;
-    border-color: #434343;
-  }
-  
-  .ant-modal-close-x {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  
-  .ant-form-item-label > label {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  
-  .ant-btn-default {
-    border-color: #434343;
-    color: rgba(255, 255, 255, 0.85);
-    
-    &:hover {
-      border-color: #8c8c8c;
-      color: rgba(255, 255, 255, 0.85);
-    }
-  }
 }
 
 .ant-layout {
@@ -135,7 +48,6 @@ ol {
   }
 }
 
-// Compatible with IE11
 @media screen and(-ms-high-contrast: active), (-ms-high-contrast: none) {
   body .ant-design-pro > .ant-layout {
     min-height: 100vh;

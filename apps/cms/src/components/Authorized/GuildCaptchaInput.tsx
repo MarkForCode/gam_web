@@ -80,8 +80,8 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({value = {}, onChange}) => {
           })}
                  onChange={onChangeInput}
                  style={{width: '75%', marginRight: 5, padding: '6.5px 11px 6.5px 11px', verticalAlign: 'middle'}}/>
-                   <img style={{width: '23%', height: '35px', verticalAlign: 'middle', padding: '0px 0px 0px 0px'}}
-                        src={uri} onClick={onClickImage}/>
+<img style={{width: '23%', height: '35px', verticalAlign: 'middle', padding: '0px 0px 0px 0px', backgroundColor: '#fff'}}
+                         src={uri} onClick={onClickImage}/>
        </Input.Group>
     </span>
   );

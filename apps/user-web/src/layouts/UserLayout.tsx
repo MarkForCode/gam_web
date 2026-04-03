@@ -3,13 +3,14 @@ import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import type { ConnectProps } from 'umi';
 import { Link, SelectLang, useIntl, connect, FormattedMessage } from 'umi';
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
 export type UserLayoutProps = {
   breadcrumbNameMap: Record<string, MenuDataItem>;
+  darkMode?: boolean;
 } & Partial<ConnectProps>;
 
 const UserLayout: React.FC<UserLayoutProps> = (props) => {
@@ -24,6 +25,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
     location = {
       pathname: '',
     },
+    darkMode,
   } = props;
   const { formatMessage } = useIntl();
   const { breadcrumb } = getMenuData(routes);
@@ -33,6 +35,16 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
     breadcrumb,
     ...props,
   });
+
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (root && darkMode) {
+      root.classList.add('dark-mode');
+    } else if (root && !darkMode) {
+      root.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -49,13 +61,13 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}>GAM</span>
               </Link>
             </div>
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="Ant Design. The most influential Web design specification in Xihu District."
+                defaultMessage="GAM Platform"
               />
             </div>
           </div>

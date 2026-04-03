@@ -15,30 +15,67 @@
     }
   }
 
-  .icon {
-    margin-left: 16px;
-    color: rgba(0, 0, 0, 0.2);
-    font-size: 24px;
-    vertical-align: middle;
-    cursor: pointer;
-    transition: color 0.3s;
+  :global(.@{ant-prefix}-form-item-label > label) {
+    color: rgba(255, 255, 255, 0.85);
+  }
 
+  :global(.@{ant-prefix}-input-affix-wrapper),
+  :global(.@{ant-prefix}-input),
+  :global(.@{ant-prefix}-select-selector),
+  :global(.@{ant-prefix}-picker) {
+    background-color: #262626 !important;
+    border-color: #434343 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  :global(.@{ant-prefix}-input::placeholder) {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  :global(.@{ant-prefix}-tabs-tab) {
+    color: rgba(255, 255, 255, 0.65);
+    
     &:hover {
-      color: @primary-color;
+      color: #fff;
     }
   }
 
-  .other {
-    margin-top: 24px;
-    line-height: 22px;
-    text-align: left;
-    .register {
-      float: right;
-    }
+  :global(.@{ant-prefix}-tabs-tab-active .@{ant-prefix}-tabs-tab-btn) {
+    color: #fff;
   }
 
-  .prefixIcon {
+  :global(.@{ant-prefix}-tabs-ink-bar) {
+    background: #40e0d0;
+  }
+
+  :global(.@{ant-prefix}-form-item-explain-error) {
+    color: #ff4d4f;
+  }
+}
+
+.icon {
+  margin-left: 16px;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
     color: @primary-color;
-    font-size: @font-size-base;
   }
+}
+
+.other {
+  margin-top: 24px;
+  line-height: 22px;
+  text-align: left;
+  .register {
+    float: right;
+  }
+}
+
+.prefixIcon {
+  color: @primary-color;
+  font-size: @font-size-base;
 }

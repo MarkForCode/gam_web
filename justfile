@@ -69,14 +69,14 @@ test:
 
 # 构建用户 Web Docker 镜像
 docker-build-user:
-    docker build --target nginx-user-web --build-arg APP=user-web -t gam-user-web:latest .
+	docker build --target runner --build-arg APP_NAME=user-web -t gam-user-web:latest .
 
 # 构建后台管理 Docker 镜像
-docker-build-backstage:
-    docker build --target nginx-cms --build-arg APP=cms -t gam-cms:latest .
+docker-build-cms:
+	docker build --target runner --build-arg APP_NAME=cms -t gam-cms:latest .
 
 # 构建所有 Docker 镜像
-docker-build-all: docker-build-user docker-build-backstage
+docker-build-all: docker-build-user docker-build-cms
     @echo "✅ 所有 Docker 镜像构建完成"
 
 # 运行用户 Web 容器
@@ -112,8 +112,8 @@ docker-up-user:
     docker compose up -d user-web
 
 # 使用 Docker Compose 启动后台管理
-docker-up-backstage:
-    docker compose up -d backstage
+docker-up-cms:
+    docker compose up -d cms
 
 # 停止 Docker Compose 服务
 docker-down:
@@ -128,8 +128,8 @@ docker-logs-user:
     docker compose logs -f user-web
 
 # 查看后台管理日志
-docker-logs-backstage:
-    docker compose logs -f backstage
+docker-logs-cms:
+    docker compose logs -f cms
 
 # 重新构建并启动（Docker Compose）
 docker-rebuild: docker-down docker-build-all docker-up
