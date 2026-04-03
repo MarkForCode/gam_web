@@ -69,11 +69,11 @@ test:
 
 # 构建用户 Web Docker 镜像
 docker-build-user:
-    docker build -f packages/user-web/Dockerfile -t gam-user-web:latest .
+    docker build -f apps/user-web/Dockerfile -t gam-user-web:latest .
 
 # 构建后台管理 Docker 镜像
 docker-build-backstage:
-    docker build -f packages/backstage/Dockerfile -t gam-backstage:latest .
+    docker build -f apps/cms/Dockerfile -t gam-backstage:latest .
 
 # 构建所有 Docker 镜像
 docker-build-all: docker-build-user docker-build-backstage

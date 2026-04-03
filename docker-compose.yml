@@ -4,7 +4,7 @@ services:
   user-web:
     build:
       context: .
-      dockerfile: packages/user-web/Dockerfile
+      dockerfile: apps/user-web/Dockerfile
     ports:
       - "8080:80"
     environment:
@@ -16,7 +16,7 @@ services:
   cms:
     build:
       context: .
-      dockerfile: packages/cms/Dockerfile
+      dockerfile: apps/cms/Dockerfile
     ports:
       - "8081:80"
     environment:

@@ -4,12 +4,12 @@
   "private": true,
   "description": "GAM - Monorepo with cms and user-web applications",
   "workspaces": [
-    "packages/cms",
-    "packages/user-web"
+    "apps/cms",
+    "apps/user-web"
   ],
   "scripts": {
     "bootstrap": "yarn install",
-    "clean": "rm -rf packages/*/node_modules node_modules",
+    "clean": "rm -rf apps/*/node_modules node_modules",
     "dev": "concurrently \"yarn dev:user-web\" \"yarn dev:cms\"",
     "dev:user-web": "yarn workspace @gam/user-web dev",
     "dev:cms": "yarn workspace @gam/cms dev",
