@@ -1,5 +1,5 @@
 # justfile for GAM Monorepo Project
-# Commands for managing the monorepo with separate backstage and user-web apps
+# Commands for managing the monorepo with separate cms and user-web apps
 
 # 设置 Node.js 选项以支持旧版 OpenSSL
 export NODE_OPTIONS := "--openssl-legacy-provider"
@@ -32,8 +32,8 @@ dev-user:
     yarn dev:user-web
 
 # 启动后台管理应用（端口 8081）
-dev-backstage:
-    yarn dev:backstage
+dev-cms:
+    yarn dev:cms
 
 # ============ 构建命令 ============
 
@@ -46,8 +46,8 @@ build-user:
     yarn build:user-web
 
 # 构建后台管理应用
-build-backstage:
-    yarn build:backstage
+build-cms:
+    yarn build:cms
 
 # ============ Lint 和格式化 ============
 
@@ -65,15 +65,29 @@ lint-fix:
 test:
     yarn test
 
+# ============ Swagger/OpenAPI ============
+
+# 生成 user-web API types
+codegen-user-web:
+	npx --yes swagger-typescript-api generate -p docs/swagger-guild.json -o apps/user-web/src/typings --modular
+
+# 生成 cms API types
+codegen-cms:
+	npx --yes swagger-typescript-api generate -p docs/swagger-backstage.json -o apps/cms/src/typings --modular
+
+# 生成所有 API types
+codegen: codegen-user-web codegen-cms
+    @echo "✅ API types 生成完成"
+
 # ============ Docker 相关命令（单应用） ============
 
-# 构建用户 Web Docker 镜像
+# 构建用户 Web Docker 镜像 (production)
 docker-build-user:
-	docker build --target runner --build-arg APP_NAME=user-web -t gam-user-web:latest .
+	docker build --target production -t gam-user-web:latest -f apps/user-web/Dockerfile .
 
-# 构建后台管理 Docker 镜像
+# 构建后台管理 Docker 镜像 (production)
 docker-build-cms:
-	docker build --target runner --build-arg APP_NAME=cms -t gam-cms:latest .
+	docker build --target production -t gam-cms:latest -f apps/cms/Dockerfile .
 
 # 构建所有 Docker 镜像
 docker-build-all: docker-build-user docker-build-cms
@@ -81,11 +95,11 @@ docker-build-all: docker-build-user docker-build-cms
 
 # 运行用户 Web 容器
 docker-run-user:
-    docker run -d -p 8080:8080 --name gam-user-web gam-user-web:latest
+    docker run -d -p 8080:80 --name gam-user-web gam-user-web:latest
 
 # 运行后台管理容器
-docker-run-backstage:
-    docker run -d -p 8081:8081 --name gam-backstage gam-backstage:latest
+docker-run-cms:
+    docker run -d -p 8081:80 --name gam-cms gam-cms:latest
 
 # 停止用户 Web 容器
 docker-stop-user:
@@ -93,12 +107,12 @@ docker-stop-user:
     docker rm gam-user-web || true
 
 # 停止后台管理容器
-docker-stop-backstage:
-    docker stop gam-backstage || true
-    docker rm gam-backstage || true
+docker-stop-cms:
+    docker stop gam-cms || true
+    docker rm gam-cms || true
 
 # 停止所有应用容器
-docker-stop-all: docker-stop-user docker-stop-backstage
+docker-stop-all: docker-stop-user docker-stop-cms
     @echo "✅ 所有容器已停止"
 
 # ============ Docker Compose 相关命令 ============
