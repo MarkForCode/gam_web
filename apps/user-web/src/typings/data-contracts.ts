@@ -76,3 +76,37 @@ export type CreateFileDto = object;
 export type UpdateFundDto = object;
 
 export type CreateTrialDto = object;
+
+export interface CreateGuildRoleDto {
+  name: string;
+  description?: string;
+  /** Array of permission codes */
+  permissions: string[];
+  /** @default false */
+  isDefault?: boolean;
+}
+
+export interface UpdateGuildRoleDto {
+  name?: string;
+  description?: string;
+  /** Array of permission codes */
+  permissions?: string[];
+  /** @default false */
+  isDefault?: boolean;
+}
+
+export interface CreateInviteDto {
+  /** Invitee email */
+  inviteeEmail: string;
+  /** Optional message */
+  message?: string;
+}
+
+export interface AcceptInviteDto {
+  inviteCode: string;
+  username: string;
+  nickname: string;
+  password: string;
+  email: string;
+  phone?: string;
+}

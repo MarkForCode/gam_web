@@ -38,24 +38,26 @@ const checkPermissions = <T, K>(
   if (!authority) {
     return target;
   }
+  
+  // Ensure currentAuthority is always an array
+  const authorityArray = Array.isArray(currentAuthority) ? currentAuthority : [];
+  
   // Array processing
   if (Array.isArray(authority)) {
-    if (Array.isArray(currentAuthority)) {
-      if (currentAuthority.some((item) => authority.includes(item))) {
-        return target;
-      }
-    } else if (authority.includes(currentAuthority)) {
+    if (authorityArray.length === 0) {
+      return Exception;
+    }
+    if (authority.some((item) => authorityArray.includes(item))) {
       return target;
     }
     return Exception;
   }
   // Deal with string
   if (typeof authority === 'string') {
-    if (Array.isArray(currentAuthority)) {
-      if (currentAuthority.some((item) => authority === item)) {
-        return target;
-      }
-    } else if (authority === currentAuthority) {
+    if (authorityArray.length === 0) {
+      return Exception;
+    }
+    if (authorityArray.some((item) => authority === item)) {
       return target;
     }
     return Exception;

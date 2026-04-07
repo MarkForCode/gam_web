@@ -11,19 +11,24 @@
  */
 
 import {
+  AcceptInviteDto,
   ConfirmAccountDto,
   ConfirmDealApplyDto,
   ConfirmDealDto,
+  CreateAccountDto,
   CreateAnnounceDto,
   CreateCommodityDto,
   CreateDealDto,
   CreateFileDto,
+  CreateGuildRoleDto,
+  CreateInviteDto,
   CreateTrialDto,
   CreateWalletDto,
   UpdateAccountDto,
   UpdateAnnounceDto,
   UpdateCommodityDto,
   UpdateFundDto,
+  UpdateGuildRoleDto,
   UpdatePasswordDto,
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
@@ -114,12 +119,12 @@ export class Api<
    * No description
    *
    * @tags Account
-   * @name AccountControllerVerify
-   * @summary 工會成員點擊email 驗證信，進入建立帳號
+   * @name AccountControllerCreate
+   * @summary 發送建立工會成員email，僅限工會管理員
    * @request POST:/api/v1/guild/account
    */
-  accountControllerVerify = (
-    data: ConfirmAccountDto,
+  accountControllerCreate = (
+    data: CreateAccountDto,
     params: RequestParams = {},
   ) =>
     this.request<void, any>({
@@ -141,6 +146,25 @@ export class Api<
     this.request<void, any>({
       path: `/api/v1/guild/account`,
       method: "GET",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Account
+   * @name AccountControllerVerify
+   * @summary 工會成員點擊email 驗證信，進入建立帳號
+   * @request POST:/api/v1/guild/account/verify
+   */
+  accountControllerVerify = (
+    data: ConfirmAccountDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/account/verify`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
       ...params,
     });
   /**
@@ -207,6 +231,22 @@ export class Api<
       method: "PATCH",
       body: data,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Account
+   * @name AccountControllerAssignRole
+   * @summary 設定會員自定義角色
+   * @request PATCH:/api/v1/guild/account/{id}/role
+   * @secure
+   */
+  accountControllerAssignRole = (id: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/account/${id}/role`,
+      method: "PATCH",
+      secure: true,
       ...params,
     });
   /**
@@ -762,6 +802,167 @@ export class Api<
       method: "POST",
       body: data,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerCreate
+   * @summary Create custom guild role
+   * @request POST:/api/v1/guild/role
+   * @secure
+   */
+  guildRoleControllerCreate = (
+    data: CreateGuildRoleDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role`,
+      method: "POST",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerFindAll
+   * @summary Get all guild roles
+   * @request GET:/api/v1/guild/role
+   * @secure
+   */
+  guildRoleControllerFindAll = (params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerFindOne
+   * @summary Get guild role by ID
+   * @request GET:/api/v1/guild/role/{id}
+   * @secure
+   */
+  guildRoleControllerFindOne = (id: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role/${id}`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerUpdate
+   * @summary Update guild role
+   * @request PATCH:/api/v1/guild/role/{id}
+   * @secure
+   */
+  guildRoleControllerUpdate = (
+    id: string,
+    data: UpdateGuildRoleDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role/${id}`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerRemove
+   * @summary Delete guild role
+   * @request DELETE:/api/v1/guild/role/{id}
+   * @secure
+   */
+  guildRoleControllerRemove = (id: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role/${id}`,
+      method: "DELETE",
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags GuildRole
+   * @name GuildRoleControllerSetDefault
+   * @summary Set role as default for new members
+   * @request POST:/api/v1/guild/role/{id}/set-default
+   * @secure
+   */
+  guildRoleControllerSetDefault = (id: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/role/${id}/set-default`,
+      method: "POST",
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Invite
+   * @name InviteControllerCreate
+   * @summary Create invitation
+   * @request POST:/api/v1/guild/invite
+   * @secure
+   */
+  inviteControllerCreate = (
+    data: CreateInviteDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/invite`,
+      method: "POST",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Invite
+   * @name InviteControllerAccept
+   * @summary Accept invitation and register
+   * @request POST:/api/v1/guild/invite/accept
+   */
+  inviteControllerAccept = (
+    data: AcceptInviteDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/invite/accept`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Invite
+   * @name InviteControllerGetByCode
+   * @summary Get invite details by code
+   * @request GET:/api/v1/guild/invite/{code}
+   */
+  inviteControllerGetByCode = (code: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/v1/guild/invite/${code}`,
+      method: "GET",
       ...params,
     });
 }

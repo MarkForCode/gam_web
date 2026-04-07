@@ -52,8 +52,12 @@ const Model: LoginModelType = {
           window.localStorage.setItem('token', response.data.access_token);
           window.localStorage.setItem('exp', (ss['exp'] * 1000).toString() || '0');
           window.localStorage.setItem('username', ss['user']['username'] ||  'test')
+          
+          // Store permissions for authorization
+          const permissions = ss['user']?.permissions || [];
+          setAuthority(permissions);
         }
-        message.success('🎉 🎉 🎉  登录成功！');
+        message.success('🎉 🎉 🎉 登录成功！');
         let { redirect } = params as { redirect: string };
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
