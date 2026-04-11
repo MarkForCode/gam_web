@@ -68,6 +68,13 @@ export default [
                     component: "./CommodityManage",
                     authority: ['commodity:list', 'commodity:create', 'commodity:edit', 'commodity:delete'],
                   },
+                  {
+                    name: "交易管理",
+                    icon: "shopping",
+                    path: "/deal/manage",
+                    component: "./DealManage",
+                    authority: ['deal:list', 'deal:process', 'commodity:edit'],
+                  },
                 ],
               },
               {

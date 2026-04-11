@@ -13,7 +13,7 @@ export async function rule(
     data: TableListItem[];
     total?: number;
     success?: boolean;
-  }>(host, {
+  }>(host + '/manage', {
     method: 'GET',
     params: {
       ...params,
@@ -29,6 +29,9 @@ export async function createCommodity(
     content?: string;
     file?: string;
     basicPrice: number;
+    quantity?: number;
+    publicLevel?: string;
+    apportions?: string[];
   },
   options?: { [key: string]: any },
 ) {
@@ -47,6 +50,9 @@ export async function updateCommodity(
     content?: string;
     file?: string;
     basicPrice?: number;
+    quantity?: number;
+    publicLevel?: string;
+    status?: string;
   },
   options?: { [key: string]: any },
 ) {
