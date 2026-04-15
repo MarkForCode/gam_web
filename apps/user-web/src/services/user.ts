@@ -15,14 +15,14 @@ export async function queryCurrent(): Promise<any> {
     const ss: any = jwt_decode(accessToken);
     console.log(ss);
     return {
-      name: ss.user.nickname || '',
-      avatar: ss.user.avatar || '',
-      userid: ss.user.id || '',
-      email: ss.user.email || '',
-      signature: ss.user.signature || '',
+      name: ss.nickname || '',
+      avatar: ss.avatar || '',
+      userid: ss.id || '',
+      email: ss.email || '',
+      signature: ss.signature || '',
       // title: '',
-      role: ss.user.role || '',
-      group: ss.user.group || '',
+      role: ss.role || '',
+      group: ss.group || '',
       // tags: [
       //   {
       //     key: '0',

@@ -22,16 +22,22 @@ export async function fakeAccountLogin(params: LoginParamsType) {
       'content-type': 'application/json'
     },
     body: JSON.stringify({
-      guild: params.guild.guild,
-      platform: params.guild.platform,
-      password: params.password,
+      platform_id: params.guild.platform,
+      guild_id: params.guild.guild,
       username: params.username,
-      code: params.captchaComp.code,
-      codeId: params.captchaComp.codeId,
+      password: params.password,
+      captcha: params.captchaComp.code,
+      captcha_id: params.captchaComp.codeId,
     }),
     method: 'POST',
   })
-  const res = JSON.parse(await data.text());
+  const text = await data.text();
+  if (!data.ok) {
+    const error = new Error(text || `HTTP error ${data.status}`) as Error & { status?: number };
+    error.status = data.status;
+    throw error;
+  }
+  const res = JSON.parse(text);
   console.log(res);
   return res;
 }

@@ -46,10 +46,10 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({value = {}, onChange}) => {
 
   useEffect(() => {
     getCaptcha().then((data: any) => {
-      const url = API_URL + '/api/v1/guild/login/captcha?id=' + data.id;
-      setCodeId(codeId);
+      const url = API_URL + '/api/v1/guild/login/captcha/image?id=' + data.codeId;
+      setCodeId(data.codeId);
       setUri(url);
-      triggerChange({codeId: data.id});
+      triggerChange({codeId: data.codeId});
     })
   }, []);
 
@@ -66,9 +66,9 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({value = {}, onChange}) => {
   // 时间类型变化
   const onClickImage = async () => {
     const response = await getCaptcha();
-    setCodeId(response.id);
-    setUri(API_URL + '/api/v1/guild/login/captcha?id=' + response.id);
-    triggerChange({codeId: response.id});
+    setCodeId(response.codeId);
+    setUri(API_URL + '/api/v1/guild/login/captcha/image?id=' + response.codeId);
+    triggerChange({codeId: response.codeId});
   };
 
   return (
